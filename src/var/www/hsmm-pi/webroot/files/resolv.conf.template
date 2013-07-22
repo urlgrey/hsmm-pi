@@ -1,0 +1,9 @@
+#
+# WARNING WARNING WARNING WARNING
+# This file is managed by HSMM-Pi.
+# Manual changes to this file WILL BE OVERWRITTEN
+#
+
+nameserver 127.0.0.1
+domain local.mesh
+search local.mesh

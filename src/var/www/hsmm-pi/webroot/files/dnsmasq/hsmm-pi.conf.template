@@ -1,0 +1,42 @@
+#
+# WARNING WARNING WARNING WARNING
+# This file is managed by HSMM-Pi.
+# Manual changes to this file WILL BE OVERWRITTEN
+#
+
+{interfaces}
+dhcp-option=3,{lan_ip_address}
+dhcp-range={lan_dhcp_start},{lan_dhcp_end},{lan_netmask},24h
+
+# filter what we send upstream
+domain-needed
+bogus-priv
+filterwin2k
+localise-queries
+
+no-resolv
+server={wan_dns1}
+server={wan_dns2}
+
+# allow /etc/hosts and dhcp lookups via *.lan
+#local=/lan/
+domain=local.mesh
+expand-hosts
+no-negcache
+resolv-file=/etc/resolv.conf
+
+# include olsr nameservice
+addn-hosts=/var/run/hosts_olsr
+
+dhcp-authoritative
+dhcp-leasefile=/var/lib/misc/dnsmasq.leases
+
+# use /etc/ethers for static hosts; same format as --dhcp-host
+# <hwaddr> <ipaddr>
+read-ethers
+
+# other useful options:
+# default route(s): dhcp-option=3,192.168.1.1,192.168.1.2
+#    dns server(s): dhcp-option=6,192.168.1.1,192.168.1.2
+
+strict-order

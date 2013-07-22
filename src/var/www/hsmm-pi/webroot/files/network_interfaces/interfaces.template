@@ -1,0 +1,22 @@
+#
+# WARNING WARNING WARNING WARNING
+# This file is managed by HSMM-Pi.
+# Manual changes to this file WILL BE OVERWRITTEN
+#
+
+auto lo
+
+iface lo inet loopback
+iface {wired_adapter_name} inet {wired_mode}
+
+allow-hotplug {wifi_adapter_name}
+auto {wifi_adapter_name}
+iface {wifi_adapter_name} inet {wifi_protocol}
+    address {wifi_ip_address}
+    netmask {wifi_netmask}
+    wireless-mode {wifi_mode}
+    wireless-channel {wifi_channel}
+    wireless-essid {wifi_ssid}
+
+#wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
