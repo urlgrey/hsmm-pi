@@ -32,7 +32,7 @@ if [ ! -e ${PROJECT_HOME} ]; then
     git clone https://github.com/urlgrey/hsmm-pi.git
 else
     cd ${PROJECT_HOME}
-    git update
+    git pull
 fi
 
 # Set symlink to webapp
