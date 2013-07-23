@@ -322,14 +322,6 @@ LoadPlugin "olsrd_nameservice.so.0.3"
     PlParam "name" "{node_name}"
 }
 
-LoadPlugin "olsrd_dot_draw.so.0.3"
-{
-	# accept connection from IP:
-	# default 127.0.0.1 (localhost)
-	PlParam     "accept" "127.0.0.1"
-	PlParam     "port" "2003"
-}
-
 {olsrd_dynamic_gateway_block}
 
 {olsrd_secure_block}

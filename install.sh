@@ -22,8 +22,10 @@ sudo apt-get install -y \
     php-pear \
     php5-sqlite  \
     php5-curl \
-    olsrd \
-    dnsmasq
+    dnsmasq \
+    chkconfig \
+    bison \
+    flex
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
@@ -79,6 +81,32 @@ if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
     sudo chown root.www-data /var/data/hsmm-pi/hsmm-pi.sqlite
     sudo chmod 664 /var/data/hsmm-pi/hsmm-pi.sqlite
 fi
+
+# enable apache mod-rewrite
+cd /etc/apache2/mods-enabled
+sudo ln -s ../mods-available/rewrite.load
+sudo service apache2 restart
+
+# Download and build olsrd
+OLSRD_VERSION="olsrd-0.6.5.4"
+cd /var/tmp
+wget http://www.olsr.org/releases/0.6/${OLSRD_VERSION}.tar.bz2
+tar -xjf ${OLSRD_VERSION}.tar.bz2
+rm ${OLSRD_VERSION}.tar.bz2
+cd ${OLSRD_VERSION}
+make
+sudo make install
+make libs
+sudo make libs_install
+
+cd /var/tmp
+rm -rf /var/tmp/${OLSRD_VERSION}
+sudo rm -f /etc/olsrd.conf
+sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
+
+# enable services
+sudo chkconfig olsrd on
+sudo chkconfig dnsmasq on
 
 # TODO add CRON job for reboot
 
