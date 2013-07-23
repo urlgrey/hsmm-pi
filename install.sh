@@ -28,7 +28,12 @@ sudo pear channel-discover pear.cakephp.org
 sudo pear install cakephp/CakePHP
 
 # Checkout the HSMM-Pi project
-git clone https://github.com/urlgrey/hsmm-pi.git
+if [ ! -e ${PROJECT_HOME} ]; then
+    git clone https://github.com/urlgrey/hsmm-pi.git
+else
+    cd ${PROJECT_HOME}
+    git update
+fi
 
 # Set symlink to webapp
 cd /var/www
