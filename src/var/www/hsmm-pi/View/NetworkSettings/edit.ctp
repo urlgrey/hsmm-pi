@@ -92,6 +92,7 @@ echo $this->Form->input('wan_mesh_gateway', array('label' => __('Mesh Gateway'),
     </div>
     <div class="tab-pane" id="mesh">
       <?php
+echo $this->Form->input('callsign', array('label' => __('Amateur Radio Callsign')));
 echo $this->Form->input('node_name', array('label' => __('Node Name')));
 echo $this->Form->input('mesh_olsrd_secure', array('label' => __('OLSRD Secure'), 'type' => 'checkbox'));
 echo $this->Form->input('mesh_olsrd_secure_key', array('label' => __('OLSRD Secure Key')));

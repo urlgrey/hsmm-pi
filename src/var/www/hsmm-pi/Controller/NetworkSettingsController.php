@@ -20,6 +20,7 @@ class NetworkSettingsController extends AppController {
 	$this->render_resolv_config($latest_network_setting);
 	$this->render_hosts_config($latest_network_setting);
 	$this->render_rclocal_config($latest_network_setting);
+	$this->render_callsign_announcement_config($latest_network_setting);
 	$this->Session->setFlash('Your settings have been saved and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
 				 'default', array('class' => 'alert alert-success'));
       } else {
@@ -125,6 +126,15 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
     if (0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'LAN')) {
       file_put_contents('/etc/resolv.conf', file_get_contents(WWW_ROOT . "/files/resolv.conf.template"));
     }
+  }
+
+  private function render_callsign_announcement_config($network_setting) {
+    $callsign_announcement = file_get_contents(WWW_ROOT . "/files/callsign_announcement.sh.template");
+    $callsign_announcement_output = str_replace(array('{callsign}'), 
+						array(str_pad($network_setting['NetworkSetting']['callsign'], 7, ' ', STR_PAD_LEFT)),
+						$callsign_announcement);
+
+    file_put_contents('/usr/local/bin/callsign_announcement.sh', $callsign_announcement_output);
   }
 
   private function render_hosts_config($network_setting) {

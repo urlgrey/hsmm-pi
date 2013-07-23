@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#
+# WARNING WARNING WARNING WARNING
+# This file is managed by HSMM-Pi.
+# Manual changes to this file WILL BE OVERWRITTEN
+#
+
+/bin/ping -c 1 -s 21 -p 574952454C455353204E4F4445 44.92.20.35
+#                       WIRELESS NODE
+/bin/ping -c 1 -s 24 -p 464343204152532043414C4C5349474E 44.92.20.35
+#                       FCC ARS CALLSIGN
+/bin/ping -c 1 -s 22 -p `echo -n "{callsign} FOR ID" |xxd -p` 44.92.20.35
+#                       {callsign} FOR ID
