@@ -15,18 +15,17 @@ cd ${HOME}
 sudo apt-get update
 
 # Install Web Server deps
-sudo apt-get install apache2
-sudo apt-get install php5
-sudo apt-get install sqlite
-sudo apt-get install php-pear
+sudo apt-get install -y apache2
+sudo apt-get install -y php5
+sudo apt-get install -y sqlite
+sudo apt-get install -y php-pear
+sudo apt-get install -y php5-sqlite 
+sudo apt-get install -y olsrd
+sudo apt-get install -y dnsmasq
 
-# TODO
-# Verify this package is correct
-sudo apt-get install php5-sqlite 
-sudo apt-get install olsrd
-
-# TODO
-# install cakephp with Pear
+# Install cakephp with Pear
+sudo pear channel-discover pear.cakephp.org
+sudo pear install cakephp/CakePHP
 
 # Checkout the HSMM-Pi project
 git clone https://github.com/urlgrey/hsmm-pi.git
