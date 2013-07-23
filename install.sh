@@ -15,13 +15,15 @@ cd ${HOME}
 sudo apt-get update
 
 # Install Web Server deps
-sudo apt-get install -y apache2
-sudo apt-get install -y php5
-sudo apt-get install -y sqlite
-sudo apt-get install -y php-pear
-sudo apt-get install -y php5-sqlite 
-sudo apt-get install -y olsrd
-sudo apt-get install -y dnsmasq
+sudo apt-get install -y \
+    apache2 \
+    php5 \
+    sqlite \
+    php-pear \
+    php5-sqlite  \
+    php5-curl \
+    olsrd \
+    dnsmasq
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
@@ -67,6 +69,15 @@ if [ ! -e /usr/local/bin/callsign_announcement.sh ]; then
     sudo cp ${PROJECT_HOME}/src/var/www/hsmm-pi/webroot/files/callsign_announcement.sh.template /usr/local/bin/callsign_announcement.sh
     sudo chgrp www-data /usr/local/bin/callsign_announcement.sh
     sudo chmod 775 /usr/local/bin/callsign_announcement.sh
+fi
+
+sudo mkdir -p /var/data/hsmm-pi
+sudo chown root.www-data /var/data/hsmm-pi
+sudo chmod 775 /var/data/hsmm-pi
+if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
+    sudo cp ${PROJECT_HOME}/src/var/data/hsmm-pi/hsmm-pi.sqlite /var/data/hsmm-pi/hsmm-pi.sqlite
+    sudo chown root.www-data /var/data/hsmm-pi/hsmm-pi.sqlite
+    sudo chmod 664 /var/data/hsmm-pi/hsmm-pi.sqlite
 fi
 
 # TODO add CRON job for reboot
