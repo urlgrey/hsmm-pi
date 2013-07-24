@@ -31,9 +31,9 @@
 	   foreach ($mesh_links as $node) {
 	   ?> 
 	<tr>
-	  <td><?php echo $node[1]; ?></td>
+	  <td><?php echo $node['remoteIP']; ?></td>
 	  <td>
-	    <div class="progress"><div class="bar" style="width: <?php echo round($node[3] * 100).'%'; ?>;"><?php echo round($node[3] * 100).'%'; ?></div>
+	    <div class="progress"><div class="bar" style="width: <?php echo round($node['linkQuality'] * 100).'%'; ?>;"><?php echo round($node['linkQuality'] * 100).'%'; ?></div>
 	  </div></td>
 	</tr>
 	<?php 
