@@ -85,6 +85,7 @@ fi
 # enable apache mod-rewrite
 cd /etc/apache2/mods-enabled
 sudo ln -s ../mods-available/rewrite.load
+sudo cp ${PROJECT_HOME}/src/etc/apache2/conf.d/hsmm-pi.conf /etc/apache2/conf.d/hsmm-pi.conf
 sudo service apache2 restart
 
 # Download and build olsrd
@@ -103,10 +104,15 @@ sudo make install
 make libs
 sudo make libs_install
 
+sudo cp debian/olsrd.init /etc/init.d/olsrd
+sudo chmod +x /etc/init.d/olsrd
+
 cd /var/tmp
 rm -rf /var/tmp/${OLSRD_VERSION}
+sudo mkdir /etc/olsrd
 sudo chgrp -R www-data /etc/olsrd
 sudo chmod g+w -R /etc/olsrd
+
 sudo rm -f /etc/olsrd.conf
 sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
 
