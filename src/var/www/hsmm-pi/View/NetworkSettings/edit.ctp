@@ -86,7 +86,6 @@ echo $this->Form->input('wan_protocol',
 			);
 echo $this->Form->input('wan_dns1', array('label' => __('DNS 1')));
 echo $this->Form->input('wan_dns2', array('label' => __('DNS 2')));
-echo $this->Form->input('wan_mesh_gateway', array('label' => __('Mesh Gateway'), 'type' => 'checkbox'));
       ?>
       </span>
     </div>
