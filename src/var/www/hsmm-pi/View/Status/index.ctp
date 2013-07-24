@@ -20,7 +20,7 @@
       <p><h3>Neighboring Mesh Nodes</h3></p>
       
       <?php
-	 if (sizeof($mesh_links) > 0) {
+	 if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
       ?>
       <table class="table table-striped table-bordered">
 	<tr>
