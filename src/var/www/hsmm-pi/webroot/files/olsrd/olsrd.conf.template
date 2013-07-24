@@ -295,7 +295,26 @@ LoadPlugin "olsrd_txtinfo.so.0.1"
 #   PlParam     "port"   "81"
     # ip address that can access the plugin, use "0.0.0.0"
     # to allow everyone
-    PlParam     "Accept"   "0.0.0.0"
+    PlParam     "Accept"   "127.0.0.1"
+}
+
+LoadPlugin "olsrd_jsoninfo.so.0.0"
+{
+    # the default port is 9090 but you can change it like this:
+    #PlParam     "port"   "8080"
+
+    # You can set a "accept" single address to allow to connect to
+    # jsoninfo. If no address is specified, then localhost (127.0.0.1)
+    # is allowed by default.  jsoninfo will only use the first "accept"
+    # parameter specified and will ignore the rest.
+
+    # to allow a specific host:
+    #PlParam      "accept" "172.29.44.23"
+    # if you set it to 0.0.0.0, it will accept all connections
+    PlParam      "accept" "127.0.0.1"
+
+    # specify a UUID for this node to track it for debugging
+    #PlParam      "UUIDFile" "/etc/olsrd/olsrd.uuid"
 }
 
 LoadPlugin "olsrd_arprefresh.so.0.1"
