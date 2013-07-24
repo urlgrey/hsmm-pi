@@ -63,9 +63,6 @@ for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /e
     sudo chmod g+w ${file}
 done
     
-sudo chgrp -R www-data /etc/olsrd
-sudo chmod g+w -R /etc/olsrd
-
 sudo chgrp www-data /etc/dnsmasq.d
 sudo chmod 775 /etc/dnsmasq.d
 
@@ -108,6 +105,8 @@ sudo make libs_install
 
 cd /var/tmp
 rm -rf /var/tmp/${OLSRD_VERSION}
+sudo chgrp -R www-data /etc/olsrd
+sudo chmod g+w -R /etc/olsrd
 sudo rm -f /etc/olsrd.conf
 sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
 
