@@ -107,6 +107,9 @@ sudo make libs_install
 sudo cp debian/olsrd.init /etc/init.d/olsrd
 sudo chmod +x /etc/init.d/olsrd
 
+sudo mkdir -p /etc/default
+sudo cp ${PROJECT_HOME}/src/etc/default/olsrd /etc/default/olsrd
+
 cd /var/tmp
 rm -rf /var/tmp/${OLSRD_VERSION}
 sudo mkdir /etc/olsrd
