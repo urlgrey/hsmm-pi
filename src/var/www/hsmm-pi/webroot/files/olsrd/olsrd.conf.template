@@ -289,15 +289,6 @@ MprCoverage   5
 # Configuration examples for plugins:
 # see /usr/share/doc/olsrd-plugins/ for some for documentation
 
-LoadPlugin "olsrd_txtinfo.so.0.1"
-{
-    # port number the txtinfo plugin will be listening, default 2006
-#   PlParam     "port"   "81"
-    # ip address that can access the plugin, use "0.0.0.0"
-    # to allow everyone
-    PlParam     "Accept"   "127.0.0.1"
-}
-
 LoadPlugin "olsrd_jsoninfo.so.0.0"
 {
     # the default port is 9090 but you can change it like this:

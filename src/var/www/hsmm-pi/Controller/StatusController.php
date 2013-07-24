@@ -36,7 +36,8 @@ class StatusController extends AppController
     // close curl resource to free up system resources 
     curl_close($ch);  
 
-    return json_decode($output);
+    // TODO: Remove the leading curly brace once jsoninfo plugin defect fixed
+    return json_decode("{".$output, true);
   }
 }
 

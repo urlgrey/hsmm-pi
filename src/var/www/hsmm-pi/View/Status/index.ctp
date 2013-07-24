@@ -28,7 +28,7 @@
 	  <th>Link Quality</th>
 	</tr>
 	<?php
-	   foreach ($mesh_links as $node) {
+	   foreach ($mesh_links['links'] as $node) {
 	   ?> 
 	<tr>
 	  <td><?php echo $node['remoteIP']; ?></td>
