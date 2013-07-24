@@ -14,6 +14,9 @@ cd ${HOME}
 # Update list of packages
 sudo apt-get update
 
+# Upgrade existing packages
+sudo apt-get upgrade -y
+
 # Install Web Server deps
 sudo apt-get install -y \
     apache2 \
@@ -94,8 +97,12 @@ wget http://www.olsr.org/releases/0.6/${OLSRD_VERSION}.tar.bz2
 tar -xjf ${OLSRD_VERSION}.tar.bz2
 rm ${OLSRD_VERSION}.tar.bz2
 cd ${OLSRD_VERSION}
+
+# build the OLSRD core
 make
 sudo make install
+
+# build the OLSRD plugins (libs)
 make libs
 sudo make libs_install
 
@@ -108,6 +115,5 @@ sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
 sudo chkconfig olsrd on
 sudo chkconfig dnsmasq on
 
-# TODO add CRON job for reboot
-
-# TODO add CRON job for callsign announement
+# install CRON jobs for reboot and callsign announcement
+sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
