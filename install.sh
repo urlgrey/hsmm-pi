@@ -118,6 +118,7 @@ sudo chmod g+w -R /etc/olsrd
 
 sudo rm -f /etc/olsrd.conf
 sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
+sudo ln -s /usr/local/sbin/olsrd /usr/sbin/
 
 # enable services
 sudo chkconfig olsrd on
