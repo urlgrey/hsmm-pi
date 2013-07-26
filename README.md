@@ -29,8 +29,10 @@ for mesh nodes and Internet hosts.
 
 The following sequence shows how the two types of can be deployed
 
-    (Client1) --> (Switch) --> (Internal Mesh Node) --> 
-    (Ad-Hoc WiFi Network) --> (Mesh Gateway) --> (Internet)
+```
+(Client1) --> (Switch) --> (Internal Mesh Node) --> 
+(Ad-Hoc WiFi Network) --> (Mesh Gateway) --> (Internet)
+```
 
 There could be any number of mesh nodes in the Ad-Hoc WiFi Network used to 
 route traffic between the client and its destination.  The route among the 
@@ -58,8 +60,8 @@ Installation
 7.  Run the following commands to download the HSMM-Pi project and install
 
 ```bash
-    git clone https://github.com/urlgrey/hsmm-pi.git
-    sh hsmm-pi/install.sh
+git clone https://github.com/urlgrey/hsmm-pi.git
+sh hsmm-pi/install.sh
 ```
 
 8.  Login to the web application on the Pi:
