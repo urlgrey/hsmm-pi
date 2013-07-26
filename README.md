@@ -1,7 +1,7 @@
 HSMM-Pi
 =======
 
-A set of tools to easily configure the Raspberry Pi to function as a High-Speed 
+HSMM-Pi is a set of tools to easily configure the Raspberry Pi to function as a High-Speed 
 Multimedia (HSMM) wireless node.  HSMM offers radio amateurs (HAMs) the ability 
 to operate high-speed data networks in the frequencies shared with unlicenced 
 users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher 
@@ -38,7 +38,7 @@ nodes is managed entirely with OLSRD.
 
 Project Components
 ==================
-The project consistent of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.  
+The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.  
 
 
 The HSMM-Pi project is based on the Raspbian distribution of Debian customized for the Raspberry Pi.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged Rasbian host into an HSMM-Pi node.  This has several benefits:
@@ -56,8 +56,10 @@ Installation
 5.  Apply power to the Pi
 6.  Login to the Pi, either through an SSH session or the console, using the 'pi' account
 7.  Run the following commands to download the HSMM-Pi project and install
+
     git clone https://github.com/urlgrey/hsmm-pi.git
     sh hsmm-pi/install.sh
+
 8.  Login to the web application on the Pi:
 http://(IP Address of Raspberry Pi)/hsmm-pi/
 9.  Access the Admin account using the 'admin' username and 'changeme' password.
