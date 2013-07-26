@@ -22,34 +22,31 @@ Mesh Gateway Node
 The Mesh Gateway is capable of routing traffic throughout the mesh, and 
 provides an Internet link to the mesh through the wired Ethernet port.  The 
 gateway obtains a DHCP lease on the wired interface, and advertises its 
-Internet link to member of the mesh using OLSRD.
+Internet link to members of the mesh using OLSRD.
 
 
 Internal Mesh Node
 ==================
-This node provides is capable of routing traffic throughout the mesh, and 
+This node is capable of routing traffic throughout the mesh, and 
 providing mesh access to any hosts connected to its wired Ethernet port.  
-The node runs a DHCP server that can issue DHCP leases to any hosts on the 
+The node can run a DHCP server that issues DHCP leases to any hosts on the 
 wired connection.  It also runs a DNS server that can provide name resolution 
 for mesh nodes and Internet hosts.
 
-The following sequence shows how the two types of can be deployed
+The following sequence shows how the two types of nodes can be deployed:
 
 ```
 (Client1) --> (Switch) --> (Internal Mesh Node) --> 
 (Ad-Hoc WiFi Network) --> (Mesh Gateway) --> (Internet)
 ```
 
-There could be any number of mesh nodes in the Ad-Hoc WiFi Network used to 
-route traffic between the client and its destination.  The route among the 
-nodes is managed entirely with OLSRD.
+There could be any number of mesh nodes in the Ad-Hoc WiFi Network.  The route among the nodes is managed entirely with OLSRD.
 
-I've done all of my testing with the N150 USB wifi adapters that use the Ralink 5370 wireless chipset.  These adapters are cheap (~$7 USD), compact, and easy to come by.  They also use drivers that are bundled in the Raspbian distribution, making setup easy.  The N150 adapter tested included a threaded antenna connector that should make it easy to add a linear amplifier and aftermarket antenna (outside the scope of the HSMM-Pi project).
+I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370 wireless chipset.  These adapters are cheap (~$7 USD), compact, and easy to come by.  They also use drivers that are bundled in the Raspbian distribution, making setup easy.  The N150 adapter tested included a threaded antenna connector that should make it easy to add a linear amplifier and aftermarket antenna (outside the scope of the HSMM-Pi project).
 
 Project Components
 ==================
 The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.  
-
 
 The HSMM-Pi project is based on the Raspbian distribution of Debian customized for the Raspberry Pi.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged Rasbian host into an HSMM-Pi node.  This has several benefits:
  * Greater transparency:  You can see exactly which changes are made to the base Raspbian system by looking at the install shell script.
@@ -59,7 +56,7 @@ The HSMM-Pi project is based on the Raspbian distribution of Debian customized f
 Installation
 ============
 
-1.  Download the Raspbian disk image on your Mac/PC/whatever
+1.  Download the Raspbian Wheezy 2013-05-25 disk image on your Mac/PC/whatever (http://www.raspberrypi.org/downloads)
 2.  Write the image to a SD memory card
 3.  Insert the card into a Raspberry Pi
 4.  Connect the wired Ethernet port on the Pi to a network with Internet access
