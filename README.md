@@ -8,6 +8,9 @@ users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher
 power with larger antennas than are available to unlicensed users.  The HSMM-Pi 
 project makes it possible to run an HSMM mesh node on the Raspberry Pi.
 
+HSMM-Pi Blog:
+http://hsmmpi.wordpress.com/
+
 For a video tour, see the following YouTube video:
 http://www.youtube.com/watch?v=ltUAw02vfqk
 
