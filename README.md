@@ -8,6 +8,9 @@ users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher
 power with larger antennas than are available to unlicensed users.  The HSMM-Pi 
 project makes it possible to run an HSMM mesh node on the Raspberry Pi.
 
+For a video tour, see the following YouTube video:
+http://www.youtube.com/watch?v=ltUAw02vfqk
+
 Modes
 =====
 
@@ -37,6 +40,8 @@ The following sequence shows how the two types of can be deployed
 There could be any number of mesh nodes in the Ad-Hoc WiFi Network used to 
 route traffic between the client and its destination.  The route among the 
 nodes is managed entirely with OLSRD.
+
+I've done all of my testing with the N150 USB wifi adapters that use the Ralink 5370 wireless chipset.  These adapters are cheap (~$7 USD), compact, and easy to come by.  They also use drivers that are bundled in the Raspbian distribution, making setup easy.  The N150 adapter tested included a threaded antenna connector that should make it easy to add a linear amplifier and aftermarket antenna (outside the scope of the HSMM-Pi project).
 
 Project Components
 ==================
