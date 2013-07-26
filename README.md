@@ -57,8 +57,10 @@ Installation
 6.  Login to the Pi, either through an SSH session or the console, using the 'pi' account
 7.  Run the following commands to download the HSMM-Pi project and install
 
+```bash
     git clone https://github.com/urlgrey/hsmm-pi.git
     sh hsmm-pi/install.sh
+```
 
 8.  Login to the web application on the Pi:
 http://(IP Address of Raspberry Pi)/hsmm-pi/
