@@ -1,4 +1,4 @@
 # /etc/cron.d/hsmm-pi: CRON jobs for the HSMM-Pi project
 
-* *  * * *     root   [ -e /var/data/hsmm-pi/reboot ] && rm -f /var/data/hsmm-pi/reboot && /sbin/init 6 2>/dev/null \;
-0,10,20,30,40,50 * * * *    root   /usr/local/bin/callsign_announcement.sh 2>/dev/null \;
+* *  * * *     root   bash -c "[ -e /var/data/hsmm-pi/reboot ] && rm -f /var/data/hsmm-pi/reboot && /sbin/init 6" 2>/dev/null
+0,10,20,30,40,50 * * * *    root   /usr/local/bin/callsign_announcement.sh 2>/dev/null

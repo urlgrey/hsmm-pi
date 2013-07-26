@@ -50,13 +50,4 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="span12">
-      <div class="well">
-	<p><h3>Network Interfaces</h3></p>
-	<pre><?php echo $network_interfaces; ?></pre>
-      </div>
-    </div>
-   </div>
-  </div>
 </div>

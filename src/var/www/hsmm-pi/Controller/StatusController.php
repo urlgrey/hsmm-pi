@@ -12,12 +12,6 @@ class StatusController extends AppController
   public function index()
   {
     $this->set('mesh_links', $this->get_mesh_links());
-    $this->set('network_interfaces', $this->get_network_interfaces());
-  }
-
-  private function get_network_interfaces() {
-    $netstat_output = shell_exec('/sbin/ifconfig -a');
-    return $netstat_output;
   }
 
   private function get_mesh_links() {
