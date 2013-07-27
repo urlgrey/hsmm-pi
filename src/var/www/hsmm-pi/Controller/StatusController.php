@@ -12,26 +12,38 @@ class StatusController extends AppController
   public function index()
   {
     $this->set('mesh_links', $this->get_mesh_links());
+    $this->set('mesh_services', $this->get_mesh_services());
   }
 
   private function get_mesh_links() {
-    // create curl resource 
     $ch = curl_init(); 
-
-    // set url 
     curl_setopt($ch, CURLOPT_URL, "http://localhost:9090/links"); 
-
-    //return the transfer as a string 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-
-    // $output contains the output string 
     $output = curl_exec($ch); 
-
-    // close curl resource to free up system resources 
     curl_close($ch);  
-
-    // TODO: Remove the leading curly brace once jsoninfo plugin defect fixed
     return json_decode("{".$output, true);
+  }
+
+
+  private function get_mesh_services() {
+    $services = array();
+    $handle = @fopen("/var/run/services_olsr", "r");
+    if ($handle) {
+      while (($buffer = fgets($handle, 1024)) !== false) {
+	if ($buffer != null) {
+	  $service_s = trim(substr($buffer, 0, strpos($buffer, '#')));
+	  if (strlen($service_s) > 0) {
+	    $service_parts = explode('|', $service_s);
+	    if (sizeof($service_parts) > 0) {
+	      $services[] = $service_parts;
+	    }
+	  }
+	}	
+      }
+      fclose($handle);
+    }
+
+    return $services;
   }
 }
 
