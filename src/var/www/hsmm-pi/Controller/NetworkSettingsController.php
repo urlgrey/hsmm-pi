@@ -17,6 +17,7 @@ class NetworkSettingsController extends AppController {
 	$this->render_network_interfaces_config($latest_network_setting);
 	$this->render_dnsmasq_config($latest_network_setting);
 	$this->render_hostname_config($latest_network_setting);
+	$this->render_dhclient_config($latest_network_setting);
 	$this->render_resolv_config($latest_network_setting);
 	$this->render_hosts_config($latest_network_setting);
 	$this->render_rclocal_config($latest_network_setting);
@@ -241,6 +242,12 @@ iptables -t nat -A POSTROUTING -o ".$network_setting['NetworkSetting']['wifi_ada
     file_put_contents('/etc/dnsmasq.d/hsmm-pi.conf', $dnsmasq_conf_output);
   }
 
+
+  private function render_dhclient_config($network_setting) {
+    $dhclient_conf = file_get_contents(WWW_ROOT . "/files/dhclient.conf.template");
+    $dhclient_conf_output = str_replace('{wired_adapter_name}', $network_setting['NetworkSetting']['wired_adapter_name'], $dhclient_conf);
+    file_put_contents('/etc/dhcp/dhclient.conf', $dhclient_conf_output);
+  }
     
 }
 

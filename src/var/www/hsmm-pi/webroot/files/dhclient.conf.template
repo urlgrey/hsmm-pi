@@ -1,4 +1,4 @@
-interface "eth0" {
+interface "{wired_adapter_name}" {
   supersede domain-name "local.mesh";
   prepend domain-name-servers 127.0.0.1;
 }

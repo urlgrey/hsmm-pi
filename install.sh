@@ -66,6 +66,9 @@ done
 sudo chgrp www-data /etc/dnsmasq.d
 sudo chmod 775 /etc/dnsmasq.d
 
+sudo chgrp www-data /etc/dhcp/dhclient.conf
+sudo chmod g+w /etc/dhcp/dhclient.conf
+
 # Copy scripts into place
 if [ ! -e /usr/local/bin/callsign_announcement.sh ]; then
     sudo cp ${PROJECT_HOME}/src/var/www/hsmm-pi/webroot/files/callsign_announcement.sh.template /usr/local/bin/callsign_announcement.sh
@@ -123,8 +126,6 @@ sudo ln -s /usr/local/sbin/olsrd /usr/sbin/
 # enable services
 sudo chkconfig olsrd on
 sudo chkconfig dnsmasq on
-
-sudo cp ${PROJECT_HOME}/src/etc/dhcp/dhclient.conf /etc/dhcp/
 
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
