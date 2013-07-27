@@ -124,5 +124,7 @@ sudo ln -s /usr/local/sbin/olsrd /usr/sbin/
 sudo chkconfig olsrd on
 sudo chkconfig dnsmasq on
 
+sudo cp ${PROJECT_HOME}/src/etc/dhcp/dhclient.conf /etc/dhcp/
+
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
