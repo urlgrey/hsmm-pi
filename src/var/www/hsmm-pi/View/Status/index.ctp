@@ -24,6 +24,7 @@
       ?>
       <table class="table table-striped table-bordered">
 	<tr>
+          <th>Hostname</th>
 	  <th>IP Address</th>
 	  <th>Link Quality</th>
 	</tr>
@@ -31,6 +32,7 @@
 	   foreach ($mesh_links['links'] as $node) {
 	   ?> 
 	<tr>
+          <td><?php echo gethostbyaddr($node['remoteIP']); ?></td>
 	  <td><?php echo $node['remoteIP']; ?></td>
 	  <td>
 	    <div class="progress"><div class="bar" style="width: <?php echo round($node['linkQuality'] * 100).'%'; ?>;"><?php echo round($node['linkQuality'] * 100).'%'; ?></div>
