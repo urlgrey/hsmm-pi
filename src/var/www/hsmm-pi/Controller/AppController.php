@@ -35,9 +35,9 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller
 {
     
-    public $components = array('Session', 'Auth' => array('loginRedirect' => array('controller' => 'status', 'action' => 'index'), 'logoutRedirect' => array('controller' => 'status', 'action' => 'index')));
+  public $components = array('Session', 'Auth' => array('loginRedirect' => array('controller' => 'status', 'action' => 'index'), 'logoutRedirect' => array('controller' => 'status', 'action' => 'index')));
 
-    protected function render_rclocal_config($network_setting, $network_services) {
+  protected function render_rclocal_config($network_setting, $network_services) {
     $rclocal_conf = file_get_contents(WWW_ROOT . "/files/rc.local.template");
 
     $iptables_service_routing = "";
@@ -71,14 +71,14 @@ iptables -t nat -A POSTROUTING -o ".$network_setting['NetworkSetting']['wifi_ada
 
       // disabling temporarily until I get the iptables steps correct
       /*
-      if ($network_services != NULL && sizeof($network_services) > 0) {
+	if ($network_services != NULL && sizeof($network_services) > 0) {
 	foreach($network_services as $service) {
-	  $iptables_service_routing .= "
-iptables -t nat -A PREROUTING -i ".$network_setting['NetworkSetting']['wifi_adapter_name']." -p ". $service['NetworkService']['protocol']." --dport ".$service['NetworkService']['forwarding_port']." -j DNAT --to-destination ".$service['NetworkService']['host'].":".$service['NetworkService']['port'];
-	  $iptables_service_routing .= "
-iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --dport ".$service['NetworkService']['port']." -j MASQUERADE\n";
+	$iptables_service_routing .= "
+	iptables -t nat -A PREROUTING -i ".$network_setting['NetworkSetting']['wifi_adapter_name']." -p ". $service['NetworkService']['protocol']." --dport ".$service['NetworkService']['forwarding_port']." -j DNAT --to-destination ".$service['NetworkService']['host'].":".$service['NetworkService']['port'];
+	$iptables_service_routing .= "
+	iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --dport ".$service['NetworkService']['port']." -j MASQUERADE\n";
 	}
-      }
+	}
       */
     }
 
@@ -88,7 +88,7 @@ iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --d
   }
 
 
-    protected function render_olsrd_config($network_setting, $network_services) {
+  protected function render_olsrd_config($network_setting, $network_services) {
     $olsrd_conf = file_get_contents(WWW_ROOT . "/files/olsrd/olsrd.conf.template");
     $olsrd_secure_block = null;
 
@@ -152,16 +152,15 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
     PlParam \"HNA\"    \"192.168.201.0 255.255.255.0\"
     PlParam \"HNA\"    \"192.168.202.0 255.255.255.0\"
 }";
-	$olsrd_network_services = "";
-      } else {
+      $olsrd_network_services = "";
+    } else {
       $olsrd_dynamic_gateway = "";
       $olsrd_network_services = "";
       if ($network_services != NULL && sizeof($network_services) > 0) {
 	foreach($network_services as $service) {
- 	  $olsrd_network_services .= "
+	  $olsrd_network_services .= "
     PlParam \"service\" \"".$service['NetworkService']['service_protocol_name']."://".$network_setting['NetworkSetting']['node_name'].".local.mesh:".$service['NetworkService']['forwarding_port']."|".$service['NetworkService']['protocol']."|".$service['NetworkService']['name']."\"
 ";
-	  
 	}
       }
     }
@@ -179,6 +178,5 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
       
     file_put_contents('/etc/olsrd/olsrd.key', $olsrd_key);
   }
-
 }
 ?>

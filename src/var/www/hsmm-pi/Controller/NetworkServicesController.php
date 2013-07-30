@@ -29,7 +29,8 @@ class NetworkServicesController extends AppController
       $this->render_olsrd_config($network_setting, $network_services);
       $this->render_rclocal_config($network_setting, $network_services);
 
-      $this->Session->setFlash(__('Service deleted'), 'default', array('class' => 'alert alert-success'));
+      $this->Session->setFlash('The service has been deleted, and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
+				 'default', array('class' => 'alert alert-success'));
       $this->redirect(array('action' => 'index'));
     }
   }
@@ -47,7 +48,8 @@ class NetworkServicesController extends AppController
 	  $this->render_olsrd_config($network_setting, $network_services);
 	  $this->render_rclocal_config($network_setting, $network_services);
 
-	  $this->Session->setFlash('Your new service has been added.', 'default', array('class' => 'alert alert-success'));
+	  $this->Session->setFlash('The service has been added, and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
+				 'default', array('class' => 'alert alert-success'));
 	  $this->redirect(array('action' => 'index'));
 	} else {
 	  $this->Session->setFlash('Unable to add your service.', 'default', array('class' => 'alert alert-error'));
