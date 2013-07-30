@@ -1,5 +1,7 @@
 <!-- File: /app/View/Users/index.ctp -->
-<h1>User Settings</h1>
+<div class="page-header">
+  <h1>Change Password</h1>
+</div>
 
 <?php
 echo $this->Form->create('User', array(

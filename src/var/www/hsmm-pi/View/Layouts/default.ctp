@@ -117,14 +117,6 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
         'action' => 'edit'
     ));
 ?></li>
-
-              <li <?php if (strstr($this->here, '/hsmm-pi/backup') != FALSE) { echo 'class="active"'; }  ?>>
-<?php
-    echo $this->Html->link(__('Backup'), array(
-	'controller' => 'backup',
-        'action' => 'index'
-    ));
-?></li>
     <li><a href="#rebootModal" data-toggle="modal"><? echo __('Reboot'); ?></a></li>
 <?php } ?>
             </ul>

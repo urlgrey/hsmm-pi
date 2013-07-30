@@ -13,6 +13,7 @@ class StatusController extends AppController
   {
     $this->set('mesh_links', $this->get_mesh_links());
     $this->set('mesh_services', $this->get_mesh_services());
+    $this->load_node_attributes();
   }
 
   private function get_mesh_links() {

@@ -37,6 +37,12 @@ class AppController extends Controller
     
   public $components = array('Session', 'Auth' => array('loginRedirect' => array('controller' => 'status', 'action' => 'index'), 'logoutRedirect' => array('controller' => 'status', 'action' => 'index')));
 
+  protected function load_node_attributes() {
+    $this->loadModel('NetworkSetting');
+    $settings = $this->NetworkSetting->findById(1);
+    $this->set('node_name', $settings['NetworkSetting']['node_name']);
+  }
+
   protected function render_rclocal_config($network_setting, $network_services) {
     $rclocal_conf = file_get_contents(WWW_ROOT . "/files/rc.local.template");
 

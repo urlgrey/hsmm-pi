@@ -1,5 +1,7 @@
 <!-- File: /app/View/ShellUserKeys/view.ctp -->
-<h1><?php echo h($shell_user_key['ShellUserKey']['name']);?></h1>
+<div class="page-header">
+  <h1><?php echo h($shell_user_key['ShellUserKey']['name']);?></h1>
+</div>
 
 <p><small>Created: <?php
 echo $shell_user_key['ShellUserKey']['created'];

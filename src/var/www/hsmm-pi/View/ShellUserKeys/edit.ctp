@@ -1,5 +1,8 @@
 <!-- File: /app/view/ShellUserKeys/edit.ctp -->
-<h1>Edit Shell User Key</h1>
+<div class="page-header">
+  <h1>Edit Shell User Key</h1>
+</div>
+
 <?php
 echo $this->Form->create('ShellUserKey');
 echo $this->Form->input('name');

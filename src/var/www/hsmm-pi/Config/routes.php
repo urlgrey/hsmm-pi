@@ -35,12 +35,12 @@
 
 	Router::connect('/status', array('controller' => 'status', 'action' => 'index'));
 	Router::connect('/', array('controller' => 'status', 'action' => 'index'));
-	Router::connect('/shell_user_keys', array('controller' => 'shell_user_keys', 'action' => 'index'));
+	/* Router::connect('/shell_user_keys', array('controller' => 'shell_user_keys', 'action' => 'index')); */
         Router::connect('/network_settings', array('controller' => 'network_settings', 'action' => 'edit'));
         Router::connect('/user', array('controller' => 'users', 'action' => 'edit'));
         Router::connect('/system', array('controller' => 'system', 'action' => 'reboot'));
         Router::connect('/network_services', array('controller' => 'network_services', 'action' => 'index'));
-        Router::connect('/backup', array('controller' => 'backup', 'action' => 'index'));
+        /* Router::connect('/backup', array('controller' => 'backup', 'action' => 'index')); */
 
 
 /**

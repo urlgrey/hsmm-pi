@@ -1,16 +1,20 @@
 <!-- File: /app/View/NetworkServices/index.ctp -->
-<p><h1>Network Services</h1></p>
+<div class="page-header">
+  <p><h1>Network Services</h1></p>
+</div>
 
 <div class="row">
   <div class="span12">
-    <p>
-      <?php
-	 echo $this->Html->link(__('Add'), array(
-      'controller' => 'network_services',
-      'action' => 'add'), array(
-      'class' => 'btn btn-primary'));
-      ?>
-    </p>
+    <span class="pull-right">
+      <p>
+	<?php
+	   echo $this->Html->link(__('Add'), array(
+	'controller' => 'network_services',
+	'action' => 'add'), array(
+	'class' => 'btn btn-primary'));
+	?>
+      </p>
+    </span>
   </div>
 </div>
 

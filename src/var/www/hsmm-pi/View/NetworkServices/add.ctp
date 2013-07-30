@@ -1,5 +1,8 @@
 <!-- File: /app/view/NetworkServices/add.ctp -->
-<h1>Add Network Service</h1>
+<div class="page-header">
+  <h1>Add Network Service</h1>
+</div>
+
 <?php
 echo $this->Form->create('NetworkService');
 echo $this->Form->input('name');

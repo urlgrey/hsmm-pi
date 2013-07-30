@@ -1,5 +1,7 @@
 <!-- File: /app/View/NetworkSettings/index.ctp -->
-<h1>Network Settings</h1>
+<div class="page-header">
+  <h1>Network Settings</h1>
+</div>
 
 <script type="text/javascript">
   function show_wired_mode(e) {
@@ -20,11 +22,10 @@ echo $this->Form->input('id', array(
     'type' => 'hidden'
 ));
 
-echo "<span class=\"pull-left\">";
-echo $this->Form->submit(__('Save'), array('name' => 'submit', 'div' => false, 'class' => 'btn btn-primary'));
-echo "</span>"
-
 ?>
+<span class="pull-right">
+<?php echo $this->Form->submit(__('Save'), array('name' => 'submit', 'div' => false, 'class' => 'btn btn-primary')); ?>
+</span>
 <p></p>
 
 <div class="tabbable"> <!-- Only required for left/right tabs -->

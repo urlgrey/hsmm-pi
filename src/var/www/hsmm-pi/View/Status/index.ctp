@@ -1,17 +1,6 @@
 <!-- File: /app/View/Status/index.ctp -->
-<p><h1>Status</h1></p>
-
-<div class="row">
-  <div class="span9">
-    <p>
-      <?php
-	 echo $this->Html->link(__('Refresh'), array(
-      'controller' => 'status',
-      'action' => 'index'), array(
-      'class' => 'btn btn-primary'));
-      ?>
-    </p>
-  </div>
+<div class="page-header">
+  <p><h1>Status <small><?php echo $node_name; ?></small></h1></p>
 </div>
 
 <div class="row">

@@ -1,5 +1,7 @@
 <!-- File: /app/View/ShellUserKeys/index.ctp -->
-<h1>SSH User Keys</h1>
+<div class="page-header">
+  <h1>SSH User Keys</h1>
+</div>
 
 <?php
 echo $this->Html->link(__('Add Key'), 

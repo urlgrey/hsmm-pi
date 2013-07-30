@@ -1,5 +1,7 @@
 <!-- File: /app/View/Status/index.ctp -->
-<p><h1>Backup</h1></p>
+<div class="page-header">
+  <p><h1>Backup</h1></p>
+</div>
 
 <h3>Download Backup</h3>
 <p>
