@@ -75,6 +75,7 @@ iptables -A FORWARD -i ".$network_setting['NetworkSetting']['wifi_adapter_name']
 # Packet masquerading
 iptables -t nat -A POSTROUTING -o ".$network_setting['NetworkSetting']['wifi_adapter_name']." -j SNAT --to-source ".$network_setting['NetworkSetting']['wifi_ip_address'];
 
+      /*
       if ($network_services != NULL && sizeof($network_services) > 0) {
 	foreach($network_services as $service) {
 	  $iptables_service_routing .= "
@@ -82,6 +83,7 @@ iptables -t nat -A PREROUTING -i ".$network_setting['NetworkSetting']['wifi_adap
 iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --dport ".$service['NetworkService']['port']." -j MASQUERADE\n";
 	}
       }
+      */
     }
 
     $rclocal_conf_output = str_replace(array('{wifi_adapter_name}','{iptables_gateway_commands}','{iptables_service_routing}'), array($network_setting['NetworkSetting']['wifi_adapter_name'], $iptables_gateway_commands,$iptables_service_routing), $rclocal_conf);
