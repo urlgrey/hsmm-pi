@@ -39,6 +39,7 @@
         Router::connect('/network_settings', array('controller' => 'network_settings', 'action' => 'edit'));
         Router::connect('/user', array('controller' => 'users', 'action' => 'edit'));
         Router::connect('/system', array('controller' => 'system', 'action' => 'reboot'));
+        Router::connect('/network_services', array('controller' => 'network_services', 'action' => 'index'));
         Router::connect('/backup', array('controller' => 'backup', 'action' => 'index'));
 
 

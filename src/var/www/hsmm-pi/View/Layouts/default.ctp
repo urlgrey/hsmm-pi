@@ -103,6 +103,13 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     ));
     ?>
 </li>
+<li <?php if (strstr($this->here, '/hsmm-pi/network_services') != FALSE) { echo 'class="active"'; }  ?>>
+<?php echo $this->Html->link(__('Services'), array(
+	'controller' => 'network_services',
+        'action' => 'index',
+    ));
+    ?>
+</li>
 <li <?php if (strstr($this->here, '/hsmm-pi/user') != FALSE) { echo 'class="active"'; }  ?>>
 <?php
     echo $this->Html->link(__('Account'), array(

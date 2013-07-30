@@ -330,6 +330,9 @@ LoadPlugin "olsrd_nameservice.so.0.3"
     PlParam "timeout" "300"
     PlParam "resolv-file" "/etc/resolv.conf"
     PlParam "name" "{node_name}"
+
+{olsrd_network_services}
+
 }
 
 {olsrd_dynamic_gateway_block}
