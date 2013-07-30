@@ -37,4 +37,6 @@ done
 
 {iptables_gateway_commands}
 
+{iptables_service_routing}
+
 exit 0

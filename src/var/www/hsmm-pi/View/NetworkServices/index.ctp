@@ -2,7 +2,7 @@
 <p><h1>Network Services</h1></p>
 
 <div class="row">
-  <div class="span9">
+  <div class="span12">
     <p>
       <?php
 	 echo $this->Html->link(__('Add'), array(
@@ -15,17 +15,18 @@
 </div>
 
 <div class="row">
-  <div class="span8">
+  <div class="span12">
       <?php
 	 if ($services != NULL && sizeof($services) > 0) {
       ?>
       <table class="table table-striped table-bordered">
 	<tr>
 	  <th>Name</th>
-	  <th>Hostname</th>
+	  <th>Host</th>
 	  <th>Port</th>
 	  <th>Protocol</th>
 	  <th>Forwarding Port</th>
+	  <th>Service URL</th>
 	  <th>Actions</th>
 	</tr>
 	<?php
@@ -33,10 +34,11 @@
 	   ?> 
 	<tr>
 	  <td><?php echo $service['NetworkService']['name']; ?></td>
-	  <td><?php echo $service['NetworkService']['hostname']; ?></td>
+	  <td><?php echo $service['NetworkService']['host']; ?></td>
 	  <td><?php echo $service['NetworkService']['port']; ?></td>
 	  <td><?php echo $service['NetworkService']['protocol']; ?></td>
 	  <td><?php echo $service['NetworkService']['forwarding_port']; ?></td>
+	  <td><a href="<?php echo $service['NetworkService']['service_protocol_name']."://".$node_name.".local.mesh:".$service['NetworkService']['port']; ?>"><?php echo $service['NetworkService']['service_protocol_name']."://".$node_name.".local.mesh:".$service['NetworkService']['port']; ?></a></td>
 	  <td>
 	        <?php
 	  	 echo $this->Html->link('', array(

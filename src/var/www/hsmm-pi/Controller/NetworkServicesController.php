@@ -7,6 +7,10 @@ class NetworkServicesController extends AppController
   public function index()
   {
     $this->set('services', $this->NetworkService->find('all'));
+
+    $this->loadModel('NetworkSetting');
+    $settings = $this->NetworkSetting->findById(1);
+    $this->set('node_name', $settings['NetworkSetting']['node_name']);
   }
 
   public function delete($id = null)

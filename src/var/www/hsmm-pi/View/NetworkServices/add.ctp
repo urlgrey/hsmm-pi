@@ -4,7 +4,7 @@
 echo $this->Form->create('NetworkService');
 echo $this->Form->input('name');
 echo $this->Form->input('service_protocol_name');
-echo $this->Form->input('hostname');
+echo $this->Form->input('host');
 echo $this->Form->input('port');
 echo $this->Form->input('protocol', array('options' => array('tcp'=>'TCP','udp'=>'UDP')));
 echo $this->Form->input('forwarding_port');

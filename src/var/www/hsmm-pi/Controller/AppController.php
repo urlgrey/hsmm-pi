@@ -40,6 +40,7 @@ class AppController extends Controller
     protected function render_rclocal_config($network_setting, $network_services) {
     $rclocal_conf = file_get_contents(WWW_ROOT . "/files/rc.local.template");
 
+    $iptables_service_routing = "";
     if (0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'WAN')) {
       if ($network_setting['NetworkSetting']['wan_mesh_gateway'] == TRUE) {
 	$iptables_gateway_commands = "
@@ -67,9 +68,18 @@ iptables -A FORWARD -i ".$network_setting['NetworkSetting']['wifi_adapter_name']
 
 # Packet masquerading
 iptables -t nat -A POSTROUTING -o ".$network_setting['NetworkSetting']['wifi_adapter_name']." -j SNAT --to-source ".$network_setting['NetworkSetting']['wifi_ip_address'];
+
+      if ($network_services != NULL && sizeof($network_services) > 0) {
+	foreach($network_services as $service) {
+	  $iptables_service_routing .= "
+iptables -t nat -A PREROUTING -i ".$network_setting['NetworkSetting']['wifi_adapter_name']." -p ". $service['NetworkService']['protocol']." --dport ".$service['NetworkService']['forwarding_port']." -j DNAT --to-destination ".$service['NetworkService']['host'].":".$service['NetworkService']['port'];
+	  $iptables_service_routing .= "
+iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --dport ".$service['NetworkService']['port']." -j MASQUERADE\n";
+	}
+      }
     }
 
-    $rclocal_conf_output = str_replace(array('{wifi_adapter_name}','{iptables_gateway_commands}'), array($network_setting['NetworkSetting']['wifi_adapter_name'], $iptables_gateway_commands), $rclocal_conf);
+    $rclocal_conf_output = str_replace(array('{wifi_adapter_name}','{iptables_gateway_commands}','{iptables_service_routing}'), array($network_setting['NetworkSetting']['wifi_adapter_name'], $iptables_gateway_commands,$iptables_service_routing), $rclocal_conf);
 
     file_put_contents('/etc/rc.local', $rclocal_conf_output);
   }
@@ -145,7 +155,7 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
       $olsrd_network_services = "";
       if ($network_services != NULL && sizeof($network_services) > 0) {
 	foreach($network_services as $service) {
- 	  $olsrd_network_services += "
+ 	  $olsrd_network_services .= "
     PlParam \"service\" \"".$service['NetworkService']['service_protocol_name']."://".$network_setting['NetworkSetting']['node_name'].".local.mesh:".$service['NetworkService']['port']."|".$service['NetworkService']['protocol']."|".$service['NetworkService']['name']."\"
 ";
 	  
@@ -153,7 +163,7 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
       }
     }
       
-    $olsrd_conf_output = str_replace(array('{wifi_ip_address}','{wifi_adapter_name}', '{node_name}', '{olsrd_dynamic_gateway_block}', '{olsrd_secure_block}'), array($network_setting['NetworkSetting']['wifi_ip_address'],$network_setting['NetworkSetting']['wifi_adapter_name'], $network_setting['NetworkSetting']['node_name'], $olsrd_secure_block, $olsrd_dynamic_gateway), $olsrd_conf);
+    $olsrd_conf_output = str_replace(array('{wifi_ip_address}','{wifi_adapter_name}', '{node_name}', '{olsrd_dynamic_gateway_block}', '{olsrd_secure_block}','{olsrd_network_services}'), array($network_setting['NetworkSetting']['wifi_ip_address'],$network_setting['NetworkSetting']['wifi_adapter_name'], $network_setting['NetworkSetting']['node_name'], $olsrd_secure_block, $olsrd_dynamic_gateway,$olsrd_network_services), $olsrd_conf);
 
     file_put_contents('/etc/olsrd/olsrd.conf', $olsrd_conf_output);
 
