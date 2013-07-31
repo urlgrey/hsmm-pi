@@ -25,10 +25,14 @@ i="0"
 while [ $i -lt 5 ]; do
   INET_ADDRESS=`ifconfig ${INET_IFACE} | awk '/inet addr/ {split ($2,A,":"); print A[2]}'`
   if [ "$INET_ADDRESS" != "" ]; then
+    echo "Verifying that OLSRD is started"
+    service olsrd start
     break
   else
     # restart the interface
     sleep 2
+    echo "Ensuring that OLSRD is stopped"
+    service olsrd stop
     echo "Restarting interface: ${INET_IFACE}"
     ifdown $INET_IFACE
     ifup $INET_IFACE

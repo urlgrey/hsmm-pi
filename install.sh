@@ -48,7 +48,7 @@ if [ ! -e /var/www/hsmm-pi ]; then
     sudo ln -s ${PROJECT_HOME}/src/var/www/hsmm-pi
 fi
 sudo rm -f /var/www/index.html
-sudo ln -s ${PROJECT_HOME}/var/www/index.html /var/www/
+sudo ln -s ${PROJECT_HOME}/src/var/www/index.html /var/www/
 
 # Create temporary directory used by HSMM-PI webapp, granting write priv's to www-data
 cd ${PROJECT_HOME}/src/var/www/hsmm-pi
