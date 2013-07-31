@@ -53,6 +53,13 @@ The HSMM-Pi project is based on the Raspbian distribution of Debian customized f
  * Easier to host:  I only need to post the installation script and webapp files on Github and it's done.
  * Easier to seek support: The Raspbian distribution is widely used and supported, no need to introduce another variant.
 
+Hardware Requirements
+=====================
+
+1.  Raspberry Pi (256MB or 512MB of RAM will work)
+2.  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset)
+3.  SD memory card (4GB minimum)
+
 Installation
 ============
 
@@ -62,17 +69,22 @@ Installation
 4.  Connect the wired Ethernet port on the Pi to a network with Internet access
 5.  Apply power to the Pi
 6.  Login to the Pi, either through an SSH session or the console, using the 'pi' account
-7.  Run the following commands to download the HSMM-Pi project and install
-
+7.  Run the Raspberry Pi Setup program:
+```bash
+sudo raspi-config
+```
+8.  Expand the filesystem to fill the SD memory card
+9.  Change the password for the 'pi' account
+10.  Run the following commands to download the HSMM-Pi project and install
 ```bash
 git clone https://github.com/urlgrey/hsmm-pi.git
 sh hsmm-pi/install.sh
 ```
-
-8.  Login to the web application on the Pi:
+11.  Login to the web application on the Pi:
 http://(IP Address of Raspberry Pi)/hsmm-pi/
-9.  Access the Admin account using the 'admin' username and 'changeme' password.
-10.  Change the password
+12.  Access the Admin account using the 'admin' username and 'changeme' password.
+13.  Change the password for HSMM-Pi
+14.  Configure the Pi as either an Internal or Gateway node
 
 
 Internal Mesh Node Configuration
