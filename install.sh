@@ -15,7 +15,7 @@ cd ${HOME}
 sudo apt-get update
 
 # Update existing packages
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 
 # Install Web Server deps
 sudo apt-get install -y \
