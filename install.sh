@@ -14,6 +14,9 @@ cd ${HOME}
 # Update list of packages
 sudo apt-get update
 
+# Update existing packages
+sudo apt-get upgrade
+
 # Install Web Server deps
 sudo apt-get install -y \
     apache2 \
