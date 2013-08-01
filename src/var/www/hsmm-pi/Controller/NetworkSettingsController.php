@@ -111,7 +111,7 @@ class NetworkSettingsController extends AppController {
     if ($network_setting['NetworkSetting']['lan_dhcp_server'] == TRUE) {
       $dhcp_interface = "interface=".$network_setting['NetworkSetting']['wired_adapter_name'];
     } else {
-      $dhcp_interface = "";
+      $dhcp_interface = "no-dhcp-interface=".$network_setting['NetworkSetting']['wired_adapter_name'];
     }
 
     $ip_parts = split("\.", $network_setting['NetworkSetting']['lan_ip_address']);
