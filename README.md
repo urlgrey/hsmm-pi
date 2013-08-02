@@ -64,19 +64,19 @@ Installation
 ============
 
 1.  Download the Raspbian Wheezy 2013-05-25 disk image on your Mac/PC/whatever (http://www.raspberrypi.org/downloads)
-2.  Write the image to a SD memory card
+2.  Write the image to a SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
 3.  Insert the card into a Raspberry Pi
 4.  Connect the wired Ethernet port on the Pi to a network with Internet access
 5.  Apply power to the Pi
 6.  Login to the Pi, either through an SSH session or the console, using the 'pi' account
 7.  Run the Raspberry Pi Setup program:
-```bash
+```
 sudo raspi-config
 ```
 8.  Expand the filesystem to fill the SD memory card
 9.  Change the password for the 'pi' account
 10.  Run the following commands to download the HSMM-Pi project and install
-```bash
+```
 git clone https://github.com/urlgrey/hsmm-pi.git
 sh hsmm-pi/install.sh
 ```
