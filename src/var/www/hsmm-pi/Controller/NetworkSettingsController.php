@@ -50,8 +50,11 @@ class NetworkSettingsController extends AppController {
 
   private function render_callsign_announcement_config($network_setting) {
     $callsign_announcement = file_get_contents(WWW_ROOT . "/files/callsign_announcement.sh.template");
-    $callsign_announcement_output = str_replace(array('{callsign}'), 
-						array(str_pad($network_setting['NetworkSetting']['callsign'], 7, ' ', STR_PAD_LEFT)),
+    $callsign_announcement_output = str_replace(array('{callsign}', '{wifi_adapter_name}'), 
+						array(
+						      str_pad($network_setting['NetworkSetting']['callsign'], 7, ' ', STR_PAD_LEFT),
+						      $network_setting['NetworkSetting']['wifi_adapter_name']
+						      ),
 						$callsign_announcement);
 
     file_put_contents('/usr/local/bin/callsign_announcement.sh', $callsign_announcement_output);
