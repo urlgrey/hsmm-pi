@@ -18,7 +18,7 @@ class NetworkSetting extends AppModel {
 			   'wan_dns2' => array('required' => array('rule' => '/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/i', 'message' => 'The DNS 2 field must contain a valid IP address')),
 			   'node_name' => array('required' => array('rule' => array('notEmpty'), 'message' => 'A globally unique nodename with your callsign is required')),
 			   'mesh_olsrd_secure_key' => array('required' => array('rule' => '/^([0-9a-fA-F]{8})$/i', 'message' => 'An 8-character hexadecimal key is required')),
-			   'callsign' => array('required' => array('rule' => array('notEmpty'), 'message' => 'A valid callsign is required'), array('rule' => array('between', 3, 6), 'message' => 'Callsign must be between 3 and 6 characters')), 
+			   'callsign' => array('required' => array('rule' => array('notEmpty'), 'message' => 'A valid callsign is required'), array('rule' => array('between', 3, 9), 'message' => 'Callsign must be between 3 and 9 characters')), 
 			   );
 
 }
