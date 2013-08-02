@@ -70,16 +70,20 @@ Installation
 5.  Apply power to the Pi
 6.  Login to the Pi, either through an SSH session or the console, using the 'pi' account
 7.  Run the Raspberry Pi Setup program:
+
 ```
 sudo raspi-config
 ```
+
 8.  Expand the filesystem to fill the SD memory card
 9.  Change the password for the 'pi' account
 10.  Run the following commands to download the HSMM-Pi project and install
+
 ```
 git clone https://github.com/urlgrey/hsmm-pi.git
 sh hsmm-pi/install.sh
 ```
+
 11.  Login to the web application on the Pi:
 http://(IP Address of Raspberry Pi)/hsmm-pi/
 12.  Access the Admin account using the 'admin' username and 'changeme' password.
