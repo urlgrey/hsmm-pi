@@ -63,7 +63,7 @@ Hardware Requirements
 Installation
 ============
 
-1.  Download the Raspbian Wheezy 2013-05-25 disk image on your Mac/PC/whatever (http://www.raspberrypi.org/downloads)
+1.  Download the Raspbian Wheezy 2013-07-26 disk image on your Mac/PC/whatever (http://www.raspberrypi.org/downloads)
 2.  Write the image to a SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
 3.  Insert the card into a Raspberry Pi
 4.  Connect the wired Ethernet port on the Pi to a network with Internet access
@@ -77,48 +77,49 @@ sudo raspi-config
 
 8.  Expand the filesystem to fill the SD memory card
 9.  Change the password for the 'pi' account
-10.  Run the following commands to download the HSMM-Pi project and install
+10. If installing over an SSH connection to the Pi, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity with the Pi.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
+11.  Run the following commands to download the HSMM-Pi project and install
 
 ```
 git clone https://github.com/urlgrey/hsmm-pi.git
 sh hsmm-pi/install.sh
 ```
 
-11.  Login to the web application on the Pi:
+12.  Login to the web application on the Pi:
 http://(IP Address of Raspberry Pi)/hsmm-pi/
-12.  Access the Admin account using the 'admin' username and 'changeme' password.
-13.  Change the password for HSMM-Pi
-14.  Configure the Pi as either an Internal or Gateway node
+13.  Access the Admin account using the 'admin' username and 'changeme' password.
+14.  Change the password for HSMM-Pi
+15.  Configure the Pi as either an Internal or Gateway node
 
 
 Internal Mesh Node Configuration
 ================================
 This represents the minimum set of steps:
 
-1.  Select Admin->Network from the menubar
-2.  Configure the WiFi interface:
-2a.  Specify an IP address that will be unique throughout the mesh network.  This will be different every mesh node.  A default of 10.201.5.1 is specified; you must change this.
-3.  Configure the Wired interface:
-3a.  Set the Wired interface mode to LAN
-4.  Configure the Mesh settings
-    4a.  Specify your amatuer radio callsign (i.e. KK6DCI)
-    4b.  Specify your node name, likely a composition of your callsign and a unique number in your mesh (i.e. KK6DCI-7)
-5.  Click 'Save'
-6.  If successful, click the 'Reboot' button in the alert and proceed.
+1. Select Admin->Network from the menubar
+2. Configure the WiFi interface:
+    2a.  Specify an IP address that will be unique throughout the mesh network.  This will be different every mesh node.  A default of 10.201.5.1 is specified; you must change this.
+3. Configure the Wired interface:
+    3a. Set the Wired interface mode to LAN
+4. Configure the Mesh settings
+    4a. Specify your amatuer radio callsign (i.e. KK6DCI)
+    4b. Specify your node name, likely a composition of your callsign and a unique number in your mesh (i.e. KK6DCI-7)
+5. Click 'Save'
+6. If successful, click the 'Reboot' button in the alert and proceed.
 
 
 Gateway Node Configuration
 ================================
 This represents the minimum set of steps:
 
-1.  Select Admin->Network from the menubar
-2.  Configure the WiFi interface:
-2a.  Specify an IP address that will be unique throughout the mesh network.  This will be different every mesh node.  A default of 10.201.5.1 is specified; you must change this.
-3.  Configure the Wired interface:
-3a.  Set the Wired interface mode to WAN
-4.  Configure the Mesh settings
-    4a.  Specify your amatuer radio callsign (i.e. KK6DCI)
-    4b.  Specify your node name, likely a composition of your callsign and a unique number in your mesh (i.e. KK6DCI-7)
-5.  Click 'Save'
-6.  If successful, click the 'Reboot' button in the alert and proceed.
+1. Select Admin->Network from the menubar
+2. Configure the WiFi interface:
+    2a. Specify an IP address that will be unique throughout the mesh network.  This will be different every mesh node.  A default of 10.201.5.1 is specified; you must change this.
+3. Configure the Wired interface:
+    3a. Set the Wired interface mode to WAN
+4. Configure the Mesh settings
+    4a. Specify your amatuer radio callsign (i.e. KK6DCI)
+    4b. Specify your node name, likely a composition of your callsign and a unique number in your mesh (i.e. KK6DCI-7)
+5. Click 'Save'
+6. If successful, click the 'Reboot' button in the alert and proceed.
 
