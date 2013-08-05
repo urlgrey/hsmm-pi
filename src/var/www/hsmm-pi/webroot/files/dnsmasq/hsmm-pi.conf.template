@@ -26,6 +26,7 @@ no-negcache
 resolv-file=/etc/resolv.conf
 
 address=/localnode/{lan_ip_address}
+address=/{node_name}/{lan_ip_address}
 
 # include olsr nameservice
 addn-hosts=/var/run/hosts_olsr
