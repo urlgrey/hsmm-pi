@@ -123,7 +123,7 @@ no-dhcp-interface=".$network_setting['NetworkSetting']['wifi_adapter_name'];
     $lan_dhcp_start = $ip_parts[0].'.'.$ip_parts[1].'.'.$ip_parts[2].'.'.$network_setting['NetworkSetting']['lan_dhcp_start'];
     $lan_dhcp_end = $ip_parts[0].'.'.$ip_parts[1].'.'.$ip_parts[2].'.'.$network_setting['NetworkSetting']['lan_dhcp_end'];
 
-    $dnsmasq_conf_output = str_replace(array('{interfaces}', '{lan_ip_address}', '{lan_dhcp_start}', '{lan_dhcp_end}', '{lan_netmask}', '{wan_dns1}', '{wan_dns2}'), array($dhcp_interface, $network_setting['NetworkSetting']['lan_ip_address'], $lan_dhcp_start, $lan_dhcp_end, $network_setting['NetworkSetting']['lan_netmask'], $network_setting['NetworkSetting']['wan_dns1'], $network_setting['NetworkSetting']['wan_dns2']), $dnsmasq_conf);
+    $dnsmasq_conf_output = str_replace(array('{node_name}','{interfaces}', '{lan_ip_address}', '{lan_dhcp_start}', '{lan_dhcp_end}', '{lan_netmask}', '{wan_dns1}', '{wan_dns2}'), array($network_setting['NetworkSetting']['node_name'],$dhcp_interface, $network_setting['NetworkSetting']['lan_ip_address'], $lan_dhcp_start, $lan_dhcp_end, $network_setting['NetworkSetting']['lan_netmask'], $network_setting['NetworkSetting']['wan_dns1'], $network_setting['NetworkSetting']['wan_dns2']), $dnsmasq_conf);
 
     file_put_contents('/etc/dnsmasq.d/hsmm-pi.conf', $dnsmasq_conf_output);
   }
