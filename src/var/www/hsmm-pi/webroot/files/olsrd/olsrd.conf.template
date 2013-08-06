@@ -190,7 +190,7 @@ TosValue 16
 # dynamically based on battery/power status
 # if such information is available
 
-Willingness    	      7
+Willingness    	      3
 
 # Allow processes like the GUI front-end
 # to connect to the daemon.
@@ -330,6 +330,7 @@ LoadPlugin "olsrd_nameservice.so.0.3"
     PlParam "timeout" "300"
     PlParam "resolv-file" "/etc/resolv.conf"
     PlParam "name" "{node_name}"
+    PlParam "latlon-file" "/var/run/latlon.js"
 
 {olsrd_network_services}
 
