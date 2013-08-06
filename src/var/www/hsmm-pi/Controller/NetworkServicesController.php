@@ -19,11 +19,11 @@ class NetworkServicesController extends AppController
     }
         
     if ($this->NetworkService->delete()) {
-      $this->loadModel('NetworkSetting');
-      $network_setting = $this->NetworkSetting->findById(1);
-      $network_services = $this->NetworkService->find('all');
+      $network_setting = $this->get_network_settings();
+      $network_services = $this->get_network_services();
+      $location = $this->get_location();
 
-      $this->render_olsrd_config($network_setting, $network_services);
+      $this->render_olsrd_config($network_setting, $network_services, $location);
       $this->render_rclocal_config($network_setting, $network_services);
 
       $this->Session->setFlash('The service has been deleted, and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
@@ -38,11 +38,11 @@ class NetworkServicesController extends AppController
 	$this->NetworkService->create();
 	if ($this->NetworkService->save($this->request->data)) {
 	  // retrieve other network settings
-	  $this->loadModel('NetworkSetting');
-	  $network_setting = $this->NetworkSetting->findById(1);
-	  $network_services = $this->NetworkService->find('all');
+	  $network_setting = $this->get_network_settings();
+	  $network_services = $this->get_network_services();
+	  $location = $this->get_location();
 
-	  $this->render_olsrd_config($network_setting, $network_services);
+	  $this->render_olsrd_config($network_setting, $network_services, $location);
 	  $this->render_rclocal_config($network_setting, $network_services);
 
 	  $this->Session->setFlash('The service has been added, and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',

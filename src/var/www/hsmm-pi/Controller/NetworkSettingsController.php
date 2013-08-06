@@ -12,11 +12,11 @@ class NetworkSettingsController extends AppController {
         
     if ($this->request->isPost() || $this->request->isPut()) {
       if ($this->NetworkSetting->save($this->request->data)) {
-	$this->loadModel('NetworkService');
-	$network_services = $this->NetworkService->find('all');
-	$latest_network_setting = $this->NetworkSetting->findById($id);
+	$latest_network_setting = $this->get_network_settings();
+	$network_services = $this->get_network_services();
+	$location = $this->get_location();
 
-	$this->render_olsrd_config($latest_network_setting, $network_services);
+	$this->render_olsrd_config($latest_network_setting, $network_services, $location);
 	$this->render_rclocal_config($latest_network_setting, $network_services);
 	$this->render_network_interfaces_config($latest_network_setting);
 	$this->render_dnsmasq_config($latest_network_setting);

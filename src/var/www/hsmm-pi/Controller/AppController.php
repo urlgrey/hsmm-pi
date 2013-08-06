@@ -34,6 +34,8 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller
 {
+
+  protected $olsrd_fixed_location_file = '/var/run/latlong-input-olsrd';
     
   public $components = array('Session', 'Auth' => array('loginRedirect' => array('controller' => 'status', 'action' => 'index'), 'logoutRedirect' => array('controller' => 'status', 'action' => 'index')));
 
@@ -41,6 +43,21 @@ class AppController extends Controller
     $this->loadModel('NetworkSetting');
     $settings = $this->NetworkSetting->findById(1);
     $this->set('node_name', $settings['NetworkSetting']['node_name']);
+  }
+
+  protected function get_location() {
+    $this->loadModel('LocationSetting');
+    return $this->LocationSetting->findById(1);
+  }
+  
+  protected function get_network_settings() {
+    $this->loadModel('NetworkSetting');
+    return $this->NetworkSetting->findById(1);
+  }
+
+  protected function get_network_services() {
+    $this->loadModel('NetworkService');
+    $this->NetworkService->find('all');
   }
 
   protected function render_rclocal_config($network_setting, $network_services) {
@@ -90,7 +107,7 @@ iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --d
   }
 
 
-  protected function render_olsrd_config($network_setting, $network_services) {
+  protected function render_olsrd_config($network_setting, $network_services, $location) {
     $olsrd_conf = file_get_contents(WWW_ROOT . "/files/olsrd/olsrd.conf.template");
     $olsrd_secure_block = null;
 
@@ -166,8 +183,22 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
 	}
       }
     }
+
+    $transmit_location_option = null;
+    if ($location['LocationSetting']['transmit_location_enabled'] == TRUE) {
+      if (0 == strcmp($location['LocationSetting']['location_source'], 'fixed')) {
+	$transmit_location_option = "
+    PlParam \"lat\" \"".$location['LocationSetting']['lat']."\"
+    PlParam \"lon\" \"".$location['LocationSetting']['lon']."\"
+";
+      } else {
+	$transmit_location_option = "    PlParam \"latlon-infile\" \"".$this->olsrd_fixed_location_file."\"";
+      }
+    } else {
+      $transmit_location_option = "";
+    }
       
-    $olsrd_conf_output = str_replace(array('{wifi_ip_address}','{wifi_adapter_name}', '{node_name}', '{olsrd_dynamic_gateway_block}', '{olsrd_secure_block}','{olsrd_network_services}'), array($network_setting['NetworkSetting']['wifi_ip_address'],$network_setting['NetworkSetting']['wifi_adapter_name'], $network_setting['NetworkSetting']['node_name'], $olsrd_secure_block, $olsrd_dynamic_gateway,$olsrd_network_services), $olsrd_conf);
+    $olsrd_conf_output = str_replace(array('{latlon_infile}','{wifi_ip_address}','{wifi_adapter_name}', '{node_name}', '{olsrd_dynamic_gateway_block}', '{olsrd_secure_block}','{olsrd_network_services}'), array($transmit_location_option,$network_setting['NetworkSetting']['wifi_ip_address'],$network_setting['NetworkSetting']['wifi_adapter_name'], $network_setting['NetworkSetting']['node_name'], $olsrd_secure_block, $olsrd_dynamic_gateway,$olsrd_network_services), $olsrd_conf);
 
     file_put_contents('/etc/olsrd/olsrd.conf', $olsrd_conf_output);
 

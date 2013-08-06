@@ -110,6 +110,13 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     ));
     ?>
 </li>
+<li <?php if (strstr($this->here, '/hsmm-pi/location') != FALSE) { echo 'class="active"'; }  ?>>
+<?php echo $this->Html->link(__('Location'), array(
+	'controller' => 'location_settings',
+        'action' => 'edit/1',
+    ));
+    ?>
+</li>
 <li <?php if (strstr($this->here, '/hsmm-pi/user') != FALSE) { echo 'class="active"'; }  ?>>
 <?php
     echo $this->Html->link(__('Account'), array(

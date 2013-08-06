@@ -1,0 +1,11 @@
+#
+# WARNING WARNING WARNING WARNING
+# This file is managed by HSMM-Pi.
+# Manual changes to this file WILL BE OVERWRITTEN
+#
+
+START_DAEMON="{gpsd_enabled}"
+GPSD_OPTIONS=""
+DEVICES="/dev/{gps_device_name}"
+USBAUTO="true"
+GPSD_SOCKET="/var/run/gpsd.sock"

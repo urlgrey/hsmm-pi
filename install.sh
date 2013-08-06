@@ -28,7 +28,10 @@ sudo apt-get install -y \
     dnsmasq \
     chkconfig \
     bison \
-    flex
+    flex \
+    gpsd \
+    gpsd-clients \
+    libnet-gpsd3-perl
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
@@ -60,11 +63,11 @@ sudo chown -R pi.www-data tmp
 sudo chmod -R 775 tmp
 
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/default/gpsd; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done
-    
+
 sudo chgrp www-data /etc/dnsmasq.d
 sudo chmod 775 /etc/dnsmasq.d
 
@@ -76,6 +79,12 @@ if [ ! -e /usr/local/bin/callsign_announcement.sh ]; then
     sudo cp ${PROJECT_HOME}/src/var/www/hsmm-pi/webroot/files/callsign_announcement.sh.template /usr/local/bin/callsign_announcement.sh
     sudo chgrp www-data /usr/local/bin/callsign_announcement.sh
     sudo chmod 775 /usr/local/bin/callsign_announcement.sh
+fi
+
+if [ ! -e /usr/local/bin/read_gps_coordinates.pl ]; then
+    sudo cp ${PROJECT_HOME}/src/usr/local/bin/read_gps_coordinates.pl /usr/local/bin/read_gps_coordinates.pl
+    sudo chgrp www-data /usr/local/bin/read_gps_coordinates.pl
+    sudo chmod 775 /usr/local/bin/read_gps_coordinates.pl
 fi
 
 sudo mkdir -p /var/data/hsmm-pi
@@ -128,6 +137,7 @@ sudo ln -s /usr/local/sbin/olsrd /usr/sbin/
 # enable services
 sudo chkconfig olsrd on
 sudo chkconfig dnsmasq on
+sudo chkconfig gpsd on
 
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
