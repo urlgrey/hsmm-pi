@@ -57,7 +57,7 @@ class AppController extends Controller
 
   protected function get_network_services() {
     $this->loadModel('NetworkService');
-    $this->NetworkService->find('all');
+    return $this->NetworkService->find('all');
   }
 
   protected function render_rclocal_config($network_setting, $network_services) {

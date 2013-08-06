@@ -42,7 +42,7 @@
 	  <td><?php echo $service['NetworkService']['port']; ?></td>
 	  <td><?php echo $service['NetworkService']['protocol']; ?></td>
 	  <td><?php echo $service['NetworkService']['forwarding_port']; ?></td>
-	  <td><a href="<?php echo $service['NetworkService']['service_protocol_name']."://".$node_name.".local.mesh:".$service['NetworkService']['forwarding_port']; ?>"><?php echo $service['NetworkService']['service_protocol_name']."://".$node_name.".local.mesh:".$service['NetworkService']['port']; ?></a></td>
+	  <td><a href="<?php echo $service['NetworkService']['service_protocol_name']."://".$node_name.".local.mesh:".$service['NetworkService']['forwarding_port']; ?>"><?php echo $service['NetworkService']['service_protocol_name']."://".$node_name.".local.mesh:".$service['NetworkService']['forwarding_port']; ?></a></td>
 	  <td>
 	        <?php
 	  	 echo $this->Html->link('', array(
