@@ -7,5 +7,5 @@
 START_DAEMON="{gpsd_enabled}"
 GPSD_OPTIONS=""
 DEVICES="/dev/{gps_device_name}"
-USBAUTO="true"
+USBAUTO="false"
 GPSD_SOCKET="/var/run/gpsd.sock"
