@@ -7,7 +7,7 @@ my $host=shift || undef;
 my $port=shift || undef;
 
 my $lock_file = '/var/run/read_gps_coordinates.lock';
-touch $lock_file; 
+`touch $lock_file`; 
 my $gpsd=Net::GPSD3->new(host=>$host, port=>$port); #default host port as undef
 
 
