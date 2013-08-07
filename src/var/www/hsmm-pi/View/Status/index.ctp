@@ -23,9 +23,11 @@
 	<tr>
           <td><?php echo gethostbyaddr($node['remoteIP']); ?>
 	   <?php  
-	   $location = $mesh_node_locations[$node['remoteIP']];
-	   if ($location != NULL) {
-	     echo "&nbsp;<a href=\"#mapModal\" role=\"button\" class=\"btn\" data-toggle=\"modal\"><i class=\"icon-map-marker\"></a>";
+	   if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
+	     $location = $mesh_node_locations[$node['remoteIP']];
+	     if ($location != NULL) {
+	       echo "&nbsp;<a href=\"#mapModal\" role=\"button\" class=\"btn\" data-toggle=\"modal\"><i class=\"icon-map-marker\"></a>";
+	     }
 	   }
 	   ?>
 	  </td>
