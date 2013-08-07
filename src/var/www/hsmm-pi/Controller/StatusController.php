@@ -62,7 +62,9 @@ class StatusController extends AppController
 	      // found a line with coordinates, handle it, and remove apostrophes
 	      $trimmed_node_str = str_replace('\'', '', substr($buffer, 5, -3));
 	      $location_parts = explode(',', $trimmed_node_str);
-	      if (sizeof($location_parts) > 0 && ($location_parts[1] != 0.0) && ($location_parts[2] != 0.0)) {
+	      if (sizeof($location_parts) > 0 &&
+		  !((floatval($location_parts[1]) == 0.0) && (floatval($location_parts[2] == 0.0)))
+		  ) {
 		// set the lat/long in the returned array using the host IP for the array index
 		$locations[$location_parts[0]] = array('lat'=>$location_parts[1], 'lon'=>$location_parts[2]);
 	      }	      
