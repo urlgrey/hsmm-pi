@@ -21,7 +21,14 @@
 	   foreach ($mesh_links['links'] as $node) {
 	   ?> 
 	<tr>
-          <td><?php echo gethostbyaddr($node['remoteIP']); ?></td>
+          <td><?php echo gethostbyaddr($node['remoteIP']); ?>
+	   <?php  
+	   $location = $mesh_node_locations[$node['remoteIP']];
+	   if ($location != NULL) {
+	     echo "&nbsp;<a href=\"#mapModal\" role=\"button\" class=\"btn\" data-toggle=\"modal\"><i class=\"icon-map-marker\"></a>";
+	   }
+	   ?>
+	  </td>
 	  <td><?php echo $node['remoteIP']; ?></td>
 	  <td>
 	    <div class="progress"><div class="bar" style="width: <?php echo round($node['linkQuality'] * 100).'%'; ?>;"><?php echo round($node['linkQuality'] * 100).'%'; ?></div>
@@ -70,5 +77,19 @@
       <?php } ?>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="mapModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Node Location Map</h3>
+  </div>
+  <div class="modal-body">
+    <p>Work in progress</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
