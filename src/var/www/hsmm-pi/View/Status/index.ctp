@@ -1,19 +1,19 @@
 <!-- File: /app/View/Status/index.ctp -->
 
 <script>
-  $( document ).on("click", ".open-mapModal", function () {
-         // Retrieve the latitude and longitude values- normalize the longitude value
-         var latVal = $(this).data('lat');
-         var longVal = Microsoft.Maps.Location.normalizeLongitude($(this).data('lon'));
-
-         var center_loc = new Microsoft.Maps.Location(latVal, longVal);
-         var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false}); 
-         
-         // Set the map center
-         var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "REPLACE WITH REAL CREDENTIALS"});
-         map.setView({center:center_loc, zoom:15});
-         map.entities.push(pin);
-});
+    $( document ).on("click", ".open-mapModal", function () {
+        // Retrieve the latitude and longitude values- normalize the longitude value
+        var latVal = $(this).data('lat');
+        var longVal = Microsoft.Maps.Location.normalizeLongitude($(this).data('lon'));
+	
+        var center_loc = new Microsoft.Maps.Location(latVal, longVal);
+        var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false}); 
+        
+        // Set the map center
+        var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "REPLACE WITH REAL CREDENTIALS"});
+        map.setView({center:center_loc, zoom:15});
+        map.entities.push(pin);
+    });
 </script>
 
 <div class="page-header">
@@ -111,6 +111,4 @@
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
-
-</script>
 </div>
