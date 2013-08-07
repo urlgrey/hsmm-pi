@@ -59,8 +59,8 @@ class StatusController extends AppController
 	while (($buffer = fgets($handle, 1024)) !== false) {
 	  if ($buffer != null) {
 	    if ((false != strstr($buffer, 'Self(')) || (false != strstr($buffer, 'Node('))) {
-	      // found a line with coordinates, handle it
-	      $trimmed_node_str = substr($buffer, 5, -3);
+	      // found a line with coordinates, handle it, and remove apostrophes
+	      $trimmed_node_str = str_replace('\'', '', substr($buffer, 5, -3));
 	      $location_parts = explode(',', $trimmed_node_str);
 	      if (sizeof($location_parts) > 0) {
 		// set the lat/long in the returned array using the host IP for the array index
