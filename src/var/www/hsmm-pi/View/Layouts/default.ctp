@@ -28,6 +28,8 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
 		<?php echo $title_for_layout; ?>
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php echo $this->Html->script('jquery-2.0.3.min'); ?>
+
 	<?php
  		//echo $this->Html->meta('icon');
 
@@ -47,6 +49,8 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+  <!-- Bing Map APIs to display node maps -->
+  <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 </head>
 <body>
 
@@ -170,7 +174,6 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     </div>
 
     <?php echo $this->element('sql_dump'); ?>
-    <?php echo $this->Html->script('jquery-2.0.3.min'); ?>
     <?php echo $this->Html->script('bootstrap.min', array( 'media' => 'screen')); ?>
 
 </body>

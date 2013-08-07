@@ -1,4 +1,21 @@
 <!-- File: /app/View/Status/index.ctp -->
+
+<script>
+  $( document ).on("click", ".open-mapModal", function () {
+         // Retrieve the latitude and longitude values- normalize the longitude value
+         var latVal = $(this).data('lat');
+         var longVal = Microsoft.Maps.Location.normalizeLongitude($(this).data('lon'));
+
+         var center_loc = new Microsoft.Maps.Location(latVal, longVal);
+         var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false}); 
+         
+         // Set the map center
+         var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "REPLACE WITH REAL CREDENTIALS"});
+         map.setView({center:center_loc, zoom:15});
+         map.entities.push(pin);
+});
+</script>
+
 <div class="page-header">
   <p><h1>Status <small><?php echo $node_name; ?></small></h1></p>
 </div>
@@ -26,7 +43,7 @@
 	   if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
 	     $location = $mesh_node_locations[$node['remoteIP']];
 	     if ($location != NULL) {
-	       echo "&nbsp;<a href=\"#mapModal\" role=\"button\" class=\"icon-globe\" data-toggle=\"modal\"></a>";
+	       echo "&nbsp;<a href=\"#mapModal\" data-lat=\"".$location['lat']."\" data-lon=\"".$location['lon']."\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
 	     }
 	   }
 	   ?>
@@ -89,9 +106,11 @@
     <h3 id="myModalLabel">Node Location Map</h3>
   </div>
   <div class="modal-body">
-    <p>Work in progress</p>
+    <div id='mapDiv' style="position:relative; width:600px; height:600px;"></div>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
+
+</script>
 </div>
