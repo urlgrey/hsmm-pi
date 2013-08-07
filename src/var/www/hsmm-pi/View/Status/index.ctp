@@ -2,22 +2,36 @@
 
 <script>
     $( document ).on("click", ".open-mapModal", function () {
-        // Retrieve the latitude and longitude values- normalize the longitude value
-        var latVal = $(this).data('lat');
-        var longVal = Microsoft.Maps.Location.normalizeLongitude($(this).data('lon'));
-	
-        var center_loc = new Microsoft.Maps.Location(latVal, longVal);
-        var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false}); 
-        
-        // Set the map center
-        var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "REPLACE WITH REAL CREDENTIALS"});
-        map.setView({center:center_loc, zoom:15});
-        map.entities.push(pin);
+	// set lat-lon labels on the modal dialog
+	$("#longitude").text($(this).data('lon'));
+	$("#latitude").text($(this).data('lat'));
+
+
+	if ((typeof(Microsoft) !== 'undefined') && (typeof(Microsoft.Maps) !== 'undefined')) {
+            var latVal = $(this).data('lat');
+            var lonVal = Microsoft.Maps.Location.normalizeLongitude($(this).data('lon'));
+            var center_loc = new Microsoft.Maps.Location(latVal, lonVal);
+            var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false}); 
+            var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "REPLACE WITH REAL CREDENTIALS"});
+            map.setView({center:center_loc, zoom:15});
+            map.entities.push(pin);
+	}
+
     });
 </script>
 
 <div class="page-header">
-  <p><h1>Status <small><?php echo $node_name; ?></small></h1></p>
+  <p><h1>Status&nbsp;
+      <small><?php echo $node_name; ?>
+ <?php  
+      if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
+	$location = $mesh_node_locations[$node_wifi_ip_address];
+	if ($location != NULL) {
+	  echo "&nbsp;<a href=\"#mapModal\" data-lat=\"".$location['lat']."\" data-lon=\"".$location['lon']."\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
+	}
+      }
+?>
+</small></h1></p>
 </div>
 
 <div class="row">
@@ -106,7 +120,8 @@
     <h3 id="myModalLabel">Node Location Map</h3>
   </div>
   <div class="modal-body">
-    <div id='mapDiv' style="position:relative; width:600px; height:600px;"></div>
+    <div id='mapDiv' style="position:relative; width:500px; height:350px;"></div>
+    <h5>Latitude:&nbsp;<em id="latitude"></em>&nbsp;&nbsp;Longitude:&nbsp;<em id="longitude"></em>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

@@ -43,6 +43,7 @@ class AppController extends Controller
     $this->loadModel('NetworkSetting');
     $settings = $this->NetworkSetting->findById(1);
     $this->set('node_name', $settings['NetworkSetting']['node_name']);
+    $this->set('node_wifi_ip_address', $settings['NetworkSetting']['wifi_ip_address']);
   }
 
   protected function get_location() {
