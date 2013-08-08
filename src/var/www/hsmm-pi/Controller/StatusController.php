@@ -15,6 +15,9 @@ class StatusController extends AppController
     $this->set('mesh_services', $this->get_mesh_services());
     $this->set('mesh_node_locations', $this->get_mesh_node_locations());
     $this->load_node_attributes();
+
+    $location = $this->get_location();
+    $this->set('maps_api_key', $location['LocationSetting']['maps_api_key']);
   }
 
   private function get_mesh_links() {

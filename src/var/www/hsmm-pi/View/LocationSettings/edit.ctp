@@ -29,6 +29,10 @@ echo $this->Form->input('id', array(
 <p></p>
 
 <?php
+   echo $this->Form->input('maps_api_key', array('label' => __('Bing Maps API Key')));
+?>
+
+<?php
    echo $this->Form->input('location_source', 
 			array(
 			      'label' => __('Location Data Source'),

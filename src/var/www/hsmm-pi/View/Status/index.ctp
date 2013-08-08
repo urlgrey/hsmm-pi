@@ -12,7 +12,7 @@
             var lonVal = Microsoft.Maps.Location.normalizeLongitude($(this).data('lon'));
             var center_loc = new Microsoft.Maps.Location(latVal, lonVal);
             var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false}); 
-            var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "REPLACE WITH REAL CREDENTIALS"});
+            var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "<?php echo ((null != $maps_api_key) ? $maps_api_key : ''); ?>"});
             map.setView({center:center_loc, zoom:15});
             map.entities.push(pin);
 	}
