@@ -29,10 +29,11 @@ echo $this->Form->input('id', array(
 <p></p>
 
 <?php
-   echo $this->Form->input('maps_api_key', array('label' => __('Bing Maps API Key')));
+   echo $this->Form->input('maps_api_key', array('label' => __('Bing Maps API Key (optional)')));
 ?>
 
 <?php
+   echo $this->Form->input('transmit_location_enabled', array('label' => __('Transmit Location in Mesh'), 'type' => 'checkbox'));
    echo $this->Form->input('location_source', 
 			array(
 			      'label' => __('Location Data Source'),
@@ -40,7 +41,6 @@ echo $this->Form->input('id', array(
                               'onchange' => 'show_location_source(this)',
 			      )
 			);
-   echo $this->Form->input('transmit_location_enabled', array('label' => __('Transmit Location'), 'type' => 'checkbox'));
 ?>
   <span id="fixed" style="display: <?php echo (0 == strcmp($location_source, 'fixed')) ? 'block' : 'none'; ?>;">
     <?php
