@@ -103,12 +103,12 @@ sudo cp ${PROJECT_HOME}/src/etc/apache2/conf.d/hsmm-pi.conf /etc/apache2/conf.d/
 sudo service apache2 restart
 
 # Download and build olsrd
-OLSRD_VERSION="olsrd-0.6.5.4"
 cd /var/tmp
-wget http://www.olsr.org/releases/0.6/${OLSRD_VERSION}.tar.bz2
-tar -xjf ${OLSRD_VERSION}.tar.bz2
-rm ${OLSRD_VERSION}.tar.bz2
-cd ${OLSRD_VERSION}
+git clone git://olsr.org/olsrd.git
+cd olsrd
+
+# Checkout the latest 0.6.6 release, have seen intermittent problems with 0.6.5
+git checkout release-0.6.6
 
 # build the OLSRD core
 make
@@ -130,7 +130,7 @@ sudo mkdir -p /etc/default
 sudo cp ${PROJECT_HOME}/src/etc/default/olsrd /etc/default/olsrd
 
 cd /var/tmp
-rm -rf /var/tmp/${OLSRD_VERSION}
+rm -rf /var/tmp/olsrd
 
 sudo rm -f /etc/olsrd.conf
 sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
