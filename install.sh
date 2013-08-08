@@ -127,6 +127,7 @@ sudo cp ${PROJECT_HOME}/src/etc/default/olsrd /etc/default/olsrd
 cd /var/tmp
 rm -rf /var/tmp/${OLSRD_VERSION}
 sudo mkdir /etc/olsrd
+sudo cp debian/olsrd.conf /etc/olsrd/olsrd.conf
 sudo chgrp -R www-data /etc/olsrd
 sudo chmod g+w -R /etc/olsrd
 
