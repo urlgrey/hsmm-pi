@@ -118,6 +118,11 @@ sudo make install
 make libs
 sudo make libs_install
 
+sudo mkdir /etc/olsrd
+sudo cp debian/olsrd.conf /etc/olsrd/olsrd.conf
+sudo chgrp -R www-data /etc/olsrd
+sudo chmod g+w -R /etc/olsrd
+
 sudo cp debian/olsrd.init /etc/init.d/olsrd
 sudo chmod +x /etc/init.d/olsrd
 
@@ -126,10 +131,6 @@ sudo cp ${PROJECT_HOME}/src/etc/default/olsrd /etc/default/olsrd
 
 cd /var/tmp
 rm -rf /var/tmp/${OLSRD_VERSION}
-sudo mkdir /etc/olsrd
-sudo cp debian/olsrd.conf /etc/olsrd/olsrd.conf
-sudo chgrp -R www-data /etc/olsrd
-sudo chmod g+w -R /etc/olsrd
 
 sudo rm -f /etc/olsrd.conf
 sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
