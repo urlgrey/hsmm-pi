@@ -83,7 +83,8 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#"><?php echo __('HSMM-Pi'); ?></a>
+          <!-- <a class="brand" href="#"><?php echo __('HSMM-Pi'); ?></a> -->
+          <div class="brand"><?php echo __('HSMM-Pi'); ?></div>
           <div class="nav-collapse collapse">
             <ul class="nav pull-left">
               <li <?php if (strstr($this->here, '/hsmm-pi/status') != FALSE) { echo 'class="active"'; }  ?>>
