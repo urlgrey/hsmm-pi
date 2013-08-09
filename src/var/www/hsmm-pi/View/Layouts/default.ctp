@@ -156,7 +156,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
 <?php } ?>
             </ul>
        </li>
-g	    </ul>
+	    </ul>
 <?php 
    if ($this->Session->read('Auth.User')) {
 ?>
