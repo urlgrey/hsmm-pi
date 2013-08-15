@@ -26,7 +26,10 @@ class StatusController extends AppController
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
     $output = curl_exec($ch); 
     curl_close($ch);  
-    return json_decode("{".$output, true);
+
+    // must handle the OLSRD jsoninfo defect in a backward-compatible way
+    // http://olsr.org/bugs/view.php?id=39
+    return json_decode((startsWith($output,"{") ? $output : "{".$output), true);
   }
 
 
@@ -79,6 +82,11 @@ class StatusController extends AppController
     }
    
     return $locations;
+  }
+
+  function startsWith($haystack, $needle)
+  {
+    return !strncmp($haystack, $needle, strlen($needle));
   }
 }
 
