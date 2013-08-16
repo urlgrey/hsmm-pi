@@ -87,6 +87,7 @@ echo $this->Form->input('wan_protocol',
 			);
 echo $this->Form->input('wan_dns1', array('label' => __('DNS 1')));
 echo $this->Form->input('wan_dns2', array('label' => __('DNS 2')));
+echo $this->Form->input('wan_fixed_connection', array('label' => __('WAN port is always on (periodic testing of Internet connectivity is unnecessary)'), 'type' => 'checkbox'));
       ?>
       </span>
     </div>

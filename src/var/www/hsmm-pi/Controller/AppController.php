@@ -126,8 +126,11 @@ iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --d
     if ((0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'WAN')) && 
 	($network_setting['NetworkSetting']['wan_mesh_gateway'] == TRUE)) 
       {
-	$olsrd_dynamic_gateway = 
-	  "
+	$olsrd_network_services = "";
+
+	if ($network_setting['NetworkSetting']['wan_fixed_connection'] == FALSE) {
+	  $olsrd_gateway = 
+	    "
 LoadPlugin \"olsrd_dyn_gw.so.0.5\"
 {
     # The plugin check interval can be set here in milliseconds.
@@ -172,9 +175,16 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
     PlParam \"HNA\"    \"192.168.201.0 255.255.255.0\"
     PlParam \"HNA\"    \"192.168.202.0 255.255.255.0\"
 }";
-      $olsrd_network_services = "";
-    } else {
-      $olsrd_dynamic_gateway = "";
+	} else {
+	  $olsrd_gateway = 
+	    "
+LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
+{
+}
+";
+	}
+      } else {
+      $olsrd_gateway = "";
       $olsrd_network_services = "";
       if ($network_services != NULL && sizeof($network_services) > 0) {
 	foreach($network_services as $service) {
@@ -199,7 +209,7 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
       $transmit_location_option = "";
     }
       
-    $olsrd_conf_output = str_replace(array('{latlon_infile}','{wifi_ip_address}','{wifi_adapter_name}', '{node_name}', '{olsrd_dynamic_gateway_block}', '{olsrd_secure_block}','{olsrd_network_services}'), array($transmit_location_option,$network_setting['NetworkSetting']['wifi_ip_address'],$network_setting['NetworkSetting']['wifi_adapter_name'], $network_setting['NetworkSetting']['node_name'], $olsrd_secure_block, $olsrd_dynamic_gateway,$olsrd_network_services), $olsrd_conf);
+    $olsrd_conf_output = str_replace(array('{latlon_infile}','{wifi_ip_address}','{wifi_adapter_name}', '{node_name}', '{olsrd_dynamic_gateway_block}', '{olsrd_secure_block}','{olsrd_network_services}'), array($transmit_location_option,$network_setting['NetworkSetting']['wifi_ip_address'],$network_setting['NetworkSetting']['wifi_adapter_name'], $network_setting['NetworkSetting']['node_name'], $olsrd_secure_block, $olsrd_gateway,$olsrd_network_services), $olsrd_conf);
 
     file_put_contents('/etc/olsrd/olsrd.conf', $olsrd_conf_output);
 
