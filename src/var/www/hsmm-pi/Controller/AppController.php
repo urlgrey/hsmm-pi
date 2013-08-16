@@ -149,31 +149,13 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
     # 2nd won't be pinged.
     #
     # The Ping list applies to the group of HNAs specified above or to the
-# default internet gateway when no HNA is specified.
-#
-# Running the plugin without parameters acts as the 'old' dyn_gw_plain.
+    # default internet gateway when no HNA is specified.
+    #
+    # Running the plugin without parameters acts as the 'old' dyn_gw_plain.
 
     #   The following ping entries for the internet gateway
-    PlParam \"Ping\"   \"141.1.1.1\"
-    PlParam \"Ping\"   \"194.25.2.129\"
-
-    #   First group of HNAs with related ping host
-    PlParam\"HNA\"   \"192.168.80.0 255.255.255.0\"
-    PlParam\"HNA\"   \"192.168.81.0 255.255.255.0\"
-    PlParam\"Ping\" \"192.168.81.12\"
-
-    #   Second HNA group with multiple related ping hosts.
-    #   Specifying multiple ping hosts provides redundancy.
-    PlParam \"HNA\"    \"192.168.100.0 255.255.255.0\"
-    PlParam \"HNA\"    \"192.168.101.0 255.255.255.0\"
-    PlParam \"HNA\"    \"192.168.102.0 255.255.255.0\"
-    PlParam \"Ping\"   \"192.168.100.10\"
-    PlParam \"Ping\"   \"192.168.101.10\"
-
-    #   Third HNA group without ping check
-    PlParam \"HNA\"    \"192.168.200.0 255.255.255.0\"
-    PlParam \"HNA\"    \"192.168.201.0 255.255.255.0\"
-    PlParam \"HNA\"    \"192.168.202.0 255.255.255.0\"
+    PlParam \"Ping\"   \"".$network_setting['NetworkSetting']['wan_dns1']."\"
+    PlParam \"Ping\"   \"".$network_setting['NetworkSetting']['wan_dns2']."\"
 }";
 	} else {
 	  $olsrd_gateway = 
