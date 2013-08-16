@@ -29,7 +29,7 @@ class StatusController extends AppController
 
     // must handle the OLSRD jsoninfo defect in a backward-compatible way
     // http://olsr.org/bugs/view.php?id=39
-    return json_decode((startsWith($output,"{") ? $output : "{".$output), true);
+    return json_decode(($this->startsWith($output,"{") ? $output : "{".$output), true);
   }
 
 
