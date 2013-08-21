@@ -21,6 +21,7 @@ sub tpv {
 
     # have observed cases where the tpv structure is missing these fields, bail
     if ((0 == length($tpv->lat // '')) || (0 == length($tpv->lon // ''))) {
+	unlink '/var/run/read_gps_coordinates.lock' or warn "Could not unlink $lock_file: $!";
         exit -1;
     }
 

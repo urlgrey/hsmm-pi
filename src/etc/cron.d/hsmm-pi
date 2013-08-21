@@ -3,4 +3,5 @@
 * *  * * *     root   bash -c "[ -e /var/data/hsmm-pi/reboot ] && rm -f /var/data/hsmm-pi/reboot && /sbin/init 6" 2>/dev/null
 * *  * * *     root   bash -c "[ -e /var/data/hsmm-pi/shutdown ] && rm -f /var/data/hsmm-pi/shutdown && /sbin/init 0" 2>/dev/null
 * *  * * *     root   bash -c "[ -e /var/run/gpsd.sock ] && [ ! -e /var/run/read_gps_coordinates.lock ] && /usr/local/bin/read_gps_coordinates.pl" 2>/dev/null
+* *  * * *     root   bash -c "[ -e /var/run/read_gps_coordinates.lock ] && find /var/run/read_gps_coordinates.lock -mmin +5 -exec rm -f {} \;" 2>/dev/null
 0,10,20,30,40,50 * * * *    root   /usr/local/bin/callsign_announcement.sh 2>/dev/null
