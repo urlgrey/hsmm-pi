@@ -31,7 +31,8 @@ sudo apt-get install -y \
     flex \
     gpsd \
     gpsd-clients \
-    libnet-gpsd3-perl
+    libnet-gpsd3-perl \
+    ntp
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
