@@ -31,7 +31,8 @@ sudo apt-get install -y \
     flex \
     gpsd \
     gpsd-clients \
-    libnet-gpsd3-perl
+    libnet-gpsd3-perl \
+    ntp
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
@@ -63,7 +64,7 @@ sudo chown -R pi.www-data tmp
 sudo chmod -R 775 tmp
 
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/default/gpsd; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done
