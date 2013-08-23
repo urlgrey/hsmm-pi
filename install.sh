@@ -97,6 +97,9 @@ if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
     sudo chmod 664 /var/data/hsmm-pi/hsmm-pi.sqlite
 fi
 
+# enable port 8080 on the Apache server
+sudo bash -c "echo 'Listen 8080' >> /etc/apache2/ports.conf"
+
 # enable apache mod-rewrite
 cd /etc/apache2/mods-enabled
 sudo ln -s ../mods-available/rewrite.load
