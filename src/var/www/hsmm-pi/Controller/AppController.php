@@ -61,6 +61,26 @@ class AppController extends Controller
     return $this->NetworkService->find('all');
   }
 
+  protected function render_ntp_config($network_setting, $location) {
+    if (0 == strcasecmp($location['LocationSetting']['location_source'], 'gps')) {
+      $gpsd_time_server_info = "
+server 127.127.28.0
+fudge 127.127.28.0 time1 0.420 refid GPS
+
+server 127.127.28.1 prefer
+fudge 127.127.28.1 refid GPS1";
+    } else {
+      $gpsd_time_server_info = "";
+    }
+
+    $ntp_config = file_get_contents(WWW_ROOT . "/files/ntp.conf.template");
+    $ntp_config_output = str_replace(array('{gpsd_time_server_info}', '{ntp_server}'), 
+				     array($gpsd_time_server_info, $network_setting['NetworkSetting']['ntp_server']),
+				     $ntp_config);
+    
+    file_put_contents('/etc/ntp.conf', $ntp_config_output);
+  }
+
   protected function render_rclocal_config($network_setting, $network_services) {
     $rclocal_conf = file_get_contents(WWW_ROOT . "/files/rc.local.template");
 

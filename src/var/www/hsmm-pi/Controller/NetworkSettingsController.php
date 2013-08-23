@@ -25,6 +25,8 @@ class NetworkSettingsController extends AppController {
 	$this->render_resolv_config($latest_network_setting);
 	$this->render_hosts_config($latest_network_setting);
 	$this->render_callsign_announcement_config($latest_network_setting);
+	$this->render_ntp_config($latest_network_setting, $location);
+
 	$this->Session->setFlash('Your settings have been saved and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
 				 'default', array('class' => 'alert alert-success'));
       } else {

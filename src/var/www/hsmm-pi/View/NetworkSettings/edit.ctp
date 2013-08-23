@@ -33,6 +33,7 @@ echo $this->Form->input('id', array(
     <li class="active""><a href="#wifi" data-toggle="tab"><?php echo __('WiFi'); ?></a></li>
     <li><a href="#wired" data-toggle="tab"><?php echo __('Wired'); ?></a></li>
     <li><a href="#mesh" data-toggle="tab"><?php echo __('Mesh'); ?></a></li>
+    <li><a href="#time" data-toggle="tab"><?php echo __('Time'); ?></a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="wifi">
@@ -97,8 +98,15 @@ echo $this->Form->input('callsign', array('label' => __('Amateur Radio Callsign'
 echo $this->Form->input('node_name', array('label' => __('Node Name')));
 echo $this->Form->input('mesh_olsrd_secure', array('label' => __('OLSRD Secure'), 'type' => 'checkbox'));
 echo $this->Form->input('mesh_olsrd_secure_key', array('label' => __('OLSRD Secure Key')));
-echo $this->Form->end();
       ?>
     </div>
+    <div class="tab-pane" id="time">
+      <?php
+echo $this->Form->input('ntp_server', array('label' => __('Network Time Server')));
+      ?>
+    </div>
+    <?php
+echo $this->Form->end();
+    ?>
   </div>
 </div>

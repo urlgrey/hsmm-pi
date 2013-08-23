@@ -15,11 +15,13 @@ class LocationSettingsController extends AppController {
       if ($this->LocationSetting->save($this->request->data)) {
 
 	$latest_location = $this->get_location();
+	$network_setting = $this->get_network_settings();
+
 	$this->render_olsrd_config($this->get_network_settings(), 
 				   $this->get_network_services(), 
 				   $latest_location);
 	$this->render_gpsd_config($latest_location);
-	$this->render_ntp_config($latest_location);
+	$this->render_ntp_config($network_setting, $latest_location);
 	$this->set('location_source', $latest_location['LocationSetting']['location_source']);
 	$this->Session->setFlash('Your settings have been saved and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
 				 'default', array('class' => 'alert alert-success'));
@@ -31,26 +33,6 @@ class LocationSettingsController extends AppController {
     if (!$this->request->data) {
       $this->request->data = $location;
     }
-  }
-
-  private function render_ntp_config($location) {
-    if (0 == strcasecmp($location['LocationSetting']['location_source'], 'gps')) {
-      $gpsd_time_server_info = "
-server 127.127.28.0
-fudge 127.127.28.0 time1 0.420 refid GPS
-
-server 127.127.28.1 prefer
-fudge 127.127.28.1 refid GPS1";
-    } else {
-      $gpsd_time_server_info = "";
-    }
-
-    $ntp_config = file_get_contents(WWW_ROOT . "/files/ntp.conf.template");
-    $ntp_config_output = str_replace(array('{gpsd_time_server_info}'), 
-				      array($gpsd_time_server_info),
-				      $ntp_config);
-    
-    file_put_contents('/etc/ntp.conf', $ntp_config_output);
   }
 
   private function render_gpsd_config($location) {
