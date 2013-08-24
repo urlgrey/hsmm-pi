@@ -123,36 +123,56 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
      <ul class="dropdown-menu">
       <li <?php if (strstr($this->here, '/hsmm-pi/network_settings') != FALSE) { echo 'class="active"'; }  ?>>
-      <?php echo $this->Html->link(__('Network'), array(
-	'controller' => 'network_settings',
-        'action' => 'edit/1',
-    ));
+      <?php echo $this->Html->link(__("<i class=\"icon-signal\"></i>&nbsp;".'Network'),
+     array(
+	   'controller' => 'network_settings',
+	   'action' => 'edit/1',
+	   ),
+       array(
+	     'escape' => false
+	     )
+       );
     ?>
 </li>
 <li <?php if (strstr($this->here, '/hsmm-pi/network_services') != FALSE) { echo 'class="active"'; }  ?>>
-<?php echo $this->Html->link(__('Services'), array(
-	'controller' => 'network_services',
-        'action' => 'index',
-    ));
+<?php echo $this->Html->link("<i class=\"icon-bullhorn\"></i>&nbsp;".__('Services'),
+     array(
+	   'controller' => 'network_services',
+	   'action' => 'index',
+	   ),
+       array(
+	     'escape' => false
+	     )
+       );
     ?>
 </li>
 <li <?php if (strstr($this->here, '/hsmm-pi/location') != FALSE) { echo 'class="active"'; }  ?>>
-<?php echo $this->Html->link(__('Location'), array(
-	'controller' => 'location_settings',
-        'action' => 'edit/1',
-    ));
-    ?>
+     <?php echo $this->Html->link("<i class=\"icon-globe\"></i>&nbsp;".__('Location'),
+     array(
+	   'controller' => 'location_settings',
+	   'action' => 'edit/1'
+	   ),
+       array(
+	     'escape' => false
+	     )
+       );
+     ?>
 </li>
 <li <?php if (strstr($this->here, '/hsmm-pi/user') != FALSE) { echo 'class="active"'; }  ?>>
 <?php
-    echo $this->Html->link(__('Account'), array(
-	'controller' => 'users',
-        'action' => 'edit'
-    ));
+     echo $this->Html->link("<i class=\"icon-user\"></i>&nbsp;".__('Account'),
+			    array(
+				  'controller' => 'users',
+				  'action' => 'edit'
+				  ),
+			    array(
+				  'escape' => false
+				  )
+			    );
 ?></li>
     <li class="divider"></li>
-    <li><a href="#rebootModal" data-toggle="modal"><? echo __('Reboot'); ?></a></li>
-    <li><a href="#shutdownModal" data-toggle="modal"><? echo __('Shutdown'); ?></a></li>
+    <li><a href="#rebootModal" data-toggle="modal"><? echo __('<i class="icon-refresh"></i>&nbspReboot'); ?></a></li>
+    <li><a href="#shutdownModal" data-toggle="modal"><? echo __('<i class="icon-off"></i>&nbspShutdown'); ?></a></li>
 <?php } ?>
             </ul>
        </li>
