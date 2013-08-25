@@ -26,7 +26,8 @@ sudo apt-get install -y \
     php5-sqlite  \
     php5-curl \
     dnsmasq \
-    chkconfig \
+    sysv-rc-conf \
+    make \
     bison \
     flex \
     gpsd \
@@ -60,7 +61,7 @@ mkdir -p tmp/cache/models
 mkdir -p tmp/cache/persistent
 mkdir -p tmp/logs
 mkdir -p tmp/persistent
-sudo chown -R pi.www-data tmp
+sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
 
 # Set permissions on system files to give www-data group write priv's
@@ -98,11 +99,13 @@ if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
 fi
 
 # enable port 8080 on the Apache server
-sudo bash -c "echo 'Listen 8080' >> /etc/apache2/ports.conf"
+if ! grep -Fxq "Listen 8080" /etc/apache2/ports.conf; then
+    sudo bash -c "echo 'Listen 8080' >> /etc/apache2/ports.conf"
+fi
 
 # enable apache mod-rewrite
 cd /etc/apache2/mods-enabled
-sudo ln -s ../mods-available/rewrite.load
+sudo ln -fs ../mods-available/rewrite.load
 sudo cp ${PROJECT_HOME}/src/etc/apache2/conf.d/hsmm-pi.conf /etc/apache2/conf.d/hsmm-pi.conf
 sudo service apache2 restart
 
@@ -114,15 +117,22 @@ cd olsrd
 # Checkout the latest 0.6.6 release, have seen intermittent problems with 0.6.5
 git checkout release-0.6.6
 
+# patch the Makefile configuration to produce position-independent code (PIC)
+# applies only to ARM architecture (i.e. Beaglebone/Beagleboard)
+if uname -m | grep -q arm -; then
+  printf "LDFLAGS +=\t-fPIC\n" >> Makefile.inc
+fi
+
 # build the OLSRD core
 make
 sudo make install
 
 # build the OLSRD plugins (libs)
+make libs_clean
 make libs
 sudo make libs_install
 
-sudo mkdir /etc/olsrd
+sudo mkdir -p /etc/olsrd
 sudo cp debian/olsrd.conf /etc/olsrd/olsrd.conf
 sudo chgrp -R www-data /etc/olsrd
 sudo chmod g+w -R /etc/olsrd
@@ -137,13 +147,13 @@ cd /var/tmp
 rm -rf /var/tmp/olsrd
 
 sudo rm -f /etc/olsrd.conf
-sudo ln -s /etc/olsrd/olsrd.conf /etc/olsrd.conf
-sudo ln -s /usr/local/sbin/olsrd /usr/sbin/
+sudo ln -fs /etc/olsrd/olsrd.conf /etc/olsrd.conf
+sudo ln -fs /usr/local/sbin/olsrd /usr/sbin/
 
 # enable services
-sudo chkconfig olsrd on
-sudo chkconfig dnsmasq on
-sudo chkconfig gpsd on
+sudo sysv-rc-conf olsrd on
+sudo sysv-rc-conf dnsmasq on
+sudo sysv-rc-conf gpsd on
 
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
