@@ -52,8 +52,8 @@
 	   foreach ($mesh_links['links'] as $node) {
 	   ?> 
 	<tr>
-          <td><?php echo gethostbyaddr($node['remoteIP']); ?>
-	   <?php  
+          <td><a href="http://<?php gethostbyaddr($node['remoteIP']); ?>:8080/"><?php echo gethostbyaddr($node['remoteIP']); ?></a>
+	   <?php
 	   if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
 	     $location = $mesh_node_locations[$node['remoteIP']];
 	     if ($location != NULL) {
