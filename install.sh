@@ -151,9 +151,9 @@ sudo ln -fs /etc/olsrd/olsrd.conf /etc/olsrd.conf
 sudo ln -fs /usr/local/sbin/olsrd /usr/sbin/
 
 # enable services
-sudo sysv-rc-conf --level 35 olsrd on
-sudo sysv-rc-conf --level 35 dnsmasq on
-sudo sysv-rc-conf --level 35 gpsd on
+sudo sysv-rc-conf --level 2345 olsrd on
+sudo sysv-rc-conf --level 2345 dnsmasq on
+sudo sysv-rc-conf --level 2345 gpsd on
 
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
