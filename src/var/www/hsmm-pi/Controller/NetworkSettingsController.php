@@ -9,7 +9,7 @@ class NetworkSettingsController extends AppController {
     if (!$network_setting) {
       throw new NotFoundException(__('Invalid setting'));
     }
-        
+
     if ($this->request->isPost() || $this->request->isPut()) {
       if ($this->NetworkSetting->save($this->request->data)) {
 	$latest_network_setting = $this->get_network_settings();
@@ -31,6 +31,20 @@ class NetworkSettingsController extends AppController {
 				 'default', array('class' => 'alert alert-success'));
       } else {
 	$this->Session->setFlash('Unable to update your settings, please review any validation errors.', 'default', array('class' => 'alert alert-error'));
+      }
+    } else {
+      // perform some checks in the case of an HTTP GET
+      if ($network_setting['NetworkSetting']['wifi_ip_address'] == NULL) {
+	// if no WIFI IP is set, then use one derived from the adapter MAC address
+	$mac_file = '/sys/class/net/'.$network_setting['NetworkSetting']['wifi_adapter_name'].'/address';
+	if (file_exists($mac_file)) {
+	  $mac_address = explode(':', file_get_contents($mac_file));
+	  $network_setting['NetworkSetting']['wifi_ip_address'] = 
+	    '10.'.
+	    hexdec($mac_address[3]).'.'.
+	    hexdec($mac_address[4]).'.'.
+	    hexdec($mac_address[5]);
+	}
       }
     }
 
