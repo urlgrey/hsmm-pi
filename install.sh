@@ -155,5 +155,8 @@ sudo sysv-rc-conf --level 2345 olsrd on
 sudo sysv-rc-conf --level 2345 dnsmasq on
 sudo sysv-rc-conf --level 2345 gpsd on
 
+# fix the priority for the olsrd service during bootup
+sudo update-rc.d olsrd defaults 02
+
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
