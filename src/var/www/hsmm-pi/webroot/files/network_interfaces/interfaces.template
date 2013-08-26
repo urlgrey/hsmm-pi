@@ -5,8 +5,9 @@
 #
 
 auto lo
-
 iface lo inet loopback
+
+auto {wired_adapter_name}
 iface {wired_adapter_name} inet {wired_mode}
 
 allow-hotplug {wifi_adapter_name}
@@ -18,5 +19,5 @@ iface {wifi_adapter_name} inet {wifi_protocol}
     wireless-channel {wifi_channel}
     wireless-essid {wifi_ssid}
 
-#wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 iface default inet dhcp
+
