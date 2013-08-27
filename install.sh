@@ -65,7 +65,7 @@ sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
 
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done
@@ -73,8 +73,16 @@ done
 sudo chgrp www-data /etc/dnsmasq.d
 sudo chmod 775 /etc/dnsmasq.d
 
-sudo chgrp www-data /etc/dhcp/dhclient.conf
-sudo chmod g+w /etc/dhcp/dhclient.conf
+# On Ubuntu 13.04 systems this file is a symbolic link to a file in the /run/
+# directory structure.  Remove the symbolic link and replace with a file that
+# can be managed by HSMM-Pi.
+if [ -L /etc/resolv.conf ]; then
+    rm -f /etc/resolv.conf
+    touch /etc/resolv.conf
+fi
+
+sudo chgrp www-data /etc/resolv.conf
+sudo chmod g+w /etc/resolv.conf
 
 # Copy scripts into place
 if [ ! -e /usr/local/bin/callsign_announcement.sh ]; then
