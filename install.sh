@@ -128,7 +128,7 @@ git checkout release-0.6.6
 # patch the Makefile configuration to produce position-independent code (PIC)
 # applies only to ARM architecture (i.e. Beaglebone/Beagleboard)
 if uname -m | grep -q arm -; then
-  printf "LDFLAGS +=\t-fPIC\n" >> Makefile.inc
+  printf "CFLAGS +=\t-fPIC\n" >> Makefile.inc
 fi
 
 # build the OLSRD core
@@ -136,7 +136,6 @@ make
 sudo make install
 
 # build the OLSRD plugins (libs)
-make libs_clean
 make libs
 sudo make libs_install
 
@@ -168,3 +167,7 @@ sudo update-rc.d olsrd defaults 02
 
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
+
+# print success message if we make it this far
+printf "\n\n---- SUCCESS ----\n\nLogin to the web console to configure the node\n"
+
