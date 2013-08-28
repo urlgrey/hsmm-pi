@@ -188,14 +188,16 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
       } else {
       $olsrd_gateway = "";
       $olsrd_network_services = "";
-      if ($network_services != NULL && sizeof($network_services) > 0) {
-	foreach($network_services as $service) {
-	  $olsrd_network_services .= "
+    }
+
+    if ($network_services != NULL && sizeof($network_services) > 0) {
+      foreach($network_services as $service) {
+	$olsrd_network_services .= "
     PlParam \"service\" \"".$service['NetworkService']['service_protocol_name']."://".$network_setting['NetworkSetting']['node_name'].".local.mesh:".$service['NetworkService']['forwarding_port']."|".$service['NetworkService']['protocol']."|".$service['NetworkService']['name']."\"
 ";
-	}
       }
     }
+    
 
     $transmit_location_option = null;
     if ($location['LocationSetting']['transmit_location_enabled'] == TRUE) {
