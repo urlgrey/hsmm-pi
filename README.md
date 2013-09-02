@@ -77,7 +77,9 @@ sudo raspi-config
 
 ```
 git clone https://github.com/urlgrey/hsmm-pi.git
-sh hsmm-pi/install.sh
+cd hsmm-pi
+git checkout tags/v0.2.0
+sh install.sh
 ```
 
 12.  Login to the web application on the Pi:
