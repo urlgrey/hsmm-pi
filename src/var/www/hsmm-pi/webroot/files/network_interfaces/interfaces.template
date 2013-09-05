@@ -7,10 +7,8 @@
 auto lo
 iface lo inet loopback
 
-auto {wired_adapter_name}
 iface {wired_adapter_name} inet {wired_mode}
 
-allow-hotplug {wifi_adapter_name}
 auto {wifi_adapter_name}
 iface {wifi_adapter_name} inet {wifi_protocol}
     address {wifi_ip_address}
