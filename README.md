@@ -13,7 +13,7 @@ http://www.youtube.com/watch?v=ltUAw02vfqk
 
 The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.  
 
-The HSMM-Pi project is designed to run on Ubuntu 12.04 and 13.04 systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
+The HSMM-Pi project is designed to run on Ubuntu 12.04 systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
 
  * Greater transparency:  You can see exactly which changes are made to the base system by looking at the install shell script.
  * Easier to port to more platforms: Any platform that runs the supported Ubuntu releases ought to be capable of running HSMM-Pi
@@ -22,7 +22,7 @@ The HSMM-Pi project is designed to run on Ubuntu 12.04 and 13.04 systems.  Rathe
 
 Hardware Requirements
 =====================
-HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, and with the Beaglebone Black running Ubuntu 13.04 from the onboard eMMC flash memory.  The requirements for each are listed below.
+HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, and with the Beaglebone Black running Ubuntu 12.04 from the onboard eMMC flash memory.  The requirements for each are listed below.
 
 Raspberry-Pi Node:
 
@@ -89,18 +89,17 @@ http://(wired Ethernet IP of the node):8080/
 Beaglebone Black Installation
 =============================
 
-1.  Download the latest Beaglebone Black Ubuntu 13.04 eMMC flasher image.
-1.  Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
-1.  Insert the SD card into a Beaglebone Black board
-1.  Disconnect the Ethernet cable from the Beaglebone Black
-1.  Hold the surface-mounted Boot button on the board
-1.  Apply power to the Beaglebone Black
-1.  Wait for all 4 LEDs to go solid, then release the Boot button
-1.  The 4 LEDs will begin to flash as the image is written to the eMMC flash memory
-1.  Wait for all 4 LEDs to go solid (could take several minutes)
-1.  Disconnect power from the Beaglebone Black
-1. Connect the Ethernet cable to the Beaglebone Black
+1.  Download the latest Beaglebone Black Ubuntu 12.04 image: http://www.armhf.com/index.php/boards/beaglebone-black/#precise
+1.  Write the image to an SD memory card using the steps on the page referenced in the previous step
+1. Insert the SD card into a Beaglebone Black board
+1. Apply power to the Beaglebone Black
+1. Login to the Beaglebone Black through an SSH session or the console using the 'ubuntu' account
+1. Transfer the image to the running Beaglebone Black using SCP
+1. Write the image to the eMMC flash memory using the steps mentioned in the first step here.
+1. Wait for all 4 LEDs to go solid (could take several minutes)
+1. Shutdown the Beaglbone Black (sudo /sbin/init 0)
 1. Remove the memory card from the Beaglebone Black
+1. Apply power to the Beaglebone Black
 1. Login to the Beaglebone Black through an SSH session or the console using the 'ubuntu' account
 1.  Change the password for the 'ubuntu' account
 1. If installing over an SSH connection, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
@@ -114,6 +113,24 @@ http://(wired Ethernet IP of the node):8080/
 1.  Change the password for HSMM-Pi
 1.  Configure as either an Internal or Gateway node
 
+
+
+Upgrade Steps
+=============
+This is experimental, and you should fall back to a fresh installation if things aren't functioning as you'd expect.  This is supported only on the HEAD of the master branch at this time.
+
+1. Login to the host using SSH or the console
+1. Run the following commands to upgrade:
+
+        cd ~/hsmm-pi
+        git pull
+        sh install.sh
+1. Access the web UI and check the configuration.  Save the Network and Location settings, even if no changes are needed.
+1. If the save operation fails, then you might need to replace the SQLite database file due to database schema changes.  Runn the following command:
+
+        cd ~/hsmm-pi/
+        sudo cp src/var/data/hsmm-pi/hsmm-pi.sqlite /var/data/hsmm-pi/
+1. Repeat the step of reviewing and saving the configuration through the web UI.
 
 Internal Mesh Node Configuration
 ================================
