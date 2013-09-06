@@ -89,8 +89,8 @@ http://(wired Ethernet IP of the node):8080/
 Beaglebone Black Installation
 =============================
 
-1.  Download the latest Beaglebone Black Ubuntu 12.04 image: http://www.armhf.com/index.php/boards/beaglebone-black/#precise
-1.  Write the image to an SD memory card using the steps on the page referenced in the previous step
+1. Download the latest Beaglebone Black Ubuntu 12.04 image: http://www.armhf.com/index.php/boards/beaglebone-black/#precise
+1. Write the image to an SD memory card using the steps on the page referenced in the previous step
 1. Insert the SD card into a Beaglebone Black board
 1. Apply power to the Beaglebone Black
 1. Login to the Beaglebone Black through an SSH session or the console using the 'ubuntu' account
@@ -101,17 +101,21 @@ Beaglebone Black Installation
 1. Remove the memory card from the Beaglebone Black
 1. Apply power to the Beaglebone Black
 1. Login to the Beaglebone Black through an SSH session or the console using the 'ubuntu' account
-1.  Change the password for the 'ubuntu' account
+1. Change the password for the 'ubuntu' account
+1. Install the development tools necessary to build OLSRD and retrieve the HSMM-Pi project:
+
+        sudo apt-get upgrade
+        sudo apt-get install make gcc git
 1. If installing over an SSH connection, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
-1.  Run the following commands to download the HSMM-Pi project and install
+1. Run the following commands to download the HSMM-Pi project and install
 
         git clone https://github.com/urlgrey/hsmm-pi.git
         sh hsmm-pi/install.sh
-1.  Login to the web application:
+1. Login to the web application:
 http://(wired Ethernet IP of the node):8080/
-1.  Access the Admin account using the 'admin' username and 'changeme' password.
-1.  Change the password for HSMM-Pi
-1.  Configure as either an Internal or Gateway node
+1. Access the Admin account using the 'admin' username and 'changeme' password.
+1. Change the password for HSMM-Pi
+1. Configure as either an Internal or Gateway node
 
 
 
