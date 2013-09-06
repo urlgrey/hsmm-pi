@@ -21,25 +21,33 @@ class StatusController extends AppController
   }
 
   private function get_mesh_links() {
-    $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-    if ($socket === false) {
+    $socket = null;
+    try {
+      $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+      if ($socket === false) {
+	socket_clear_error($socket);
+	return null;
+      }
+      
+      $result = socket_connect($socket, "127.0.0.1", 9090);
+      if ($result === false) {
+	socket_clear_error($socket);
+	return null;
+      }
+      
+      $input = "GET /links HTTP/1.1\r\n";
+      $output = '';
+      
+      socket_write($socket, $input, strlen($input));
+      while ($buffer = socket_read($socket, 2048)) {
+	$output .= $buffer;
+      }
+      socket_close($socket);
+      return json_decode($output, true);
+    } catch (Exception $e) {
+      socket_clear_error($socket);
       return null;
     }
-
-    $result = socket_connect($socket, "127.0.0.1", 9090);
-    if ($result === false) {
-      return null;
-    }
-
-    $input = "GET /links HTTP/1.1\r\n";
-    $output = '';
-
-    socket_write($socket, $input, strlen($input));
-    while ($buffer = socket_read($socket, 2048)) {
-      $output .= $buffer;
-    }
-    socket_close($socket);
-    return json_decode($output, true);
   }
 
 
