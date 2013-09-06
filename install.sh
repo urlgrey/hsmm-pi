@@ -24,7 +24,6 @@ sudo apt-get install -y \
     sqlite \
     php-pear \
     php5-sqlite  \
-    php5-curl \
     dnsmasq \
     sysv-rc-conf \
     make \

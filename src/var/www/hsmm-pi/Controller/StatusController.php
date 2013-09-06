@@ -21,15 +21,25 @@ class StatusController extends AppController
   }
 
   private function get_mesh_links() {
-    $ch = curl_init(); 
-    curl_setopt($ch, CURLOPT_URL, "http://localhost:9090/links"); 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-    $output = curl_exec($ch); 
-    curl_close($ch);  
+    $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+    if ($socket === false) {
+      return null;
+    }
 
-    // must handle the OLSRD jsoninfo defect in a backward-compatible way
-    // http://olsr.org/bugs/view.php?id=39
-    return json_decode(($this->startsWith($output,"{") ? $output : "{".$output), true);
+    $result = socket_connect($socket, "127.0.0.1", 9090);
+    if ($result === false) {
+      return null;
+    }
+
+    $input = "GET /links HTTP/1.1\r\n";
+    $output = '';
+
+    socket_write($socket, $input, strlen($input));
+    while ($buffer = socket_read($socket, 2048)) {
+      $output .= $buffer;
+    }
+    socket_close($socket);
+    return json_decode($output, true);
   }
 
 
