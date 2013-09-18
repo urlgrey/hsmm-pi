@@ -171,6 +171,19 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
 			    );
 ?></li>
     <li class="divider"></li>
+<li <?php if (strstr($this->here, '/hsmm-pi/wifi_scan') != FALSE) { echo 'class="active"'; }  ?>>
+<?php
+     echo $this->Html->link("<i class=\"icon-search\"></i>&nbsp;".__('WiFi Scan'),
+			    array(
+				  'controller' => 'wifi_scan',
+				  'action' => 'index'
+				  ),
+			    array(
+				  'escape' => false
+				  )
+			    );
+?></li>
+    <li class="divider"></li>
     <li><a href="#rebootModal" data-toggle="modal"><? echo __('<i class="icon-refresh"></i>&nbspReboot'); ?></a></li>
     <li><a href="#shutdownModal" data-toggle="modal"><? echo __('<i class="icon-off"></i>&nbspShutdown'); ?></a></li>
 <?php } ?>

@@ -40,6 +40,7 @@
         Router::connect('/network_settings', array('controller' => 'network_settings', 'action' => 'edit'));
         Router::connect('/user', array('controller' => 'users', 'action' => 'edit'));
         Router::connect('/system', array('controller' => 'system', 'action' => 'reboot'));
+        Router::connect('/wifi_scan', array('controller' => 'wifi_scan', 'action' => 'index'));
         Router::connect('/network_services', array('controller' => 'network_services', 'action' => 'index'));
         /* Router::connect('/backup', array('controller' => 'backup', 'action' => 'index')); */
 
