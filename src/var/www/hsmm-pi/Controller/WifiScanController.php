@@ -19,7 +19,7 @@ class WifiScanController extends AppController
     $settings = $this->NetworkSetting->findById(1);
 
     $output = array();
-    exec('iwlist '.$settings['NetworkSetting']['wifi_adapter_name'].' scan', $output);
+    exec('/sbin/iwlist '.$settings['NetworkSetting']['wifi_adapter_name'].' scan', $output);
     foreach($output AS $line) {
       if (preg_match('/ESSID:"(\S+)"/', $line, $matches))
 	$essid = $matches[1];
