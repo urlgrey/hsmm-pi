@@ -106,8 +106,15 @@ if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
 fi
 
 # enable port 8080 on the Apache server
-if ! grep -Fxq "Listen 8080" /etc/apache2/ports.conf; then
+OUTPUT=`grep "Listen 8080" /etc/apache2/ports.conf`
+if [ -z "$OUTPUT" ]; then
     sudo bash -c "echo 'Listen 8080' >> /etc/apache2/ports.conf"
+fi
+
+# allow the www-data user to run the WiFi scanning program, iwlist
+OUTPUT=`sudo grep "www-data" /etc/sudoers`
+if [ -z "$OUTPUT" ]; then
+    sudo bash -c "echo 'www-data ALL=(ALL) NOPASSWD: /sbin/iwlist' >> /etc/sudoers"
 fi
 
 # enable apache mod-rewrite
