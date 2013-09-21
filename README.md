@@ -77,7 +77,7 @@ Raspberry Pi Installation
 
         git clone https://github.com/urlgrey/hsmm-pi.git
         cd hsmm-pi
-        git checkout tags/v0.2.0
+        git checkout tags/v0.3.0
         sh install.sh
 1.  Login to the web application on the Pi:
 http://(wired Ethernet IP of the node):8080/
@@ -110,7 +110,9 @@ Beaglebone Black Installation
 1. Run the following commands to download the HSMM-Pi project and install
 
         git clone https://github.com/urlgrey/hsmm-pi.git
-        sh hsmm-pi/install.sh
+        cd hsmm-pi
+        git checkout tags/v0.3.0
+        sh install.sh
 1. Login to the web application:
 http://(wired Ethernet IP of the node):8080/
 1. Access the Admin account using the 'admin' username and 'changeme' password.
