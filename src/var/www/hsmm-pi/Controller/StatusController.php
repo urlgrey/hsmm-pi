@@ -11,16 +11,22 @@ class StatusController extends AppController
 
   public function index()
   {
-    $this->set('mesh_links', $this->get_mesh_links());
+    $this->set('mesh_links', $this->get_mesh_info('links'));
     $this->set('mesh_services', $this->get_mesh_services());
     $this->set('mesh_node_locations', $this->get_mesh_node_locations());
     $this->load_node_attributes();
+
+    $neighbors = array();
+    foreach ($this->get_mesh_info('neighbors')['neighbors'] as $node) {
+      $neighbors[] = $node['ipv4Address'];
+    }
+    $this->set('mesh_neighbors', $neighbors);
 
     $location = $this->get_location();
     $this->set('maps_api_key', $location['LocationSetting']['maps_api_key']);
   }
 
-  private function get_mesh_links() {
+  private function get_mesh_info($info_type) {
     $socket = null;
     try {
       $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -35,7 +41,7 @@ class StatusController extends AppController
 	return null;
       }
       
-      $input = "GET /links HTTP/1.1\r\n";
+      $input = "GET /$info_type HTTP/1.1\r\n";
       $output = '';
       
       socket_write($socket, $input, strlen($input));

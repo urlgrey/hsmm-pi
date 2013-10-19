@@ -37,7 +37,7 @@
 <div class="row">
   <div class="span8">
     <div class="well">
-      <p><h3>Neighboring Mesh Nodes</h3></p>
+      <p><h3>Mesh Links</h3></p>
       
       <?php
 	 if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
@@ -62,6 +62,9 @@
 	     }
 	   }
 	   ?>
+	   <?php if (array_key_exists($node['remoteIP'], $mesh_neighbors)) { ?>
+	   &nbsp;<i class="icon-star"></i>
+	   <?php } ?>
 	  </td>
 	  <td><?php echo $node['remoteIP']; ?></td>
 	  <td>
@@ -76,7 +79,7 @@
 	 } else {
 	 ?>
       <div class="alert alert-error">
-	<strong>Warning!</strong>.  There are no mesh nodes currently in range.  It's a bit quiet around here.
+	<strong>Warning!</strong>.  There are no mesh links in range.  It's a bit quiet around here.
       </div>
       <?php } ?>
     </div>
