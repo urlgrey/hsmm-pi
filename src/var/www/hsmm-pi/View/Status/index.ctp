@@ -62,7 +62,7 @@
 	     }
 	   }
 	   ?>
-	   <?php if (array_key_exists($node['remoteIP'], $mesh_neighbors)) { ?>
+	   <?php if (in_array($node['remoteIP'], $mesh_neighbors)) { ?>
 	   &nbsp;<i class="icon-star"></i>
 	   <?php } ?>
 	  </td>
