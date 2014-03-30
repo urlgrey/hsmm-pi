@@ -27,10 +27,10 @@ class WifiScanController extends AppController
       if (preg_match('/Address: (\S+)/', $line, $matches))
 	$address = $matches[1];
       
-      if (preg_match('/Channel:(\S+)/', $line, $matches))
+      if (preg_match('/Channel (\d+)/', $line, $matches))
 	$channel = $matches[1];
       
-      if (preg_match('/Quality=(\d+)\/(\d+)/', $line, $matches))
+      if (preg_match('/Quality=(\d+)\/(\d+)/', $line, $matches) || preg_match('/Signal level=(\d+)\/(\d+)/', $line, $matches))
 	$signal_quality = $matches[1] / $matches[2];
       
       if ($address && $essid && $channel && $signal_quality) {
