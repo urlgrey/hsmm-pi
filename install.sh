@@ -7,7 +7,7 @@
 #   Raspbian Wheezy 2013-07-26 with the dependencies and HSMM-Pi components.
 #
 
-PROJECT_HOME=${HOME}/bbhn-pi-VPN
+PROJECT_HOME=${HOME}/bbhn-pi-vpn
 
 cd ${HOME}
 
