@@ -7,15 +7,16 @@
 #   Raspbian Wheezy 2013-07-26 with the dependencies and HSMM-Pi components.
 #
 
-PROJECT_HOME=${HOME}/bbhn-pi-vpn
+PROJECT_HOME=${HOME}/bbhn-pi-VPN
 
 cd ${HOME}
 
 # Update list of packages
 sudo apt-get update
 
-# Update existing packages
-#bwatt removed because this does not seem to work with the latest pi software
+
+# w1baw commented out upgrade because hsmm-pi will not work as of right now with raspbian 2014-04-xx
+# Upgrade existing packages
 #sudo apt-get upgrade -y
 
 # Install Web Server deps
@@ -33,15 +34,18 @@ sudo apt-get install -y \
     gpsd \
     gpsd-clients \
     libnet-gpsd3-perl \
-    ntp
-
+    ntp \
+    vtun
+    #ddclient
+	
+	
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
 sudo pear install cakephp/CakePHP
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then
-    git clone https://github.com/bwattendorf/hsmm-pi.git
+    git clone https://github.com/bwattendorf/bbhn-pi-vpn.git
 else
     cd ${PROJECT_HOME}
     git pull
@@ -64,8 +68,11 @@ mkdir -p tmp/persistent
 sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
 
+
+
+# NOTE:add change chown on /etc/vtund.conf and file
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/vtund.conf /etc/default/vtun /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done
@@ -175,6 +182,7 @@ sudo update-rc.d olsrd defaults 02
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
 
+ 
 # print success message if we make it this far
 printf "\n\n---- SUCCESS ----\n\nLogin to the web console to configure the node\n"
 
