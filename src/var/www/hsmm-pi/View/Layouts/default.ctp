@@ -206,7 +206,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     <?php echo $this->Session->flash(); ?>
     <?php echo $this->fetch('content'); ?>
     <p>
-      <h4>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version'); ?></h4>
+      <h4>BBHN-Pi-VPN Version:&nbsp;<?php echo Configure::read('App.version'); ?></h4>
     </p>
   </div>
 

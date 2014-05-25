@@ -1,11 +1,11 @@
-HSMM-Pi
+BBHN-Pi-VPN
 =======
 
-HSMM-Pi is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) wireless node.  HSMM offers radio amateurs (HAMs) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher power with larger antennas than are available to unlicensed users.  The HSMM-Pi project makes it possible to run an HSMM mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the Beaglebone Black.
+BBHN-Pi-VPN is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) wireless node.  HSMM offers radio amateurs (HAMs) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher power with larger antennas than are available to unlicensed users.  The BBHN-Pi-VPN project makes it possible to run an HSMM mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the Beaglebone Black.
 
-The HSMM-Pi project can used by people not possessing an amateur radio license so long as they are in compliance with the transmission rules set by the FCC or the local regulating body.  This typically means sticking with the WiFi antenna provided with your WiFi adapter.
+The BBHN-Pi-VPN project can used by people not possessing an amateur radio license so long as they are in compliance with the transmission rules set by the FCC or the local regulating body.  This typically means sticking with the WiFi antenna provided with your WiFi adapter.
 
-HSMM-Pi Blog:
+BBHN-Pi-VPN Blog:
 http://hsmmpi.wordpress.com/
 
 For a video tour, see the following YouTube video:
@@ -13,16 +13,16 @@ http://www.youtube.com/watch?v=ltUAw02vfqk
 
 The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.  
 
-The HSMM-Pi project is designed to run on Ubuntu 12.04 systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
+The BBHN-Pi-VPN project is designed to run on Ubuntu 12.04 systems.  Rather than providing an OS image for BBHN-Pi-VPN, I've instead created an installation script that will transform a newly-imaged host into an BBHN-Pi-VPN node.  This has several benefits:
 
  * Greater transparency:  You can see exactly which changes are made to the base system by looking at the install shell script.
- * Easier to port to more platforms: Any platform that runs the supported Ubuntu releases ought to be capable of running HSMM-Pi
+ * Easier to port to more platforms: Any platform that runs the supported Ubuntu releases ought to be capable of running BBHN-Pi-VPN
  * Easier to host:  I only need to post the installation script and webapp files on Github and it's done.
  * Easier to seek support: Ubuntu is widely used and supported, no need to introduce another customization.
 
 Hardware Requirements
 =====================
-HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, and with the Beaglebone Black running Ubuntu 12.04 from the onboard eMMC flash memory.  The requirements for each are listed below.
+BBHN-Pi-VPN has been tested to work with the Raspberry Pi running the Raspbian OS, and with the Beaglebone Black running Ubuntu 12.04 from the onboard eMMC flash memory.  The requirements for each are listed below.
 
 Raspberry-Pi Node:
 
@@ -38,7 +38,7 @@ Beaglebone Black Node:
 
 Modes
 =====
-The HSMM-Pi can function as an internal mesh node or as a gateway mesh node.  A description of each is provided below.
+The BBHN-Pi-VPN can function as an internal mesh node or as a gateway mesh node.  A description of each is provided below.
 
 Mesh Gateway Node
 =================
@@ -56,7 +56,7 @@ This node is capable of routing traffic throughout the mesh and providing mesh a
 
 There could be any number of mesh nodes in the Ad-Hoc WiFi Network.  The route among the nodes is managed entirely with OLSR.
 
-I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370 wireless chipset.  These adapters are cheap (~$7 USD), compact, and easy to come by.  They also use drivers that are bundled with most Ubuntu distributions, making setup easy.  The N150 adapter tested included a threaded antenna connector that should make it easy to add a linear amplifier and aftermarket antenna (outside the scope of the HSMM-Pi project).
+I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370 wireless chipset.  These adapters are cheap (~$7 USD), compact, and easy to come by.  They also use drivers that are bundled with most Ubuntu distributions, making setup easy.  The N150 adapter tested included a threaded antenna connector that should make it easy to add a linear amplifier and aftermarket antenna (outside the scope of the BBHN-Pi-VPN project).
 
 Raspberry Pi Installation
 =========================
@@ -73,7 +73,7 @@ Raspberry Pi Installation
 1.  Expand the filesystem to fill the SD memory card
 1.  Change the password for the 'pi' account
 1. If installing over an SSH connection to the Pi, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity with the Pi.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
-1.  Run the following commands to download the HSMM-Pi project and install
+1.  Run the following commands to download the BBHN-Pi-VPN project and install
 
         git clone https://github.com/bwattendorf/bbhn-pi-vpn.git
         cd bbhn-pi-vpn
@@ -82,7 +82,7 @@ Raspberry Pi Installation
 1.  Login to the web application on the Pi:
 http://(wired Ethernet IP of the node):8080/
 1.  Access the Admin account using the 'admin' username and 'changeme' password.
-1.  Change the password for HSMM-Pi
+1.  Change the password for BBHN-Pi-VPN
 1.  Configure as either an Internal or Gateway node
 
 
@@ -102,21 +102,21 @@ Beaglebone Black Installation
 1. Apply power to the Beaglebone Black
 1. Login to the Beaglebone Black through an SSH session or the console using the 'ubuntu' account
 1. Change the password for the 'ubuntu' account
-1. Install the development tools necessary to build OLSRD and retrieve the HSMM-Pi project:
+1. Install the development tools necessary to build OLSRD and retrieve the BBHN-Pi-VPN project:
 
         sudo apt-get upgrade
         sudo apt-get install make gcc git
 1. If installing over an SSH connection, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
-1. Run the following commands to download the HSMM-Pi project and install
+1. Run the following commands to download the BBHN-Pi-VPN project and install
 
-        git clone https://github.com/bwattendorf/hsmm-pi.git
-        cd hsmm-pi
+        git clone https://github.com/bwattendorf/bbhn-pi-vpn.git
+        cd bbhn-pi-vpn
         git checkout tags/v0.3.0
         sh install.sh
 1. Login to the web application:
 http://(wired Ethernet IP of the node):8080/
 1. Access the Admin account using the 'admin' username and 'changeme' password.
-1. Change the password for HSMM-Pi
+1. Change the password for BBHN-Pi-VPN
 1. Configure as either an Internal or Gateway node
 
 
@@ -128,14 +128,14 @@ This is experimental, and you should fall back to a fresh installation if things
 1. Login to the host using SSH or the console
 1. Run the following commands to upgrade:
 
-        cd ~/hsmm-pi
+        cd ~/bbhn-pi-vpn
         git pull
         sh install.sh
 1. Access the web UI and check the configuration.  Save the Network and Location settings, even if no changes are needed.
 1. If the save operation fails, then you might need to replace the SQLite database file due to database schema changes.  Runn the following command:
 
-        cd ~/hsmm-pi/
-        sudo cp src/var/data/hsmm-pi/hsmm-pi.sqlite /var/data/hsmm-pi/
+        cd ~/bbhn-pi-vpn/
+        sudo cp src/var/data/bbhn-pi-vpn/hsmm-pi.sqlite /var/data/hsmm-pi/
 1. Repeat the step of reviewing and saving the configuration through the web UI.
 
 Internal Mesh Node Configuration
