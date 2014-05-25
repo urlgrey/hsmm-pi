@@ -15,7 +15,8 @@ cd ${HOME}
 sudo apt-get update
 
 # Update existing packages
-sudo apt-get upgrade -y
+#bwatt removed because this does not seem to work with the latest pi software
+#sudo apt-get upgrade -y
 
 # Install Web Server deps
 sudo apt-get install -y \
@@ -40,7 +41,7 @@ sudo pear install cakephp/CakePHP
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then
-    git clone https://github.com/urlgrey/hsmm-pi.git
+    git clone https://github.com/bwattendorf/hsmm-pi.git
 else
     cd ${PROJECT_HOME}
     git pull
