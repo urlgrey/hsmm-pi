@@ -38,11 +38,11 @@ MainIp {wifi_ip_address}
 # this is (in most cases) the only configuration you need to change
 
 InterfaceDefaults {
-    # Ip4Broadcast      255.255.255.255
+     Ip4Broadcast      255.255.255.255
 }
 
 #Interface "eth1" "eth0" "wlan0" "wlan1" "ath0" "ath1"
-Interface "{wifi_adapter_name}"
+Interface "{wifi_adapter_name}" "tun0" "tun1" "tun2" "tun3" "tun4" "tun5" "tun6" "tun7" "tun8" "tun9" "tun10"
 {
 
     # Interface Mode is used to prevent unnecessary
@@ -57,7 +57,7 @@ Interface "{wifi_adapter_name}"
     # If not defined the broadcastaddress
     # every card is configured with is used
 
-    Ip4Broadcast    0.0.0.0
+    Ip4Broadcast    255.255.255.255
 
     # IPv6 address scope to use.
     # Must be 'site-local' or 'global'
