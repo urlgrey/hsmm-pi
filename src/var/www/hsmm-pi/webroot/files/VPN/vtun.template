@@ -1,0 +1,18 @@
+# Defaults for vtun initscript
+# sourced by /etc/init.d/vtun
+# Created by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+# Should the standalone server be started?
+# RUN_SERVER=yes
+# SERVER_ARGS="-P {server_port}"
+
+# Client sessions to start. Up to ten instances can be configured.
+#
+# Session name
+CLIENT0_NAME={callsign}
+#
+# Destination host
+CLIENT0_HOST={server_dns}
