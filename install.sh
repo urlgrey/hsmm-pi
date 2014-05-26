@@ -6,7 +6,9 @@
 # Purpose: This script will configure a newly-imaged Raspberry Pi running 
 #   Raspbian Wheezy 2013-07-26 with the dependencies and HSMM-Pi components.
 #
-
+# VPN set up origionaly done by ZL1FLY Robert Moody
+# Bruce Wattendorf W1BAW Added VPN install and UI and renamed BBHN-Pi-VPN
+# 
 PROJECT_HOME=${HOME}/bbhn-pi-vpn
 
 cd ${HOME}

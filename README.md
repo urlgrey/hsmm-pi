@@ -1,9 +1,14 @@
 BBHN-Pi-VPN
 =======
 
-BBHN-Pi-VPN is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) wireless node.  HSMM offers radio amateurs (HAMs) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher power with larger antennas than are available to unlicensed users.  The BBHN-Pi-VPN project makes it possible to run an HSMM mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the Beaglebone Black.
+BBHN-Pi-VPN is the name change of HSMM (High Speed Multi Media) to BBHN (Broad Band Ham net) also the VPN was added to allow setting up virtual private networks linking BBHM networks using Wired internet connections. This allows network to be joined where they would not be able to be connected using wireless easily.
+
+HSMM-Pi is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) wireless node.  HSMM offers radio amateurs (HAMs) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher power with larger antennas than are available to unlicensed users.  The BBHN-Pi-VPN project makes it possible to run an HSMM mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the Beaglebone Black.
 
 The BBHN-Pi-VPN project can used by people not possessing an amateur radio license so long as they are in compliance with the transmission rules set by the FCC or the local regulating body.  This typically means sticking with the WiFi antenna provided with your WiFi adapter.
+
+BBHN-Pi-VPN is origionaly from hsmm-Pi by urlgrey the VPN backend was origional by Robery Moony Zl1FLY
+the VPN UI addon was done by Bruce Wattendorf W1BAW
 
 BBHN-Pi-VPN Blog:
 http://hsmmpi.wordpress.com/
