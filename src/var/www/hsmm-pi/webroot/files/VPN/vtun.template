@@ -6,8 +6,8 @@
 # This is a POSIX shell fragment
 #
 # Should the standalone server be started?
-# RUN_SERVER=yes
-# SERVER_ARGS="-P {server_port}"
+RUN_SERVER=yes
+SERVER_ARGS="-P {server_port}"
 
 # Client sessions to start. Up to ten instances can be configured.
 #
