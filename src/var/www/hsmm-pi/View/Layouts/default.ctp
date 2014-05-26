@@ -17,7 +17,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = __d('cake_dev', __('HSMM-Pi'));
+$cakeDescription = __d('cake_dev', __('BBHN-Pi-VPN'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
