@@ -33,7 +33,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_one_ip} pointopoint {client_one_server_ip}";
+     ifconfig "%% {client_one_server_ip} pointopoint {client_one_ip}";
      ifconfig "%% multicast";
 	 };
 }	 
@@ -44,7 +44,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_two_ip} pointopoint {client_two_server_ip}";
+     ifconfig "%% {client_two_server_ip} pointopoint {client_two_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -55,7 +55,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_three_ip} pointopoint {client_three_server_ip}";
+     ifconfig "%% {client_three_server_ip} pointopoint {client_three_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -66,7 +66,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_four_ip} pointopoint {client_four_server_ip}";
+     ifconfig "%% {client_four_server_ip} pointopoint {client_four_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -78,7 +78,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_five_ip} pointopoint {client_five_server_ip}";
+     ifconfig "%% {client_five_server_ip} pointopoint {client_five_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -90,7 +90,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_six_ip} pointopoint {client_six_server_ip}";
+     ifconfig "%% {client_six_server_ip} pointopoint {client_six_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -102,7 +102,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_seven_ip} pointopoint {client_seven_server_ip}";
+     ifconfig "%% {client_seven_serrver_ip} pointopoint {client_seven_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -114,7 +114,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_eight_ip} pointopoint {client_eight_server_ip}";
+     ifconfig "%% {client_eight_server_ip} pointopoint {client_eight_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -125,7 +125,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_nine_ip} pointopoint {client_nine_server_ip}";
+     ifconfig "%% {client_nine_server_ip} pointopoint {client_nine_ip}";
      ifconfig "%% multicast";
    };
 }
@@ -137,7 +137,7 @@ default {
    type tun;
    proto tcp;
    up {
-     ifconfig "%% {client_ten_ip} pointopoint {client_ten_server_ip}";
+     ifconfig "%% {client_ten_server_ip} pointopoint {client_ten_ip}";
      ifconfig "%% multicast";
    };
 }
