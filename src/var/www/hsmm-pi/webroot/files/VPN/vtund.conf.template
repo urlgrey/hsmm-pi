@@ -1,7 +1,10 @@
 
 options {
+  type stand;
   port {server_port};
   ifconfig /sbin/ifconfig;
+  route   /sbin/route;
+  firewall   /sbin/ipchains;
   syslog daemon;
   timeout 60;
 }
@@ -9,111 +12,134 @@ options {
 default {
   compress yes;
   speed 0;
+  stat yes;
 }
 
 {callsign} {
    passwd {server_password};
    device tun0;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_ip} pointopoint {server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 {client_one_callsign} {
    passwd {client_one_password};
    device tun1;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_one_ip} pointopoint {client_one_server_ip}";
      ifconfig "%% multicast";
-	 }
+	 };
 }	 
 {client_two_callsign} {
    passwd {client_two_password};
    device tun2;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_two_ip} pointopoint {client_two_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 {client_three_callsign} {
    passwd {client_three_password};
    device tun3;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_three_ip} pointopoint {client_three_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 {client_four_callsign} {
    passwd {client_four_password};
    device tun4;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_four_ip} pointopoint {client_four_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 
 {client_five_callsign} {
    passwd {client_five_password};
    device tun5;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_five_ip} pointopoint {client_five_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 
 {client_six_callsign} {
    passwd {client_six_password};
    device tun6;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_six_ip} pointopoint {client_six_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 
 {client_seven_callsign} {
    passwd {client_seven_password};
    device tun7;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_seven_ip} pointopoint {client_seven_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 
 {client_eight_callsign} {
    passwd {client_eight_password};
    device tun8;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_eight_ip} pointopoint {client_eight_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 {client_nine_callsign} {
    passwd {client_nine_password};
    device tun9;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_nine_ip} pointopoint {client_nine_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 
 {client_ten_callsign} {
    passwd {client_ten_password};
    device tun10;
    persist yes;
+   type tun;
+   proto tcp;
    up {
      ifconfig "%% {client_ten_ip} pointopoint {client_ten_server_ip}";
      ifconfig "%% multicast";
-   }
+   };
 }
 
 
