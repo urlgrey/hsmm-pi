@@ -10,8 +10,8 @@ The BBHN-Pi-VPN project can used by people not possessing an amateur radio licen
 BBHN-Pi-VPN is origionaly from hsmm-Pi by urlgrey the VPN backend was origional by Robery Moony Zl1FLY
 the VPN UI addon was done by Bruce Wattendorf W1BAW
 
-BBHN-Pi-VPN Blog:
-http://hsmmpi.wordpress.com/
+BBHN-Pi-VPN Blog: care of Rhode Island BBHN group
+bbhn-ri.com
 
 For a video tour, see the following YouTube video:
 http://www.youtube.com/watch?v=ltUAw02vfqk
@@ -82,7 +82,7 @@ Raspberry Pi Installation
 
         git clone https://github.com/bwattendorf/bbhn-pi-vpn.git
         cd bbhn-pi-vpn
-        git checkout tags/v0.3.0
+        git checkout tags/v0.3.0-1
         sh install.sh
 1.  Login to the web application on the Pi:
 http://(wired Ethernet IP of the node):8080/
@@ -116,7 +116,7 @@ Beaglebone Black Installation
 
         git clone https://github.com/bwattendorf/bbhn-pi-vpn.git
         cd bbhn-pi-vpn
-        git checkout tags/v0.3.0
+        git checkout tags/v0.3.0-1
         sh install.sh
 1. Login to the web application:
 http://(wired Ethernet IP of the node):8080/
