@@ -107,6 +107,7 @@ class NetworkSettingsController extends AppController {
 	"static
     address ".$network_setting['NetworkSetting']['wan_static_ip']."
     netmask ".$network_setting['NetworkSetting']['wan_subnet_mask']."
+	gateway ".$network_setting['NetworkSetting']['wan_gateway']."
 ";
 
 

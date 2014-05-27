@@ -116,6 +116,7 @@ echo $this->Form->input('wan_fixed_connection', array('label' => __('WAN port is
 			<?php
 echo $this->Form->input('wan_static_ip', array('label' => __('Wan IP')));
 echo $this->Form->input('wan_subnet_mask', array('label' => __('Wan Subnet Mask')));
+echo $this->Form->input('wan_gateway', array('label' => __('Wan IP Gateway')));
 echo $this->Form->input('wan_dns1', array('label' => __('Wan DNS 1')));
 echo $this->Form->input('wan_dns2', array('label' => __('Wan DNS 2')));
 
