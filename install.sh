@@ -17,9 +17,9 @@ cd ${HOME}
 sudo apt-get update
 
 
-# w1baw commented out upgrade because hsmm-pi will not work as of right now with raspbian 2014-04-xx
-# Upgrade existing packages
-#sudo apt-get upgrade -y
+
+# Upgrade OS
+sudo apt-get upgrade -y
 
 # Install Web Server deps
 sudo apt-get install -y \
