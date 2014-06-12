@@ -32,6 +32,7 @@ while [ $i -lt 5 ]; do
     echo "Restarting interface: ${INET_IFACE}"
     ifdown $INET_IFACE
     ifup $INET_IFACE
+    (( i++ ))
   fi
 done
 
