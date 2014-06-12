@@ -36,7 +36,7 @@ sudo apt-get install -y \
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
-sudo pear install cakephp/CakePHP
+sudo pear install cakephp/CakePHP-2.4.1
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then
