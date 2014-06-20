@@ -205,7 +205,8 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
     $transmit_location_option = null;
     if ($location['LocationSetting']['transmit_location_enabled'] == TRUE) {
       if (0 == strcmp($location['LocationSetting']['location_source'], 'fixed')) {
-  $transmit_location_option = "
+        $transmit_location_option = 
+"
     PlParam \"lat\" \"".$location['LocationSetting']['lat']."\"
     PlParam \"lon\" \"".$location['LocationSetting']['lon']."\"
 ";
@@ -215,7 +216,7 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
     } else {
       $transmit_location_option = "";
     }
-      
+
     $olsrd_conf_output = str_replace(array('{latlon_infile}',
                                            '{wifi_ip_address}',
                                            '{wifi_adapter_name}',
