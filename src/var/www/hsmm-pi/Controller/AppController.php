@@ -23,21 +23,16 @@
 
 App::uses('Controller', 'Controller');
 
-/**
- * Application Controller
- *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
- */
 class AppController extends Controller
 {
 
   protected $olsrd_fixed_location_file = '/var/run/latlong-input-olsrd';
     
-  public $components = array('Session', 'Auth' => array('loginRedirect' => array('controller' => 'status', 'action' => 'index'), 'logoutRedirect' => array('controller' => 'status', 'action' => 'index')));
+  public $components = array('Session', 
+                             'Auth' => array('loginRedirect' => array('controller' => 'status',
+                                                                      'action' => 'index'),
+                                             'logoutRedirect' => array('controller' => 'status',
+                                                                       'action' => 'index')));
 
   protected function load_node_attributes() {
     $this->loadModel('NetworkSetting');
@@ -63,7 +58,8 @@ class AppController extends Controller
 
   protected function render_ntp_config($network_setting, $location) {
     if (0 == strcasecmp($location['LocationSetting']['location_source'], 'gps')) {
-      $gpsd_time_server_info = "
+      $gpsd_time_server_info = 
+"
 server 127.127.28.0
 fudge 127.127.28.0 time1 0.420 refid GPS
 
@@ -74,10 +70,11 @@ fudge 127.127.28.1 refid GPS1";
     }
 
     $ntp_config = file_get_contents(WWW_ROOT . "/files/ntp.conf.template");
-    $ntp_config_output = str_replace(array('{gpsd_time_server_info}', '{ntp_server}'), 
-				     array($gpsd_time_server_info, $network_setting['NetworkSetting']['ntp_server']),
-				     $ntp_config);
-    
+    $ntp_config_output = str_replace(array('{gpsd_time_server_info}',
+                                           '{ntp_server}'), 
+                                     array($gpsd_time_server_info,
+                                           $network_setting['NetworkSetting']['ntp_server']),
+                                     $ntp_config);
     file_put_contents('/etc/ntp.conf', $ntp_config_output);
   }
 
@@ -87,16 +84,18 @@ fudge 127.127.28.1 refid GPS1";
     $iptables_service_routing = "";
     if (0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'WAN')) {
       if ($network_setting['NetworkSetting']['wan_mesh_gateway'] == TRUE) {
-	$iptables_gateway_commands = "
+        $iptables_gateway_commands = 
+"
 iptables -t nat -A POSTROUTING -o ".$network_setting['NetworkSetting']['wired_adapter_name']." -j MASQUERADE
 iptables -A FORWARD -i ".$network_setting['NetworkSetting']['wired_adapter_name']." -o ".$network_setting['NetworkSetting']['wifi_adapter_name']." -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -i ".$network_setting['NetworkSetting']['wifi_adapter_name']." -o ".$network_setting['NetworkSetting']['wired_adapter_name']." -j ACCEPT
 ";
       } else {
-	$iptables_gateway_commands = "";
-      }	
+        $iptables_gateway_commands = "";
+      }
     } else {
-      $iptables_gateway_commands = "
+      $iptables_gateway_commands =
+"
 # Flush the tables
 iptables -F INPUT
 iptables -F OUTPUT
@@ -114,19 +113,24 @@ iptables -A FORWARD -i ".$network_setting['NetworkSetting']['wifi_adapter_name']
 iptables -t nat -A POSTROUTING -o ".$network_setting['NetworkSetting']['wifi_adapter_name']." -j SNAT --to-source ".$network_setting['NetworkSetting']['wifi_ip_address'];
 
       if ($network_services != NULL && sizeof($network_services) > 0) {
-	foreach($network_services as $service) {
-	  $iptables_service_routing .= "
+        foreach($network_services as $service) {
+          $iptables_service_routing .= 
+"
 iptables -t nat -A PREROUTING -i ".$network_setting['NetworkSetting']['wifi_adapter_name']." -p ". $service['NetworkService']['protocol']." --dport ".$service['NetworkService']['forwarding_port']." -j DNAT --to-destination ".$service['NetworkService']['host'].":".$service['NetworkService']['port']."
 iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --dport ".$service['NetworkService']['port']." -j MASQUERADE\n";
-	}
+        }
       }
     }
 
-    $rclocal_conf_output = str_replace(array('{wifi_adapter_name}','{iptables_gateway_commands}','{iptables_service_routing}'), array($network_setting['NetworkSetting']['wifi_adapter_name'], $iptables_gateway_commands,$iptables_service_routing), $rclocal_conf);
+    $rclocal_conf_output = str_replace(array('{wifi_adapter_name}',
+                                             '{iptables_gateway_commands}',
+                                             '{iptables_service_routing}'),
+                                       array($network_setting['NetworkSetting']['wifi_adapter_name'],
+                                             $iptables_gateway_commands,$iptables_service_routing),
+                                       $rclocal_conf);
 
     file_put_contents('/etc/rc.local', $rclocal_conf_output);
   }
-
 
   protected function render_olsrd_config($network_setting, $network_services, $location) {
     $olsrd_conf = file_get_contents(WWW_ROOT . "/files/olsrd/olsrd.conf.template");
@@ -134,7 +138,7 @@ iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --d
 
     if ($network_setting['NetworkSetting']['mesh_olsrd_secure'] == TRUE) {
       $olsrd_secure_block = 
-	"LoadPlugin \"olsrd_secure.so.0.6\"
+"LoadPlugin \"olsrd_secure.so.0.6\"
 {
     PlParam     \"Keyfile\"   \"/etc/olsrd/olsrd.key\"
 }";
@@ -144,13 +148,12 @@ iptables -t nat -A POSTROUTING -p ".$service['NetworkService']['protocol']." --d
     }
 
     if ((0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'WAN')) && 
-	($network_setting['NetworkSetting']['wan_mesh_gateway'] == TRUE)) 
-      {
-	$olsrd_network_services = "";
-
-	if ($network_setting['NetworkSetting']['wan_fixed_connection'] == FALSE) {
-	  $olsrd_gateway = 
-	    "
+        ($network_setting['NetworkSetting']['wan_mesh_gateway'] == TRUE))
+    {
+      $olsrd_network_services = "";
+      if ($network_setting['NetworkSetting']['wan_fixed_connection'] == FALSE) {
+    $olsrd_gateway = 
+      "
 LoadPlugin \"olsrd_dyn_gw.so.0.5\"
 {
     # The plugin check interval can be set here in milliseconds.
@@ -177,14 +180,14 @@ LoadPlugin \"olsrd_dyn_gw.so.0.5\"
     PlParam \"Ping\"   \"".$network_setting['NetworkSetting']['wan_dns1']."\"
     PlParam \"Ping\"   \"".$network_setting['NetworkSetting']['wan_dns2']."\"
 }";
-	} else {
-	  $olsrd_gateway = 
-	    "
+  } else {
+    $olsrd_gateway = 
+      "
 LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 {
 }
 ";
-	}
+  }
       } else {
       $olsrd_gateway = "";
       $olsrd_network_services = "";
@@ -192,7 +195,7 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 
     if ($network_services != NULL && sizeof($network_services) > 0) {
       foreach($network_services as $service) {
-	$olsrd_network_services .= "
+  $olsrd_network_services .= "
     PlParam \"service\" \"".$service['NetworkService']['service_protocol_name']."://".$network_setting['NetworkSetting']['node_name'].".local.mesh:".$service['NetworkService']['forwarding_port']."|".$service['NetworkService']['protocol']."|".$service['NetworkService']['name']."\"
 ";
       }
@@ -202,18 +205,32 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
     $transmit_location_option = null;
     if ($location['LocationSetting']['transmit_location_enabled'] == TRUE) {
       if (0 == strcmp($location['LocationSetting']['location_source'], 'fixed')) {
-	$transmit_location_option = "
+  $transmit_location_option = "
     PlParam \"lat\" \"".$location['LocationSetting']['lat']."\"
     PlParam \"lon\" \"".$location['LocationSetting']['lon']."\"
 ";
       } else {
-	$transmit_location_option = "    PlParam \"latlon-infile\" \"".$this->olsrd_fixed_location_file."\"";
+        $transmit_location_option = "    PlParam \"latlon-infile\" \"".$this->olsrd_fixed_location_file."\"";
       }
     } else {
       $transmit_location_option = "";
     }
       
-    $olsrd_conf_output = str_replace(array('{latlon_infile}','{wifi_ip_address}','{wifi_adapter_name}', '{node_name}', '{olsrd_dynamic_gateway_block}', '{olsrd_secure_block}','{olsrd_network_services}'), array($transmit_location_option,$network_setting['NetworkSetting']['wifi_ip_address'],$network_setting['NetworkSetting']['wifi_adapter_name'], $network_setting['NetworkSetting']['node_name'], $olsrd_secure_block, $olsrd_gateway,$olsrd_network_services), $olsrd_conf);
+    $olsrd_conf_output = str_replace(array('{latlon_infile}',
+                                           '{wifi_ip_address}',
+                                           '{wifi_adapter_name}',
+                                           '{node_name}',
+                                           '{olsrd_dynamic_gateway_block}',
+                                           '{olsrd_secure_block}',
+                                           '{olsrd_network_services}'),
+                                    array($transmit_location_option,
+                                          $network_setting['NetworkSetting']['wifi_ip_address'],
+                                          $network_setting['NetworkSetting']['wifi_adapter_name'],
+                                          $network_setting['NetworkSetting']['node_name'],
+                                          $olsrd_secure_block,
+                                          $olsrd_gateway,
+                                          $olsrd_network_services),
+                                    $olsrd_conf);
 
     file_put_contents('/etc/olsrd/olsrd.conf', $olsrd_conf_output);
 
