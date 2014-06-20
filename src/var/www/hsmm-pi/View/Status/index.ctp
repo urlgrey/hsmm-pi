@@ -119,7 +119,7 @@
 <div class="row">
   <div class="span8">
     <p>
-      <h4>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version'); ?></h4>
+      <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version'); ?></h6>
     </p>
   </div>
 </div>
