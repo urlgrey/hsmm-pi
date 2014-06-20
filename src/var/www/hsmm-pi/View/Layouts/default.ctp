@@ -205,9 +205,6 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
   <div class="container">
     <?php echo $this->Session->flash(); ?>
     <?php echo $this->fetch('content'); ?>
-    <p>
-      <h4>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version'); ?></h4>
-    </p>
   </div>
 
   <?php echo $this->element('sql_dump'); ?>
