@@ -61,7 +61,7 @@ I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370
 Raspberry Pi Installation
 =========================
 
-1.  Download the Raspbian Wheezy 2014-05-06 disk image on your Mac/PC/whatever (http://www.raspberrypi.org/downloads)
+1.  Download the Raspbian Wheezy 2013-07-26 disk image on your Mac/PC/whatever (http://downloads.raspberrypi.org/raspbian/images/2013-07-26-wheezy-raspbian/)
 1.  Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
 1.  Insert the card into a Raspberry Pi
 1.  Connect the wired Ethernet port on the Pi to a network with Internet access
@@ -77,7 +77,7 @@ Raspberry Pi Installation
 
         git clone https://github.com/urlgrey/hsmm-pi.git
         cd hsmm-pi
-        git checkout tags/v0.3.0
+        git checkout tags/v0.4.0
         sh install.sh
 1.  Login to the web application on the Pi:
 http://(wired Ethernet IP of the node):8080/
@@ -111,7 +111,7 @@ Beaglebone Black Installation
 
         git clone https://github.com/urlgrey/hsmm-pi.git
         cd hsmm-pi
-        git checkout tags/v0.3.0
+        git checkout tags/v0.4.0
         sh install.sh
 1. Login to the web application:
 http://(wired Ethernet IP of the node):8080/
