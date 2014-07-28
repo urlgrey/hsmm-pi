@@ -24,7 +24,8 @@ INET_IFACE={wifi_adapter_name}
 i="0"
 while [ $i -lt 5 ]; do
   INET_ADDRESS=`ifconfig ${INET_IFACE} | awk '/inet addr/ {split ($2,A,":"); print A[2]}'`
-  if [ "$INET_ADDRESS" != "" ]; then
+  WLAN_ROUTE=`route | grep ${INET_IFACE}`
+  if [ "$INET_ADDRESS" != "" ] && [ "$WLAN_ROUTE" != "" ]; then
     break
   else
     # restart the interface
