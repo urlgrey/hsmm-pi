@@ -120,10 +120,17 @@ sudo ln -fs ../mods-available/rewrite.load
 sudo cp ${PROJECT_HOME}/src/etc/apache2/conf.d/hsmm-pi.conf /etc/apache2/conf.d/hsmm-pi.conf
 sudo service apache2 restart
 
+# Download BBHN packages (needed for olsrd patch)
+cd /var/tmp
+git clone git://ubnt.hsmm-mesh.org/bbhn_packages
+
 # Download and build olsrd
 cd /var/tmp
 git clone git://olsr.org/olsrd.git
 cd olsrd
+
+# Apply BBHN patch to olsrd
+patch -p1 < ../bbhn_packages/net/olsrd/patches/002-mode_secure-timediff-fix
 
 # Checkout the latest 0.6.6 release, have seen intermittent problems with 0.6.5
 git checkout release-0.6.6
@@ -155,6 +162,7 @@ sudo cp ${PROJECT_HOME}/src/etc/default/olsrd /etc/default/olsrd
 
 cd /var/tmp
 rm -rf /var/tmp/olsrd
+rm -rf /var/tmp/bbhn_packages
 
 sudo rm -f /etc/olsrd.conf
 sudo ln -fs /etc/olsrd/olsrd.conf /etc/olsrd.conf
