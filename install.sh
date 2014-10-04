@@ -129,11 +129,11 @@ cd /var/tmp
 git clone git://olsr.org/olsrd.git
 cd olsrd
 
-# Apply BBHN patch to olsrd
-patch -p1 < ../bbhn_packages/net/olsrd/patches/002-mode_secure-timediff-fix
-
 # Checkout the latest 0.6.6 release, have seen intermittent problems with 0.6.5
 git checkout release-0.6.6
+
+# Apply BBHN patch to olsrd
+patch -p1 < ../bbhn_packages/net/olsrd/patches/002-mode_secure-timediff-fix
 
 # patch the Makefile configuration to produce position-independent code (PIC)
 # applies only to ARM architecture (i.e. Beaglebone/Beagleboard)
