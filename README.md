@@ -61,7 +61,7 @@ I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370
 Raspberry Pi Installation
 =========================
 
-1.  Download the Raspbian Wheezy 2013-07-26 disk image on your Mac/PC/whatever (http://downloads.raspberrypi.org/raspbian/images/2013-07-26-wheezy-raspbian/)
+1.  Download the Raspbian Wheezy 2013-09-10 disk image on your Mac/PC/whatever (http://downloads.raspberrypi.org/raspbian/images/raspbian-2013-09-16/)
 1.  Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
 1.  Insert the card into a Raspberry Pi
 1.  Connect the wired Ethernet port on the Pi to a network with Internet access
