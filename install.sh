@@ -4,7 +4,7 @@
 # File: install.sh
 # Author: Scott Kidder
 # Purpose: This script will configure a newly-imaged Raspberry Pi running 
-#   Raspbian Wheezy 2013-09-10 with the dependencies and HSMM-Pi components.
+#   Raspbian Wheezy 2014-09-09 with the dependencies and HSMM-Pi components.
 #
 
 PROJECT_HOME=${HOME}/hsmm-pi
