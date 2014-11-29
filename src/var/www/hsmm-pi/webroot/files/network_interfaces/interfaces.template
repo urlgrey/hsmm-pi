@@ -7,6 +7,7 @@
 auto lo
 iface lo inet loopback
 
+auto {wired_adapter_name}
 iface {wired_adapter_name} inet {wired_mode}
 
 auto {wifi_adapter_name}
