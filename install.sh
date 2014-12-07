@@ -4,7 +4,7 @@
 # File: install.sh
 # Author: Scott Kidder
 # Purpose: This script will configure a newly-imaged Raspberry Pi running 
-#   Raspbian Wheezy 2013-07-26 with the dependencies and HSMM-Pi components.
+#   Raspbian Wheezy 2014-09-09 with the dependencies and HSMM-Pi components.
 #
 
 PROJECT_HOME=${HOME}/hsmm-pi
@@ -129,8 +129,8 @@ cd /var/tmp
 git clone git://olsr.org/olsrd.git
 cd olsrd
 
-# Checkout the latest 0.6.6 release, have seen intermittent problems with 0.6.5
-git checkout release-0.6.6
+# Checkout the latest 0.6.7 release, have seen intermittent problems with 0.6.5
+git checkout release-0.6.7
 
 # Apply BBHN patch to olsrd
 patch -p1 < ../bbhn_packages/net/olsrd/patches/002-mode_secure-timediff-fix
@@ -150,11 +150,10 @@ make libs
 sudo make libs_install
 
 sudo mkdir -p /etc/olsrd
-sudo cp debian/olsrd.conf /etc/olsrd/olsrd.conf
 sudo chgrp -R www-data /etc/olsrd
 sudo chmod g+w -R /etc/olsrd
 
-sudo cp debian/olsrd.init /etc/init.d/olsrd
+sudo cp ${PROJECT_HOME}/src/etc/init.d/olsrd /etc/init.d/olsrd
 sudo chmod +x /etc/init.d/olsrd
 
 sudo mkdir -p /etc/default
