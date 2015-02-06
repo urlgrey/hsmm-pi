@@ -122,7 +122,7 @@ sudo service apache2 restart
 
 # Download BBHN packages (needed for olsrd patch)
 cd /var/tmp
-git clone git://ubnt.hsmm-mesh.org/bbhn_packages
+git clone git://ubnt.broadband-hamnet.org/bbhn_packages
 
 # Download and build olsrd
 cd /var/tmp
