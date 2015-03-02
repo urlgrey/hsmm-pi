@@ -129,8 +129,8 @@ cd /var/tmp
 git clone git://olsr.org/olsrd.git
 cd olsrd
 
-# Checkout the latest 0.6.7 release, have seen intermittent problems with 0.6.5
-git checkout release-0.6.7
+# Checkout the latest release
+git checkout release-0.6.8
 
 # Apply BBHN patch to olsrd
 patch -p1 < ../bbhn_packages/net/olsrd/patches/002-mode_secure-timediff-fix
