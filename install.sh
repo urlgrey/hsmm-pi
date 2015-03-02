@@ -31,6 +31,9 @@ sudo apt-get install -y \
     libnet-gpsd3-perl \
     ntp
 
+# Remove ifplugd if present, as it interferes with olsrd
+sudo apt-get remove ifplugd
+
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
 sudo pear install cakephp/CakePHP-2.4.10
