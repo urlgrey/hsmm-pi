@@ -32,7 +32,7 @@ sudo apt-get install -y \
     ntp
 
 # Remove ifplugd if present, as it interferes with olsrd
-sudo apt-get remove ifplugd
+sudo apt-get remove -y ifplugd
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
