@@ -1,7 +1,7 @@
 HSMM-Pi
 =======
 
-HSMM-Pi is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) wireless node.  HSMM offers radio amateurs (HAMs) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM at higher power with larger antennas than are available to unlicensed users.  The HSMM-Pi project makes it possible to run an HSMM mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the Beaglebone Black.
+HSMM-Pi is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) or Broadband-Hamnet (BBHN) wireless node.  HSMM and BBHN offer radio amateurs (HAMs) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM or BBHN at higher power with larger antennas than are available to unlicensed users.  The HSMM-Pi project makes it possible to run an HSMM or BBHN mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the BeagleBone and BeagleBone Black.
 
 The HSMM-Pi project can used by people not possessing an amateur radio license so long as they are in compliance with the transmission rules set by the FCC or the local regulating body.  This typically means sticking with the WiFi antenna provided with your WiFi adapter.
 
@@ -11,7 +11,7 @@ http://hsmmpi.wordpress.com/
 For a video tour, see the following YouTube video:
 http://www.youtube.com/watch?v=ltUAw02vfqk
 
-The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.  
+The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.
 
 The HSMM-Pi project is designed to run on Ubuntu 12.04 systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
 
@@ -26,8 +26,8 @@ HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, a
 
 Raspberry-Pi Node:
 
- *  Raspberry Pi (256MB or 512MB of RAM will work)
- *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset)
+ *  Raspberry Pi (256MB, 512MB or 1GB of RAM will work)
+ *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset, and with the Alfa AWSU036NH)
  *  SD memory card (4GB minimum)
 
 Beaglebone Black Node:
@@ -61,7 +61,7 @@ I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370
 Raspberry Pi Installation
 =========================
 
-1.  Download the Raspbian Wheezy 2014-09-09 disk image on your Mac/PC/whatever (http://downloads.raspberrypi.org/raspbian/images/raspbian-2014-09-12/)
+1.  Download the Raspbian Wheezy 2015-02-16 disk image on your Mac/PC/whatever (http://downloads.raspberrypi.org/raspbian/images/raspbian-2015-02-17/)
 1.  Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
 1.  Insert the card into a Raspberry Pi
 1.  Connect the wired Ethernet port on the Pi to a network with Internet access
