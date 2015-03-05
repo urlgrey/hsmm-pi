@@ -22,19 +22,19 @@ The HSMM-Pi project is designed to run on Ubuntu 12.04 systems.  Rather than pro
 
 Hardware Requirements
 =====================
-HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, and with the Beaglebone Black running Ubuntu 12.04 from the onboard eMMC flash memory.  The requirements for each are listed below.
+HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, with the BeagleBone running Debian, and with the BeagleBone Black running Ubuntu 12.04 from the onboard eMMC flash memory.  The requirements for each are listed below.
 
 Raspberry-Pi Node:
 
- *  Raspberry Pi (256MB, 512MB or 1GB of RAM will work)
+ *  Raspberry Pi (256MB or 512MB) or Raspberry Pi 2
  *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset, and with the Alfa AWSU036NH)
  *  SD memory card (4GB minimum)
 
-Beaglebone Black Node:
+BeagleBone Node:
 
- *  Beaglebone Black
+ *  BeagleBone or BeagleBone Black
  *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset)
- *  SD memory card (4GB minimum) (used for initial imaging of the eMMC flash memory only)
+ *  SD memory card (4GB minimum) (in the case of BeagleBone Black, used for initial imaging of the eMMC flash memory only)
 
 Modes
 =====
@@ -85,21 +85,21 @@ http://(wired Ethernet IP of the node):8080/
 1.  Configure as either an Internal or Gateway node
 
 
-Beaglebone Black Installation
+BeagleBone Black Installation
 =============================
 
-1. Download the latest Beaglebone Black Ubuntu 12.04 image: http://www.armhf.com/index.php/boards/beaglebone-black/#precise
+1. Download the latest BeagleBone Black Ubuntu 12.04 image: http://www.armhf.com/index.php/boards/beaglebone-black/#precise
 1. Write the image to an SD memory card using the steps on the page referenced in the previous step
-1. Insert the SD card into a Beaglebone Black board
-1. Apply power to the Beaglebone Black
-1. Login to the Beaglebone Black through an SSH session or the console using the 'ubuntu' account
-1. Transfer the image to the running Beaglebone Black using SCP
+1. Insert the SD card into a BeagleBone Black board
+1. Apply power to the BeagleBone Black
+1. Login to the BeagleBone Black through an SSH session or the console using the 'ubuntu' account
+1. Transfer the image to the running BeagleBone Black using SCP
 1. Write the image to the eMMC flash memory using the steps mentioned in the first step here.
 1. Wait for all 4 LEDs to go solid (could take several minutes)
 1. Shutdown the Beaglbone Black (sudo /sbin/init 0)
-1. Remove the memory card from the Beaglebone Black
-1. Apply power to the Beaglebone Black
-1. Login to the Beaglebone Black through an SSH session or the console using the 'ubuntu' account
+1. Remove the memory card from the BeagleBone Black
+1. Apply power to the BeagleBone Black
+1. Login to the BeagleBone Black through an SSH session or the console using the 'ubuntu' account
 1. Change the password for the 'ubuntu' account
 1. Install the development tools necessary to build OLSRD and retrieve the HSMM-Pi project:
 
