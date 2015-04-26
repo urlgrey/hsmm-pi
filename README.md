@@ -15,7 +15,7 @@ The project consists of a PHP web application that is used to configure and moni
 
 The HSMM-Pi project is designed to run on Ubuntu 12.04 systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
 
- * Greater transparency:  You can see exactly which changes are made to the base system by looking at the install shell script.
+ * Greater transparency:  You can see exactly which changes are made to the base system by looking at the [install shell script](https://github.com/urlgrey/hsmm-pi/blob/master/install.sh).
  * Easier to port to more platforms: Any platform that runs the supported Ubuntu releases ought to be capable of running HSMM-Pi
  * Easier to host:  I only need to post the installation script and webapp files on Github and it's done.
  * Easier to seek support: Ubuntu is widely used and supported, no need to introduce another customization.
