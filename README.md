@@ -130,7 +130,7 @@ This is experimental, and you should fall back to a fresh installation if things
         git pull
         sh install.sh
 1. Access the web UI and check the configuration.  Save the Network and Location settings, even if no changes are needed.
-1. If the save operation fails, then you might need to replace the SQLite database file due to database schema changes.  Runn the following command:
+1. If the save operation fails, then you might need to replace the SQLite database file due to database schema changes.  Run the following command:
 
         cd ~/hsmm-pi/
         sudo cp src/var/data/hsmm-pi/hsmm-pi.sqlite /var/data/hsmm-pi/
