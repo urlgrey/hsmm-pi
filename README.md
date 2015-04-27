@@ -15,7 +15,7 @@ The project consists of a PHP web application that is used to configure and moni
 
 The HSMM-Pi project is designed to run on Ubuntu 12.04 systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
 
- * Greater transparency:  You can see exactly which changes are made to the base system by looking at the install shell script.
+ * Greater transparency:  You can see exactly which changes are made to the base system by looking at the [install shell script](https://github.com/urlgrey/hsmm-pi/blob/master/install.sh).
  * Easier to port to more platforms: Any platform that runs the supported Ubuntu releases ought to be capable of running HSMM-Pi
  * Easier to host:  I only need to post the installation script and webapp files on Github and it's done.
  * Easier to seek support: Ubuntu is widely used and supported, no need to introduce another customization.
@@ -130,7 +130,7 @@ This is experimental, and you should fall back to a fresh installation if things
         git pull
         sh install.sh
 1. Access the web UI and check the configuration.  Save the Network and Location settings, even if no changes are needed.
-1. If the save operation fails, then you might need to replace the SQLite database file due to database schema changes.  Runn the following command:
+1. If the save operation fails, then you might need to replace the SQLite database file due to database schema changes.  Run the following command:
 
         cd ~/hsmm-pi/
         sudo cp src/var/data/hsmm-pi/hsmm-pi.sqlite /var/data/hsmm-pi/
