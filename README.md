@@ -167,3 +167,7 @@ This represents the minimum set of steps:
 1. Click 'Save'
 1. If successful, click the 'Reboot' button in the alert and proceed.
 
+FAQ
+====
+
+A list of frequently asked questions can be found on [our wiki](https://github.com/urlgrey/hsmm-pi/wiki), at the [FAQ page](https://github.com/urlgrey/hsmm-pi/wiki/FAQ).
