@@ -7,6 +7,11 @@
 #   Raspbian Wheezy 2014-09-09 with the dependencies and HSMM-Pi components.
 #
 
+if [ "$EUID" -eq 0 ]
+  then echo "Please do not run as root, HTTP interface will not work"
+  exit
+fi
+
 PROJECT_HOME=${HOME}/hsmm-pi
 
 cd ${HOME}
