@@ -39,6 +39,19 @@ sudo apt-get install -y \
 # Remove ifplugd if present, as it interferes with olsrd
 sudo apt-get remove -y ifplugd
 
+
+# On Ubuntu 13.04 systems this file is a symbolic link to a file in the /run/
+# directory structure.  Remove the symbolic link and replace with a file that
+# can be managed by HSMM-Pi.
+if [ -L /etc/resolv.conf ]; then
+    rm -f /etc/resolv.conf
+    touch /etc/resolv.conf
+fi
+
+sudo echo "nameserver 8.8.8.8" > /etc/resolv.conf
+sudo chgrp www-data /etc/resolv.conf
+sudo chmod g+w /etc/resolv.conf
+
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
 sudo pear install cakephp/CakePHP-2.6.7
@@ -76,17 +89,6 @@ done
 
 sudo chgrp www-data /etc/dnsmasq.d
 sudo chmod 775 /etc/dnsmasq.d
-
-# On Ubuntu 13.04 systems this file is a symbolic link to a file in the /run/
-# directory structure.  Remove the symbolic link and replace with a file that
-# can be managed by HSMM-Pi.
-if [ -L /etc/resolv.conf ]; then
-    rm -f /etc/resolv.conf
-    touch /etc/resolv.conf
-fi
-
-sudo chgrp www-data /etc/resolv.conf
-sudo chmod g+w /etc/resolv.conf
 
 # Copy scripts into place
 if [ ! -e /usr/local/bin/callsign_announcement.sh ]; then
