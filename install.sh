@@ -48,7 +48,7 @@ if [ -L /etc/resolv.conf ]; then
     touch /etc/resolv.conf
 fi
 
-sudo echo "nameserver 8.8.8.8" > /etc/resolv.conf
+sudo bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 sudo chgrp www-data /etc/resolv.conf
 sudo chmod g+w /etc/resolv.conf
 
