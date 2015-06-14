@@ -77,17 +77,6 @@ done
 sudo chgrp www-data /etc/dnsmasq.d
 sudo chmod 775 /etc/dnsmasq.d
 
-# On Ubuntu 13.04 systems this file is a symbolic link to a file in the /run/
-# directory structure.  Remove the symbolic link and replace with a file that
-# can be managed by HSMM-Pi.
-if [ -L /etc/resolv.conf ]; then
-    rm -f /etc/resolv.conf
-    touch /etc/resolv.conf
-fi
-
-sudo chgrp www-data /etc/resolv.conf
-sudo chmod g+w /etc/resolv.conf
-
 # Copy scripts into place
 if [ ! -e /usr/local/bin/callsign_announcement.sh ]; then
     sudo cp ${PROJECT_HOME}/src/var/www/hsmm-pi/webroot/files/callsign_announcement.sh.template /usr/local/bin/callsign_announcement.sh
@@ -177,6 +166,17 @@ sudo update-rc.d olsrd defaults 02
 
 # install CRON jobs for reboot and callsign announcement
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
+
+# On Ubuntu 13.04 systems this file is a symbolic link to a file in the /run/
+# directory structure.  Remove the symbolic link and replace with a file that
+# can be managed by HSMM-Pi.
+if [ -L /etc/resolv.conf ]; then
+    rm -f /etc/resolv.conf
+    touch /etc/resolv.conf
+fi
+
+sudo chgrp www-data /etc/resolv.conf
+sudo chmod g+w /etc/resolv.conf
 
 # print success message if we make it this far
 printf "\n\n---- SUCCESS ----\n\nLogin to the web console to configure the node\n"
