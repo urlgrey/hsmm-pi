@@ -1,25 +1,22 @@
 <?php
-class SystemController extends AppController
-{
-    public $components = array('RequestHandler', 'Session');
-    
-    public function reboot()
-    {
+class SystemController extends AppController {
+	public $components = array('RequestHandler', 'Session');
 
-      file_put_contents('/var/data/hsmm-pi/reboot', time());
+	public function reboot() {
 
-      $this->Session->setFlash(__('Reboot initiated, please reload this page in 2 minutes.'), 'default', array('class' => 'alert alert-success'));
-      $this->redirect(array('controller'=>'status', 'action'=>'index'));
-    }
-    
-    public function shutdown()
-    {
+		file_put_contents('/var/data/hsmm-pi/reboot', time());
 
-      file_put_contents('/var/data/hsmm-pi/shutdown', time());
+		$this->Session->setFlash(__('Reboot initiated, please reload this page in 2 minutes.'), 'default', array('class' => 'alert alert-success'));
+		$this->redirect(array('controller' => 'status', 'action' => 'index'));
+	}
 
-      $this->Session->setFlash(__('Shutdown initiated, goodbye.'), 'default', array('class' => 'alert alert-success'));
-      $this->redirect(array('controller'=>'status', 'action'=>'index'));
-    }
+	public function shutdown() {
+
+		file_put_contents('/var/data/hsmm-pi/shutdown', time());
+
+		$this->Session->setFlash(__('Shutdown initiated, goodbye.'), 'default', array('class' => 'alert alert-success'));
+		$this->redirect(array('controller' => 'status', 'action' => 'index'));
+	}
 
 }
 ?>
