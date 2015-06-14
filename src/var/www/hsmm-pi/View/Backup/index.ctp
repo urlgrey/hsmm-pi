@@ -6,9 +6,9 @@
 <h3>Download Backup</h3>
 <p>
 <?php
-    echo $this->Html->link(__('Download'), array(
+echo $this->Html->link(__('Download'), array(
 	'controller' => 'backup',
-        'action' => 'get'), array(
+	'action' => 'get'), array(
 	'class' => 'btn btn-primary'));
 ?>
 </p>
@@ -23,9 +23,9 @@
   </div>
 </div>
 
-<?php 
-   echo $this->Form->submit(__('Save'), array('name' => 'submit', 'div' => false, 'class' => 'btn btn-primary'));;
-?>        
+<?php
+echo $this->Form->submit(__('Save'), array('name' => 'submit', 'div' => false, 'class' => 'btn btn-primary'));
+?>
 </form>
 
 </p>

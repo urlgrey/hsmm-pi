@@ -31,28 +31,27 @@
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
-	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
-	Router::connect('/status', array('controller' => 'status', 'action' => 'index'));
-	Router::connect('/', array('controller' => 'status', 'action' => 'index'));
-	/* Router::connect('/shell_user_keys', array('controller' => 'shell_user_keys', 'action' => 'index')); */
-        Router::connect('/location_settings', array('controller' => 'location_settings', 'action' => 'edit'));
-        Router::connect('/network_settings', array('controller' => 'network_settings', 'action' => 'edit'));
-        Router::connect('/user', array('controller' => 'users', 'action' => 'edit'));
-        Router::connect('/system', array('controller' => 'system', 'action' => 'reboot'));
-        Router::connect('/wifi_scan', array('controller' => 'wifi_scan', 'action' => 'index'));
-        Router::connect('/network_services', array('controller' => 'network_services', 'action' => 'index'));
-        /* Router::connect('/backup', array('controller' => 'backup', 'action' => 'index')); */
-
+Router::connect('/status', array('controller' => 'status', 'action' => 'index'));
+Router::connect('/', array('controller' => 'status', 'action' => 'index'));
+/* Router::connect('/shell_user_keys', array('controller' => 'shell_user_keys', 'action' => 'index')); */
+Router::connect('/location_settings', array('controller' => 'location_settings', 'action' => 'edit'));
+Router::connect('/network_settings', array('controller' => 'network_settings', 'action' => 'edit'));
+Router::connect('/user', array('controller' => 'users', 'action' => 'edit'));
+Router::connect('/system', array('controller' => 'system', 'action' => 'reboot'));
+Router::connect('/wifi_scan', array('controller' => 'wifi_scan', 'action' => 'index'));
+Router::connect('/network_services', array('controller' => 'network_services', 'action' => 'index'));
+/* Router::connect('/backup', array('controller' => 'backup', 'action' => 'index')); */
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
-	CakePlugin::routes();
+CakePlugin::routes();
 
 /**
  * Load the CakePHP default routes. Only remove this if you do not want to use
  * the built-in default routes.
  */
-	require CAKE . 'Config' . DS . 'routes.php';
+require CAKE . 'Config' . DS . 'routes.php';

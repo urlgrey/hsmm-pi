@@ -11,8 +11,8 @@
             var latVal = $(this).data('lat');
             var lonVal = Microsoft.Maps.Location.normalizeLongitude($(this).data('lon'));
             var center_loc = new Microsoft.Maps.Location(latVal, lonVal);
-            var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false}); 
-            var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "<?php echo ((null != $maps_api_key) ? $maps_api_key : ''); ?>"});
+            var pin = new Microsoft.Maps.Pushpin(center_loc, {draggable:false});
+            var map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {credentials: "<?php echo ((null != $maps_api_key) ? $maps_api_key : '');?>"});
             map.setView({center:center_loc, zoom:15});
             map.entities.push(pin);
 	}
@@ -22,14 +22,14 @@
 
 <div class="page-header">
   <p><h1>Status&nbsp;
-      <small><?php echo $node_name; ?>
- <?php  
-      if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
+      <small><?php echo $node_name;?>
+ <?php
+if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
 	$location = $mesh_node_locations[$node_wifi_ip_address];
 	if ($location != NULL) {
-	  echo "&nbsp;<a href=\"#mapModal\" data-lat=\"".$location['lat']."\" data-lon=\"".$location['lon']."\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
+		echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
 	}
-      }
+}
 ?>
 </small></h1></p>
 </div>
@@ -38,10 +38,10 @@
   <div class="span8">
     <div class="well">
       <p><h3>Mesh Links</h3></p>
-      
+
       <?php
-	 if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
-      ?>
+if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
+	?>
       <table class="table table-striped table-bordered">
 	<tr>
           <th>Hostname</th>
@@ -49,69 +49,72 @@
 	  <th>Link Quality</th>
 	</tr>
 	<?php
-	   foreach ($mesh_links['links'] as $node) {
-	   ?> 
+foreach ($mesh_links['links'] as $node) {
+		?>
 	<tr>
-          <?php $node_hostname = gethostbyaddr($node['remoteIP']); ?>
-          <td><a href="http://<?php echo $node_hostname; ?>:8080/"><?php echo $node_hostname; ?></a>
+          <?php $node_hostname = gethostbyaddr($node['remoteIP']);?>
+          <td><a href="http://<?php echo $node_hostname;?>:8080/"><?php echo $node_hostname;?></a>
 	   <?php
-	   if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
-	     $location = $mesh_node_locations[$node['remoteIP']];
-	     if ($location != NULL) {
-	       echo "&nbsp;<a href=\"#mapModal\" data-lat=\"".$location['lat']."\" data-lon=\"".$location['lon']."\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
-	     }
-	   }
-	   ?>
-	   <?php if (in_array($node['remoteIP'], $mesh_neighbors)) { ?>
+if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
+			$location = $mesh_node_locations[$node['remoteIP']];
+			if ($location != NULL) {
+				echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
+			}
+		}
+		?>
+	   <?php if (in_array($node['remoteIP'], $mesh_neighbors)) {?>
 	   &nbsp;<i class="icon-star"></i>
-	   <?php } ?>
+	   <?php }
+		?>
 	  </td>
-	  <td><?php echo $node['remoteIP']; ?></td>
+	  <td><?php echo $node['remoteIP'];?></td>
 	  <td>
-	    <div class="progress"><div class="bar" style="width: <?php echo round($node['linkQuality'] * 100).'%'; ?>;"><?php echo round($node['linkQuality'] * 100).'%'; ?></div>
+	    <div class="progress"><div class="bar" style="width: <?php echo round($node['linkQuality'] * 100) . '%';?>;"><?php echo round($node['linkQuality'] * 100) . '%';?></div>
 	  </div></td>
 	</tr>
-	<?php 
-	   }
-	   ?>
+	<?php
+}
+	?>
       </table>
       <?php
-	 } else {
-	 ?>
+} else {
+	?>
       <div class="alert alert-error">
 	<strong>Warning!</strong>.  There are no mesh links in range.  It's a bit quiet around here.
       </div>
-      <?php } ?>
+      <?php }
+?>
     </div>
   </div>
   <div class="span4">
     <div class="well">
       <p><h3>Mesh Services</h3></p>
-      
+
       <?php
-	 if ($mesh_services != NULL && sizeof($mesh_services) > 0) {
-      ?>
+if ($mesh_services != NULL && sizeof($mesh_services) > 0) {
+	?>
       <table class="table table-striped table-bordered">
 	<tr>
 	  <th>Service</th>
 	</tr>
 	<?php
-	   foreach ($mesh_services as $service) {
-	   ?> 
+foreach ($mesh_services as $service) {
+		?>
 	<tr>
-	  <td><a href="<?php echo $service[0]; ?>"><?php echo $service[2]; ?></a></td>
+	  <td><a href="<?php echo $service[0];?>"><?php echo $service[2];?></a></td>
 	</tr>
-	<?php 
-	   }
-	   ?>
+	<?php
+}
+	?>
       </table>
       <?php
-	 } else {
-	 ?>
+} else {
+	?>
       <div class="alert alert-info">
 	There are no mesh services being announced at this time.
       </div>
-      <?php } ?>
+      <?php }
+?>
       </div>
     </div>
   </div>
@@ -119,7 +122,7 @@
 <div class="row">
   <div class="span8">
     <p>
-      <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version'); ?></h6>
+      <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version');?></h6>
     </p>
   </div>
 </div>
