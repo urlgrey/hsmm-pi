@@ -41,7 +41,7 @@ sudo apt-get remove -y ifplugd
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
-sudo pear install cakephp/CakePHP-2.4.10
+sudo pear install cakephp/CakePHP-2.6.7
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then
