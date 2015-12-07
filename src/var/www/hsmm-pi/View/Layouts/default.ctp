@@ -52,7 +52,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     <div id="rebootModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel"><? echo __('Reboot Confirmation'); ?></h3>
+        <h3 id="myModalLabel"><?php echo __('Reboot Confirmation'); ?></h3>
       </div>
       <div class="modal-body">
         <p>The node will be unavailable during the reboot.  Are you sure you want to do this?</p>
@@ -72,7 +72,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     <div id="shutdownModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel"><? echo __('Shutdown Confirmation'); ?></h3>
+        <h3 id="myModalLabel"><?php echo __('Shutdown Confirmation'); ?></h3>
       </div>
       <div class="modal-body">
         <p>The node will be totally unavailable after shutdown.  Are you sure you want to do this?</p>
@@ -160,8 +160,8 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                   ?>
                 </li>
                 <li class="divider"></li>
-                <li><a href="#rebootModal" data-toggle="modal"><? echo __('<i class="icon-refresh"></i>&nbspReboot'); ?></a></li>
-                <li><a href="#shutdownModal" data-toggle="modal"><? echo __('<i class="icon-off"></i>&nbspShutdown'); ?></a></li>
+                <li><a href="#rebootModal" data-toggle="modal"><?php echo __('<i class="icon-refresh"></i>&nbsp;Reboot'); ?></a></li>
+                <li><a href="#shutdownModal" data-toggle="modal"><?php echo __('<i class="icon-off"></i>&nbsp;Shutdown'); ?></a></li>
               <?php
                 }
               ?>
