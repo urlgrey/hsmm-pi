@@ -65,12 +65,16 @@ else
 fi
 
 # Set symlink to webapp
-cd /var/www
-if [ ! -e /var/www/hsmm-pi ]; then
+if [ -d /var/www/html ]; then
+    cd /var/www/html
+else
+    cd /var/www
+fi
+if [ ! -d hsmm-pi ]; then
     sudo ln -s ${PROJECT_HOME}/src/var/www/hsmm-pi
 fi
-sudo rm -f /var/www/index.html
-sudo ln -s ${PROJECT_HOME}/src/var/www/index.html /var/www/
+sudo rm -f index.html
+sudo ln -s ${PROJECT_HOME}/src/var/www/index.html
 
 # Create temporary directory used by HSMM-PI webapp, granting write priv's to www-data
 cd ${PROJECT_HOME}/src/var/www/hsmm-pi
@@ -125,9 +129,13 @@ if [ -z "$OUTPUT" ]; then
 fi
 
 # enable apache mod-rewrite
-cd /etc/apache2/mods-enabled
-sudo ln -fs ../mods-available/rewrite.load
-sudo cp ${PROJECT_HOME}/src/etc/apache2/conf.d/hsmm-pi.conf /etc/apache2/conf.d/hsmm-pi.conf
+sudo a2enmod rewrite
+if [ -d /etc/apache2/conf.d ]; then
+    sudo cp ${PROJECT_HOME}/src/etc/apache2/conf.d/hsmm-pi.conf /etc/apache2/conf.d/hsmm-pi.conf
+elif [ -d /etc/apache2/conf-available ]; then
+    sudo cp ${PROJECT_HOME}/src/etc/apache2/conf-available/hsmm-pi.conf /etc/apache2/conf-available/hsmm-pi.conf
+    sudo a2enconf hsmm-pi
+fi
 sudo service apache2 restart
 
 # Download and build olsrd

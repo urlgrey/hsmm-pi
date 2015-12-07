@@ -61,7 +61,7 @@ I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370
 Raspberry Pi Installation
 =========================
 
-1.  Download the Raspbian Wheezy 2015-02-16 disk image on your Mac/PC/whatever (http://downloads.raspberrypi.org/raspbian/images/raspbian-2015-02-17/)
+1.  Download the Raspbian Jessie Lite disk image on your Mac/PC/whatever (https://downloads.raspberrypi.org/raspbian_lite_latest)
 1.  Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
 1.  Insert the card into a Raspberry Pi
 1.  Connect the wired Ethernet port on the Pi to a network with Internet access
@@ -75,6 +75,7 @@ Raspberry Pi Installation
 1. If installing over an SSH connection to the Pi, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity with the Pi.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
 1.  Run the following commands to download the HSMM-Pi project and install
 
+        sudo apt-get install -y git
         git clone https://github.com/urlgrey/hsmm-pi.git
         cd hsmm-pi
         sh install.sh
