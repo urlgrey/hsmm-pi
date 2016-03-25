@@ -2,9 +2,9 @@
 
 #
 # File: install.sh
-# Author: Scott Kidder
+# Authors: Scott Kidder, Clayton Smith
 # Purpose: This script will configure a newly-imaged Raspberry Pi running
-#   Raspbian Wheezy 2014-09-09 with the dependencies and HSMM-Pi components.
+#   Raspbian Jessie Lite with the dependencies and HSMM-Pi components.
 #
 
 if [ "$(id -u)" = "0" ]
