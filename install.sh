@@ -140,7 +140,7 @@ sudo service apache2 restart
 
 # Download and build olsrd
 cd /var/tmp
-git clone git://olsr.org/olsrd.git
+git clone https://github.com/OLSR/olsrd.git
 cd olsrd
 
 # Checkout the latest release
