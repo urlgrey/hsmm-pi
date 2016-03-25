@@ -3,7 +3,7 @@
 #
 # File: install.sh
 # Author: Scott Kidder
-# Purpose: This script will configure a newly-imaged Raspberry Pi running 
+# Purpose: This script will configure a newly-imaged Raspberry Pi running
 #   Raspbian Wheezy 2014-09-09 with the dependencies and HSMM-Pi components.
 #
 
@@ -140,11 +140,8 @@ sudo service apache2 restart
 
 # Download and build olsrd
 cd /var/tmp
-git clone https://github.com/OLSR/olsrd.git
+git clone --branch release-0.6.8 --depth 1 https://github.com/OLSR/olsrd.git
 cd olsrd
-
-# Checkout the latest release
-git checkout release-0.6.8
 
 # patch the Makefile configuration to produce position-independent code (PIC)
 # applies only to ARM architecture (i.e. Beaglebone/Beagleboard)
@@ -190,4 +187,3 @@ sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
 
 # print success message if we make it this far
 printf "\n\n---- SUCCESS ----\n\nLogin to the web console to configure the node\n"
-
