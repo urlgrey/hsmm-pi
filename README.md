@@ -26,8 +26,8 @@ HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, w
 
 Raspberry-Pi Node:
 
- *  Raspberry Pi (256MB or 512MB) or Raspberry Pi 2
- *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset, and with the Alfa AWSU036NH)
+ *  Raspberry Pi (any model)
+ *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset, and with the Alfa AWSU036NH), or built-in WiFi adapter (on Raspberry Pi 3)
  *  SD memory card (4GB minimum)
 
 BeagleBone Node:
@@ -50,7 +50,7 @@ Internal Mesh Node
 This node is capable of routing traffic throughout the mesh and providing mesh access to any hosts connected to its wired Ethernet port.  The node can run a DHCP server that issues DHCP leases to any hosts on the wired connection.  It also runs a DNS server that can provide name resolution for mesh nodes and Internet hosts.  The following sequence shows how the two types of nodes can be deployed:
 
 ```
-(Client1) --> (Switch) --> (Internal Mesh Node) --> 
+(Client1) --> (Switch) --> (Internal Mesh Node) -->
 (Ad-Hoc WiFi Network) --> (Mesh Gateway) --> (Internet)
 ```
 
@@ -75,6 +75,7 @@ Raspberry Pi Installation
 1. If installing over an SSH connection to the Pi, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity with the Pi.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
 1.  Run the following commands to download the HSMM-Pi project and install
 
+        sudo apt-get update
         sudo apt-get install -y git
         git clone https://github.com/urlgrey/hsmm-pi.git
         cd hsmm-pi
