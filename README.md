@@ -26,8 +26,8 @@ HSMM-Pi has been tested to work with the Raspberry Pi running the Raspbian OS, w
 
 Raspberry-Pi Node:
 
- *  Raspberry Pi (256MB or 512MB) or Raspberry Pi 2
- *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset, and with the Alfa AWSU036NH)
+ *  Raspberry Pi (any model)
+ *  USB WiFi adapter (tested with the N150 adapter using the Ralink 5370 chipset, and with the Alfa AWSU036NH), or built-in WiFi adapter (on Raspberry Pi 3)
  *  SD memory card (4GB minimum)
 
 BeagleBone Node:
