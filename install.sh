@@ -111,7 +111,7 @@ sudo mkdir -p /var/data/hsmm-pi
 sudo chown root.www-data /var/data/hsmm-pi
 sudo chmod 775 /var/data/hsmm-pi
 if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
-    sudo cp ${PROJECT_HOME}/src/var/data/hsmm-pi/hsmm-pi.sqlite /var/data/hsmm-pi/hsmm-pi.sqlite
+    sudo Console/cake schema create -y
     sudo chown root.www-data /var/data/hsmm-pi/hsmm-pi.sqlite
     sudo chmod 664 /var/data/hsmm-pi/hsmm-pi.sqlite
 fi
