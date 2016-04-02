@@ -12,7 +12,7 @@ class UsersController extends AppController {
 
 			if ($this->Auth->login()) {
 				$this->Session->setFlash(__('Login successful, carry on'), 'default', array('class' => 'alert alert-success'));
-				$this->redirect($this->Auth->redirect());
+				$this->redirect($this->Auth->redirectUrl());
 			} else {
 				$this->Session->setFlash(__('Invalid username or password, try again'), 'default', array('class' => 'alert alert-error'));
 			}
@@ -31,7 +31,7 @@ class UsersController extends AppController {
 
 			if ($admin_user == null) {
 				$this->Session->setFlash(__('Unable to find user account, this should never happen'), 'default', array('class' => 'alert alert-error'));
-			} else if (strcmp($admin_user['User']['password'], AuthComponent::password($this->request->data['User']['current_password'])) != 0) {
+			} else if (strcmp($admin_user['User']['password'], Security::hash($this->request->data['User']['current_password'], null, true)) != 0) {
 				$this->Session->setFlash(__('The current password was incorrect'), 'default', array('class' => 'alert alert-error'));
 			} else if (strcmp($this->request->data['User']['password'], $this->request->data['User']['password_confirmation']) != 0) {
 				$this->Session->setFlash(__('New passwords did not match'), 'default', array('class' => 'alert alert-error'));

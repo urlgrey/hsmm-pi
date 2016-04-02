@@ -10,7 +10,7 @@ class NetworkSettingsController extends AppController {
 			throw new NotFoundException(__('Invalid setting'));
 		}
 
-		if ($this->request->isPost() || $this->request->isPut()) {
+		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->NetworkSetting->save($this->request->data)) {
 				$latest_network_setting = $this->get_network_settings();
 				$network_services = $this->get_network_services();
@@ -151,4 +151,3 @@ no-dhcp-interface=" . $network_setting['NetworkSetting']['wifi_adapter_name'];
 }
 
 ?>
-

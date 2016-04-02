@@ -11,7 +11,7 @@ class LocationSettingsController extends AppController {
 		}
 
 		$this->set('location_source', $location['LocationSetting']['location_source']);
-		if ($this->request->isPost() || $this->request->isPut()) {
+		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->LocationSetting->save($this->request->data)) {
 				$latest_location = $this->get_location();
 				$network_setting = $this->get_network_settings();
