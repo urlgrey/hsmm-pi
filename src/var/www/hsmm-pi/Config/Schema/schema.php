@@ -65,8 +65,9 @@ class AppSchema extends CakeSchema {
 		'name' => array('type' => 'string', 'null' => false),
 		'host' => array('type' => 'string', 'null' => false, 'default' => 'null'),
 		'port' => array('type' => 'integer', 'null' => false),
+		'path' => array('type' => 'string', 'null' => false, 'default' => ''),
 		'protocol' => array('type' => 'string', 'null' => false, 'default' => 'tcp'),
-		'forwarding_port' => array('type' => 'integer', 'null' => false),
+		'local_port' => array('type' => 'integer', 'null' => false),
 		'service_protocol_name' => array('type' => 'string', 'null' => false, 'default' => 'http'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => true)

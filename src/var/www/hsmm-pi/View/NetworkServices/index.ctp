@@ -29,7 +29,7 @@ if ($services != NULL && sizeof($services) > 0) {
 	  <th>Host</th>
 	  <th>Port</th>
 	  <th>Protocol</th>
-	  <th>Forwarding Port</th>
+	  <th>Local Port</th>
 	  <th>Service URL</th>
 	  <th>Actions</th>
 	</tr>
@@ -41,8 +41,8 @@ foreach ($services as $service) {
 	  <td><?php echo $service['NetworkService']['host'];?></td>
 	  <td><?php echo $service['NetworkService']['port'];?></td>
 	  <td><?php echo $service['NetworkService']['protocol'];?></td>
-	  <td><?php echo $service['NetworkService']['forwarding_port'];?></td>
-	  <td><a href="<?php echo $service['NetworkService']['service_protocol_name'] . "://" . $node_name . ":" . $service['NetworkService']['forwarding_port'] . '/';?>"><?php echo $service['NetworkService']['service_protocol_name'] . "://" . $node_name . ":" . $service['NetworkService']['forwarding_port'] . '/';?></a></td>
+	  <td><?php echo $service['NetworkService']['local_port'];?></td>
+	  <td><a href="<?php echo $service['NetworkService']['service_protocol_name'] . "://" . $node_name . ":" . $service['NetworkService']['port'] . '/' . $service['NetworkService']['path'];?>"><?php echo $service['NetworkService']['service_protocol_name'] . "://" . $node_name . ":" . $service['NetworkService']['port'] . '/' . $service['NetworkService']['path'];?></a></td>
 	  <td>
 	        <?php
 echo $this->Html->link('', array(
