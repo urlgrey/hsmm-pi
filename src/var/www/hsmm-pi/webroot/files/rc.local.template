@@ -18,6 +18,7 @@
 #
 # By default this script does nothing.
 
+rm -f /var/run/read_gps_coordinates.lock
 
 # Make attempts to reinitialize the WLAN adapter if no IP reported
 INET_IFACE={wifi_adapter_name}
