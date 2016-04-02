@@ -1,7 +1,7 @@
 <?php
 class LocationSettingsController extends AppController {
 	public $helpers = array('Html', 'Session');
-	public $components = array('RequestHandler', 'Session');
+	public $components = array('Flash', 'RequestHandler', 'Session');
 
 	public function edit($id = null) {
 		$location = $this->LocationSetting->findById($id);
@@ -11,7 +11,7 @@ class LocationSettingsController extends AppController {
 		}
 
 		$this->set('location_source', $location['LocationSetting']['location_source']);
-		if ($this->request->isPost() || $this->request->isPut()) {
+		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->LocationSetting->save($this->request->data)) {
 				$latest_location = $this->get_location();
 				$network_setting = $this->get_network_settings();
@@ -22,10 +22,9 @@ class LocationSettingsController extends AppController {
 				$this->render_gpsd_config($latest_location);
 				$this->render_ntp_config($network_setting, $latest_location);
 				$this->set('location_source', $latest_location['LocationSetting']['location_source']);
-				$this->Session->setFlash('Your settings have been saved and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
-					'default', array('class' => 'alert alert-success'));
+				$this->Flash->reboot(__('Your settings have been saved and will take effect on the next reboot.'));
 			} else {
-				$this->Session->setFlash('Unable to update your settings, please review any validation errors.', 'default', array('class' => 'alert alert-error'));
+				$this->Flash->error(__('Unable to update your settings, please review any validation errors.'));
 			}
 		}
 

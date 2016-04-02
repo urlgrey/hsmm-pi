@@ -54,7 +54,7 @@ sudo chmod g+w /etc/resolv.conf
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
-sudo pear install cakephp/CakePHP-2.8.2
+sudo pear install cakephp/CakePHP-2.8.3
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then

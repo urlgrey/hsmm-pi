@@ -1,7 +1,7 @@
 <?php
 class NetworkSettingsController extends AppController {
 	public $helpers = array('Html', 'Session');
-	public $components = array('RequestHandler', 'Session');
+	public $components = array('Flash', 'RequestHandler', 'Session');
 
 	public function edit($id = null) {
 		$network_setting = $this->NetworkSetting->findById($id);
@@ -10,7 +10,7 @@ class NetworkSettingsController extends AppController {
 			throw new NotFoundException(__('Invalid setting'));
 		}
 
-		if ($this->request->isPost() || $this->request->isPut()) {
+		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->NetworkSetting->save($this->request->data)) {
 				$latest_network_setting = $this->get_network_settings();
 				$network_services = $this->get_network_services();
@@ -27,10 +27,9 @@ class NetworkSettingsController extends AppController {
 				$this->render_callsign_announcement_config($latest_network_setting);
 				$this->render_ntp_config($latest_network_setting, $location);
 
-				$this->Session->setFlash('Your settings have been saved and will take effect on the next reboot: <a href="#rebootModal" data-toggle="modal" class="btn btn-primary">Reboot</a>',
-					'default', array('class' => 'alert alert-success'));
+				$this->Flash->reboot(__('Your settings have been saved and will take effect on the next reboot.'));
 			} else {
-				$this->Session->setFlash('Unable to update your settings, please review any validation errors.', 'default', array('class' => 'alert alert-error'));
+				$this->Flash->error(__('Unable to update your settings, please review any validation errors.'));
 			}
 		} else {
 			// perform some checks in the case of an HTTP GET
@@ -151,4 +150,3 @@ no-dhcp-interface=" . $network_setting['NetworkSetting']['wifi_adapter_name'];
 }
 
 ?>
-
