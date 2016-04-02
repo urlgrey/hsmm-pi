@@ -65,8 +65,9 @@ class AppSchema extends CakeSchema {
 		'name' => array('type' => 'string', 'null' => false),
 		'host' => array('type' => 'string', 'null' => false, 'default' => 'null'),
 		'port' => array('type' => 'integer', 'null' => false),
+		'path' => array('type' => 'string', 'null' => false, 'default' => ''),
 		'protocol' => array('type' => 'string', 'null' => false, 'default' => 'tcp'),
-		'forwarding_port' => array('type' => 'integer', 'null' => false),
+		'local_port' => array('type' => 'integer', 'null' => false),
 		'service_protocol_name' => array('type' => 'string', 'null' => false, 'default' => 'http'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => true)
@@ -79,7 +80,7 @@ class AppSchema extends CakeSchema {
 		'wifi_protocol' => array('type' => 'string', 'null' => false, 'default' => 'Static'),
 		'wifi_ip_address' => array('type' => 'string', 'null' => true),
 		'wifi_netmask' => array('type' => 'string', 'null' => false, 'default' => '255.0.0.0'),
-		'wifi_ssid' => array('type' => 'string', 'null' => false, 'default' => 'HSMM-MESH'),
+		'wifi_ssid' => array('type' => 'string', 'null' => false, 'default' => 'AREDN-20-v3'),
 		'wifi_mode' => array('type' => 'string', 'null' => false, 'default' => 'Ad-Hoc'),
 		'wifi_channel' => array('type' => 'integer', 'null' => false, 'default' => 1),
 		'wired_interface_mode' => array('type' => 'string', 'null' => false, 'default' => 'LAN'),
