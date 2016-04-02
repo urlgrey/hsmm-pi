@@ -40,9 +40,9 @@ class UsersController extends AppController {
 				$admin_user['User']['password'] = $this->request->data['User']['password'];
 
 				if ($this->User->save($admin_user)) {
-					$this->Flash->success('Password changed successfully.');
+					$this->Flash->success(__('Password changed successfully.'));
 				} else {
-					$this->Flash->error('Unable to update your settings, please review any validation errors.');
+					$this->Flash->error(__('Unable to update your settings, please review any validation errors.'));
 				}
 			}
 		}

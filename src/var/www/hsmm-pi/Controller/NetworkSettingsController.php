@@ -27,9 +27,9 @@ class NetworkSettingsController extends AppController {
 				$this->render_callsign_announcement_config($latest_network_setting);
 				$this->render_ntp_config($latest_network_setting, $location);
 
-				$this->Flash->reboot('Your settings have been saved and will take effect on the next reboot.');
+				$this->Flash->reboot(__('Your settings have been saved and will take effect on the next reboot.'));
 			} else {
-				$this->Flash->error('Unable to update your settings, please review any validation errors.');
+				$this->Flash->error(__('Unable to update your settings, please review any validation errors.'));
 			}
 		} else {
 			// perform some checks in the case of an HTTP GET

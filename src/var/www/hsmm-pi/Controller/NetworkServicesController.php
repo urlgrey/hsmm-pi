@@ -23,7 +23,7 @@ class NetworkServicesController extends AppController {
 			$this->render_olsrd_config($network_setting, $network_services, $location);
 			$this->render_rclocal_config($network_setting, $network_services);
 
-			$this->Flash->reboot('The service has been deleted, and will take effect on the next reboot.');
+			$this->Flash->reboot(__('The service has been deleted, and will take effect on the next reboot.'));
 			$this->redirect(array('action' => 'index'));
 		}
 	}
@@ -41,10 +41,10 @@ class NetworkServicesController extends AppController {
 				$this->render_olsrd_config($network_setting, $network_services, $location);
 				$this->render_rclocal_config($network_setting, $network_services);
 
-				$this->Flash->reboot('The service has been added, and will take effect on the next reboot.');
+				$this->Flash->reboot(__('The service has been added, and will take effect on the next reboot.'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error('Unable to add your service.');
+				$this->Flash->error(__('Unable to add your service.'));
 			}
 		}
 	}

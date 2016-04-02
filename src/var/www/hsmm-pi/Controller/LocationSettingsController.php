@@ -22,9 +22,9 @@ class LocationSettingsController extends AppController {
 				$this->render_gpsd_config($latest_location);
 				$this->render_ntp_config($network_setting, $latest_location);
 				$this->set('location_source', $latest_location['LocationSetting']['location_source']);
-				$this->Flash->reboot('Your settings have been saved and will take effect on the next reboot.');
+				$this->Flash->reboot(__('Your settings have been saved and will take effect on the next reboot.'));
 			} else {
-				$this->Flash->error('Unable to update your settings, please review any validation errors.');
+				$this->Flash->error(__('Unable to update your settings, please review any validation errors.'));
 			}
 		}
 
