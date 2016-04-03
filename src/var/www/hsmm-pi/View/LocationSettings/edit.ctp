@@ -42,17 +42,17 @@ echo $this->Form->input('location_source',
 	)
 );
 ?>
-  <span id="fixed" style="display: <?php echo (0 == strcmp($location_source, 'fixed')) ? 'block' : 'none';?>;">
+  <div id="fixed" style="padding: 0; display: <?php echo (0 == strcmp($location_source, 'fixed')) ? 'block' : 'none';?>;">
     <?php
 echo $this->Form->input('lat', array('label' => __('Latitude')));
 echo $this->Form->input('lon', array('label' => __('Longitude')));
 ?>
-  </span>
-  <span id="gps" style="display: <?php echo (0 == strcmp($location_source, 'gps')) ? 'block' : 'none';?>;">
+  </div>
+  <div id="gps" style="padding: 0; display: <?php echo (0 == strcmp($location_source, 'gps')) ? 'block' : 'none';?>;">
     <?php
 echo $this->Form->input('gps_device_name', array('label' => __('GPS Device Name')));
 ?>
-  </span>
+  </div>
 <?php
 echo $this->Form->end();
 ?>
