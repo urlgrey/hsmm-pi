@@ -85,6 +85,53 @@ if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
       <?php }
 ?>
     </div>
+
+    <div class="well">
+      <p><h3>Remote Nodes</h3></p>
+
+      <?php
+if ($mesh_routes != NULL && sizeof($mesh_routes) > 0) {
+	?>
+      <table class="table table-striped table-bordered">
+	<tr>
+          <th>Hostname</th>
+	  <th>IP Address</th>
+	  <th>Link Cost</th>
+	</tr>
+	<?php
+foreach ($mesh_routes as $node) {
+  $node_hostname = gethostbyaddr($node['destination']);
+  if (substr($node_hostname, 0, 8) === "dtdlink.") {
+    continue;
+  }
+		?>
+	<tr>
+          <td><a href="http://<?php echo $node_hostname;?>:8080/"><?php echo $node_hostname;?></a>
+	   <?php
+if (array_key_exists($node['destination'], $mesh_node_locations)) {
+			$location = $mesh_node_locations[$node['destination']];
+			if ($location != NULL) {
+				echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
+			}
+		}
+		?>
+	  </td>
+	  <td><?php echo $node['destination']; ?></td>
+	  <td><?php echo round($node['rtpMetricCost'] / 1024, 2); ?></td>
+	</tr>
+	<?php
+}
+	?>
+      </table>
+      <?php
+} else {
+	?>
+      <div class="alert alert-error">
+	<strong>Warning!</strong>.  There are no remote nodes.  It's a bit quiet around here.
+      </div>
+      <?php }
+?>
+    </div>
   </div>
   <div class="span4">
     <div class="well">

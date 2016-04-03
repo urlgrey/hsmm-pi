@@ -9,6 +9,7 @@ class StatusController extends AppController {
 
 	public function index() {
 		$this->set('mesh_links', $this->get_mesh_info('links'));
+		$this->set('mesh_routes', $this->get_mesh_info('routes')['routes']);
 		$this->set('mesh_services', $this->get_mesh_services());
 		$this->set('mesh_node_locations', $this->get_mesh_node_locations());
 		$this->load_node_attributes();
@@ -109,4 +110,3 @@ class StatusController extends AppController {
 }
 
 ?>
-
