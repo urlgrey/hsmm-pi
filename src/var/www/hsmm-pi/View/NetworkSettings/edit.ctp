@@ -30,7 +30,7 @@ echo $this->Form->input('id', array(
 
 <div class="tabbable"> <!-- Only required for left/right tabs -->
   <ul class="nav nav-tabs">
-    <li class="active""><a href="#wifi" data-toggle="tab"><?php echo __('WiFi');?></a></li>
+    <li class="active"><a href="#wifi" data-toggle="tab"><?php echo __('WiFi');?></a></li>
     <li><a href="#wired" data-toggle="tab"><?php echo __('Wired');?></a></li>
     <li><a href="#mesh" data-toggle="tab"><?php echo __('Mesh');?></a></li>
     <li><a href="#time" data-toggle="tab"><?php echo __('Time');?></a></li>

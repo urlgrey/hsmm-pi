@@ -1,6 +1,6 @@
 <!-- File: /app/View/NetworkServices/index.ctp -->
 <div class="page-header">
-  <p><h1>Network Services</h1></p>
+  <h1>Network Services</h1>
 </div>
 
 <div class="row">

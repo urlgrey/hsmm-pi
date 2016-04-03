@@ -21,7 +21,7 @@
 </script>
 
 <div class="page-header">
-  <p><h1>Status&nbsp;
+  <h1>Status&nbsp;
       <small><?php echo $node_name;?>
  <?php
 if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
@@ -31,13 +31,13 @@ if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
 	}
 }
 ?>
-</small></h1></p>
+</small></h1>
 </div>
 
 <div class="row">
   <div class="span8">
     <div class="well">
-      <p><h3>Mesh Links</h3></p>
+      <h3>Mesh Links</h3>
 
       <?php
 if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
@@ -87,7 +87,7 @@ if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
     </div>
 
     <div class="well">
-      <p><h3>Remote Nodes</h3></p>
+      <h3>Remote Nodes</h3>
 
       <?php
 if ($mesh_routes != NULL && sizeof($mesh_routes) > 0) {
@@ -133,9 +133,10 @@ if (array_key_exists($node['destination'], $mesh_node_locations)) {
 ?>
     </div>
   </div>
+
   <div class="span4">
     <div class="well">
-      <p><h3>Mesh Services</h3></p>
+      <h3>Mesh Services</h3>
 
       <?php
 if ($mesh_services != NULL && sizeof($mesh_services) > 0) {
@@ -162,27 +163,25 @@ foreach ($mesh_services as $service) {
       </div>
       <?php }
 ?>
-      </div>
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="span8">
-    <p>
-      <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version');?></h6>
-    </p>
+    <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version');?></h6>
   </div>
 </div>
 
 <!-- Modal -->
-<div id="mapModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="mapModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabelMap" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Node Location Map</h3>
+    <h3 id="modalLabelMap">Node Location Map</h3>
   </div>
   <div class="modal-body">
     <div id='mapDiv' style="position:relative; width:500px; height:350px;"></div>
-    <h5>Latitude:&nbsp;<em id="latitude"></em>&nbsp;&nbsp;Longitude:&nbsp;<em id="longitude"></em>
+    <h5>Latitude:&nbsp;<em id="latitude"></em>&nbsp;&nbsp;Longitude:&nbsp;<em id="longitude"></em></h5>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
