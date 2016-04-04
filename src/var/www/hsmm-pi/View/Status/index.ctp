@@ -37,7 +37,7 @@ if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
 <div class="row">
   <div class="span8">
     <div class="well">
-      <h3>Mesh Links</h3>
+      <h3>Neighbors</h3>
 
       <?php
 if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
@@ -88,12 +88,23 @@ if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
 ?>
     </div>
 
+    <?php
+$remote_nodes = array();
+foreach ($mesh_routes as $route) {
+  if ($route['genmask'] < 32) continue;
+  if (array_key_exists($route['destination'], $neighbor_ips)) continue;
+  $node_hostname = $mesh_hosts[$route['destination']];
+  if (!$node_hostname) {
+    $node_hostname = $route['destination'];
+  }
+  if (substr($node_hostname, 0, 8) === "dtdlink.") continue;
+  $route['hostname'] = $node_hostname;
+  $remote_nodes[] = $route;
+}
+if (sizeof($remote_nodes) > 0) {
+?>
     <div class="well">
       <h3>Remote Nodes</h3>
-
-      <?php
-if ($mesh_routes != NULL && sizeof($mesh_routes) > 0) {
-	?>
       <table class="table table-striped table-bordered">
 	<tr>
           <th>Hostname</th>
@@ -101,17 +112,10 @@ if ($mesh_routes != NULL && sizeof($mesh_routes) > 0) {
 	  <th>Link Cost</th>
 	</tr>
 	<?php
-foreach ($mesh_routes as $node) {
-  if ($node['genmask'] < 32) continue;
-  if (array_key_exists($node['destination'], $neighbor_ips)) continue;
-  $node_hostname = $mesh_hosts[$node['destination']];
-  if (!$node_hostname) {
-    $node_hostname = $node['destination'];
-  }
-  if (substr($node_hostname, 0, 8) === "dtdlink.") continue;
+foreach ($remote_nodes as $node) {
 		?>
 	<tr>
-          <td><a href="http://<?php echo $node_hostname;?>:8080/"><?php echo $node_hostname;?></a>
+          <td><a href="http://<?php echo $node['hostname'];?>:8080/"><?php echo $node['hostname'];?></a>
 	   <?php
 if (array_key_exists($node['destination'], $mesh_node_locations)) {
 			$location = $mesh_node_locations[$node['destination']];
@@ -122,21 +126,16 @@ if (array_key_exists($node['destination'], $mesh_node_locations)) {
 		?>
 	  </td>
 	  <td><?php echo $node['destination']; ?></td>
-	  <td><?php echo round($node['rtpMetricCost'] / 1024, 2); ?></td>
+	  <td><?php echo number_format($node['rtpMetricCost'] / 1024, 2); ?></td>
 	</tr>
 	<?php
 }
 	?>
       </table>
-      <?php
-} else {
-	?>
-      <div class="alert alert-error">
-	<strong>Warning!</strong>.  There are no remote nodes.  It's a bit quiet around here.
-      </div>
-      <?php }
-?>
     </div>
+    <?php
+  }
+  ?>
   </div>
 
   <div class="span4">
