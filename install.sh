@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 #
 # File: install.sh
@@ -126,6 +126,7 @@ fi
 OUTPUT=`sudo grep "www-data" /etc/sudoers`
 if [ -z "$OUTPUT" ]; then
     sudo bash -c "echo 'www-data ALL=(ALL) NOPASSWD: /sbin/iwlist' >> /etc/sudoers"
+    sudo bash -c "echo 'www-data ALL=(ALL) NOPASSWD: /sbin/shutdown' >> /etc/sudoers"
 fi
 
 # enable apache mod-rewrite

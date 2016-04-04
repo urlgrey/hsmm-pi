@@ -1,7 +1,7 @@
 <!-- File: /app/View/WifiScan/index.ctp -->
 
 <div class="page-header">
-  <p><h1>WiFi Scan</h1></p>
+  <h1>WiFi Scan</h1>
 </div>
 
 <div class="row">

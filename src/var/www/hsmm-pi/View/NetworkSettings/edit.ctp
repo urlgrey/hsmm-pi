@@ -30,7 +30,7 @@ echo $this->Form->input('id', array(
 
 <div class="tabbable"> <!-- Only required for left/right tabs -->
   <ul class="nav nav-tabs">
-    <li class="active""><a href="#wifi" data-toggle="tab"><?php echo __('WiFi');?></a></li>
+    <li class="active"><a href="#wifi" data-toggle="tab"><?php echo __('WiFi');?></a></li>
     <li><a href="#wired" data-toggle="tab"><?php echo __('Wired');?></a></li>
     <li><a href="#mesh" data-toggle="tab"><?php echo __('Mesh');?></a></li>
     <li><a href="#time" data-toggle="tab"><?php echo __('Time');?></a></li>
@@ -61,7 +61,7 @@ echo $this->Form->input('wired_interface_mode',
 	)
 );
 ?>
-      <span id="lan" style="display: <?php echo (0 == strcmp($wired_interface_mode, 'LAN')) ? 'block' : 'none';?>;">
+      <div id="lan" style="padding: 0; display: <?php echo (0 == strcmp($wired_interface_mode, 'LAN')) ? 'block' : 'none';?>;">
       <?php
 echo $this->Form->input('lan_mode',
 	array(
@@ -77,8 +77,8 @@ echo $this->Form->input('lan_dhcp_server', array('label' => __('DHCP Server'), '
 echo $this->Form->input('lan_dhcp_start', array('label' => __('DHCP Start')));
 echo $this->Form->input('lan_dhcp_end', array('label' => __('DHCP End')));
 ?>
-      </span>
-      <span id="wan" style="display: <?php echo (0 == strcmp($wired_interface_mode, 'WAN')) ? 'block' : 'none';?>;">
+      </div>
+      <div id="wan" style="padding: 0; display: <?php echo (0 == strcmp($wired_interface_mode, 'WAN')) ? 'block' : 'none';?>;">
       <?php
 echo $this->Form->input('wan_protocol',
 	array(
@@ -90,7 +90,7 @@ echo $this->Form->input('wan_dns1', array('label' => __('DNS 1')));
 echo $this->Form->input('wan_dns2', array('label' => __('DNS 2')));
 echo $this->Form->input('wan_fixed_connection', array('label' => __('WAN port is always on (periodic testing of Internet connectivity is unnecessary)'), 'type' => 'checkbox'));
 ?>
-      </span>
+      </div>
     </div>
     <div class="tab-pane" id="mesh">
       <?php
@@ -105,8 +105,8 @@ echo $this->Form->input('mesh_olsrd_secure_key', array('label' => __('OLSRD Secu
 echo $this->Form->input('ntp_server', array('label' => __('Network Time Server')));
 ?>
     </div>
-    <?php
-echo $this->Form->end();
-?>
   </div>
 </div>
+<?php
+echo $this->Form->end();
+?>

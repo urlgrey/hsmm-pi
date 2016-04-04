@@ -21,7 +21,7 @@
 </script>
 
 <div class="page-header">
-  <p><h1>Status&nbsp;
+  <h1>Status&nbsp;
       <small><?php echo $node_name;?>
  <?php
 if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
@@ -31,13 +31,13 @@ if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
 	}
 }
 ?>
-</small></h1></p>
+</small></h1>
 </div>
 
 <div class="row">
   <div class="span8">
     <div class="well">
-      <p><h3>Mesh Links</h3></p>
+      <h3>Neighbors</h3>
 
       <?php
 if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
@@ -49,10 +49,17 @@ if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
 	  <th>Link Quality</th>
 	</tr>
 	<?php
+$neighbor_ips = array();
 foreach ($mesh_links['links'] as $node) {
+  $neighbor_ips[$node['remoteIP']] = 1;
 		?>
 	<tr>
-          <?php $node_hostname = gethostbyaddr($node['remoteIP']);?>
+          <?php
+$node_hostname = $mesh_hosts[$node['remoteIP']];
+if (!$node_hostname) {
+  $node_hostname = $node['remoteIP'];
+}
+?>
           <td><a href="http://<?php echo $node_hostname;?>:8080/"><?php echo $node_hostname;?></a>
 	   <?php
 if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
@@ -85,10 +92,60 @@ if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
       <?php }
 ?>
     </div>
+
+    <?php
+$remote_nodes = array();
+foreach ($mesh_routes as $route) {
+  if ($route['genmask'] < 32) continue;
+  if (array_key_exists($route['destination'], $neighbor_ips)) continue;
+  $node_hostname = $mesh_hosts[$route['destination']];
+  if (!$node_hostname) {
+    $node_hostname = $route['destination'];
+  }
+  if (substr($node_hostname, 0, 8) === "dtdlink.") continue;
+  $route['hostname'] = $node_hostname;
+  $remote_nodes[] = $route;
+}
+if (sizeof($remote_nodes) > 0) {
+?>
+    <div class="well">
+      <h3>Remote Nodes</h3>
+      <table class="table table-striped table-bordered">
+	<tr>
+          <th>Hostname</th>
+	  <th>IP Address</th>
+	  <th>Link Cost</th>
+	</tr>
+	<?php
+foreach ($remote_nodes as $node) {
+		?>
+	<tr>
+          <td><a href="http://<?php echo $node['hostname'];?>:8080/"><?php echo $node['hostname'];?></a>
+	   <?php
+if (array_key_exists($node['destination'], $mesh_node_locations)) {
+			$location = $mesh_node_locations[$node['destination']];
+			if ($location != NULL) {
+				echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal icon-globe\" data-toggle=\"modal\"></a>";
+			}
+		}
+		?>
+	  </td>
+	  <td><?php echo $node['destination']; ?></td>
+	  <td><?php echo number_format($node['rtpMetricCost'] / 1024, 2); ?></td>
+	</tr>
+	<?php
+}
+	?>
+      </table>
+    </div>
+    <?php
+  }
+  ?>
   </div>
+
   <div class="span4">
     <div class="well">
-      <p><h3>Mesh Services</h3></p>
+      <h3>Mesh Services</h3>
 
       <?php
 if ($mesh_services != NULL && sizeof($mesh_services) > 0) {
@@ -115,27 +172,25 @@ foreach ($mesh_services as $service) {
       </div>
       <?php }
 ?>
-      </div>
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="span8">
-    <p>
-      <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version');?></h6>
-    </p>
+    <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version');?></h6>
   </div>
 </div>
 
 <!-- Modal -->
-<div id="mapModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="mapModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabelMap" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Node Location Map</h3>
+    <h3 id="modalLabelMap">Node Location Map</h3>
   </div>
   <div class="modal-body">
     <div id='mapDiv' style="position:relative; width:500px; height:350px;"></div>
-    <h5>Latitude:&nbsp;<em id="latitude"></em>&nbsp;&nbsp;Longitude:&nbsp;<em id="longitude"></em>
+    <h5>Latitude:&nbsp;<em id="latitude"></em>&nbsp;&nbsp;Longitude:&nbsp;<em id="longitude"></em></h5>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

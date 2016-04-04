@@ -4,7 +4,7 @@ class SystemController extends AppController {
 
 	public function reboot() {
 
-		file_put_contents('/var/data/hsmm-pi/reboot', time());
+		exec('sudo /sbin/shutdown -r +1');
 
 		$this->Flash->success(__('Reboot initiated, please reload this page in 2 minutes.'));
 		$this->redirect(array('controller' => 'status', 'action' => 'index'));
@@ -12,7 +12,7 @@ class SystemController extends AppController {
 
 	public function shutdown() {
 
-		file_put_contents('/var/data/hsmm-pi/shutdown', time());
+		exec('sudo /sbin/shutdown -h +1');
 
 		$this->Flash->success(__('Shutdown initiated, goodbye.'));
 		$this->redirect(array('controller' => 'status', 'action' => 'index'));

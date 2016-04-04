@@ -109,4 +109,4 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-Configure::write('App.version','0.7.2');
+Configure::write('App.version','0.8.0');

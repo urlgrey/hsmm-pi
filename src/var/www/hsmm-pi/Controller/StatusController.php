@@ -9,6 +9,8 @@ class StatusController extends AppController {
 
 	public function index() {
 		$this->set('mesh_links', $this->get_mesh_info('links'));
+		$this->set('mesh_routes', $this->get_mesh_info('routes')['routes']);
+		$this->set('mesh_hosts', $this->get_mesh_hosts());
 		$this->set('mesh_services', $this->get_mesh_services());
 		$this->set('mesh_node_locations', $this->get_mesh_node_locations());
 		$this->load_node_attributes();
@@ -51,6 +53,33 @@ class StatusController extends AppController {
 			socket_clear_error($socket);
 			return null;
 		}
+	}
+
+	private function get_mesh_hosts() {
+		$hosts = array();
+		if (file_exists("/var/run/hosts_olsr")) {
+			$handle = @fopen("/var/run/hosts_olsr", "r");
+			if ($handle) {
+				while (($buffer = fgets($handle, 1024)) !== false) {
+					if ($buffer != null) {
+						$host_s = trim(substr($buffer, 0, strpos($buffer, '#')));
+						if (strlen($host_s) > 0) {
+							$host_parts = explode("\t", $host_s);
+							if (sizeof($host_parts) >= 2) {
+								$ip = $host_parts[0];
+								$name = $host_parts[1];
+								if (!array_key_exists($ip, $hosts)) {
+									$hosts[$ip] = $name;
+								}
+							}
+						}
+					}
+				}
+				fclose($handle);
+			}
+		}
+
+		return $hosts;
 	}
 
 	private function get_mesh_services() {
@@ -109,4 +138,3 @@ class StatusController extends AppController {
 }
 
 ?>
-

@@ -49,10 +49,10 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
   </head>
   <body>
     <!-- Reboot Modal -->
-    <div id="rebootModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="rebootModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabelReboot" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel"><?php echo __('Reboot Confirmation'); ?></h3>
+        <h3 id="modalLabelReboot"><?php echo __('Reboot Confirmation'); ?></h3>
       </div>
       <div class="modal-body">
         <p>The node will be unavailable during the reboot.  Are you sure you want to do this?</p>
@@ -69,10 +69,10 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     </div>
 
     <!-- Shutdown Modal -->
-    <div id="shutdownModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="shutdownModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabelShutdown" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel"><?php echo __('Shutdown Confirmation'); ?></h3>
+        <h3 id="modalLabelShutdown"><?php echo __('Shutdown Confirmation'); ?></h3>
       </div>
       <div class="modal-body">
         <p>The node will be totally unavailable after shutdown.  Are you sure you want to do this?</p>
@@ -107,14 +107,14 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                                                             'action' => 'index'));
                 ?>
               </li>
-              <?php 
+              <?php
                  if ($this->Session->read('Auth.User')) {
               ?>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                 <li <?php if (strstr($this->here, '/hsmm-pi/network_settings') != FALSE) { echo 'class="active"'; }  ?>>
-                  <?php 
+                  <?php
                     echo $this->Html->link(__("<i class=\"icon-signal\"></i>&nbsp;".'Network'),
                                            array(
                                                  'controller' => 'network_settings',
@@ -123,7 +123,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                   ?>
                 </li>
                 <li <?php if (strstr($this->here, '/hsmm-pi/network_services') != FALSE) { echo 'class="active"'; }  ?>>
-                  <?php 
+                  <?php
                     echo $this->Html->link("<i class=\"icon-bullhorn\"></i>&nbsp;".__('Services'),
                                            array(
                                                  'controller' => 'network_services',
@@ -132,7 +132,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                   ?>
                 </li>
                 <li <?php if (strstr($this->here, '/hsmm-pi/location') != FALSE) { echo 'class="active"'; }  ?>>
-                  <?php 
+                  <?php
                     echo $this->Html->link("<i class=\"icon-globe\"></i>&nbsp;".__('Location'),
                                            array(
                                                  'controller' => 'location_settings',
@@ -162,13 +162,12 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                 <li class="divider"></li>
                 <li><a href="#rebootModal" data-toggle="modal"><?php echo __('<i class="icon-refresh"></i>&nbsp;Reboot'); ?></a></li>
                 <li><a href="#shutdownModal" data-toggle="modal"><?php echo __('<i class="icon-off"></i>&nbsp;Shutdown'); ?></a></li>
+                </ul>
               <?php
                 }
               ?>
             </ul>
-          </li>
-        </ul>
-        <?php 
+        <?php
           if ($this->Session->read('Auth.User')) {
         ?>
           <ul class="nav pull-right">
@@ -181,8 +180,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
               ?>
             </li>
           </ul>
-        </div>
-        <?php 
+        <?php
           } else {
         ?>
           <ul class="nav pull-right">
@@ -198,6 +196,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
         <?php
           }
         ?>
+        </div>
       </div>
     </div>
   </div>
@@ -208,6 +207,6 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
   </div>
 
   <?php echo $this->element('sql_dump'); ?>
-  <?php echo $this->Html->script('bootstrap.min', array('media' => 'screen')); ?>
+  <?php echo $this->Html->script('bootstrap.min'); ?>
 </body>
 </html>
