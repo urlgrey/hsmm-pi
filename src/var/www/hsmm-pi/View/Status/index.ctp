@@ -54,7 +54,12 @@ foreach ($mesh_links['links'] as $node) {
   $neighbor_ips[$node['remoteIP']] = 1;
 		?>
 	<tr>
-          <?php $node_hostname = $mesh_hosts[$node['remoteIP']];?>
+          <?php
+$node_hostname = $mesh_hosts[$node['remoteIP']];
+if (!$node_hostname) {
+  $node_hostname = $node['remoteIP'];
+}
+?>
           <td><a href="http://<?php echo $node_hostname;?>:8080/"><?php echo $node_hostname;?></a>
 	   <?php
 if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
