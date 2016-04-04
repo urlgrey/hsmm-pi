@@ -18,7 +18,6 @@ class NetworkSetting extends AppModel {
 		'wan_dns2' => array('rule' => array('ip'), 'message' => 'Please supply a valid IP address.'),
 		'node_name' => array('required' => array('rule' => array('notBlank'), 'message' => 'A globally unique nodename with your callsign is required')),
 		'mesh_olsrd_secure_key' => array('required' => array('rule' => array('notBlank'), 'message' => 'A secure key value is required')),
-		'callsign' => array('required' => array('rule' => array('notBlank'), 'message' => 'A valid callsign is required'), array('rule' => array('lengthBetween', 3, 9), 'message' => 'Callsign must be between 3 and 9 characters')),
 		'ntp_server' => array('required' => array('rule' => array('notBlank'), 'message' => 'A NTP server is required')),
 	);
 

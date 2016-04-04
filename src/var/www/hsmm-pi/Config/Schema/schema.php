@@ -99,7 +99,6 @@ class AppSchema extends CakeSchema {
 		'node_name' => array('type' => 'string', 'null' => false, 'default' => 'UNDEF-1'),
 		'wifi_adapter_name' => array('type' => 'string', 'null' => false, 'default' => 'wlan0'),
 		'wired_adapter_name' => array('type' => 'string', 'null' => false, 'default' => 'eth0'),
-		'callsign' => array('type' => 'string', 'null' => false, 'default' => 'UNDEF'),
 		'wan_fixed_connection' => array('type' => 'boolean', 'null' => false, 'default' => true),
 		'ntp_server' => array('type' => 'string', 'null' => false, 'default' => 'ntp.ubuntu.com'),
 		'indexes' => array(
