@@ -49,10 +49,12 @@ if ($mesh_links != NULL && sizeof($mesh_links['links']) > 0) {
 	  <th>Link Quality</th>
 	</tr>
 	<?php
+$neighbor_ips = array();
 foreach ($mesh_links['links'] as $node) {
+  $neighbor_ips[$node['remoteIP']] = 1;
 		?>
 	<tr>
-          <?php $node_hostname = gethostbyaddr($node['remoteIP']);?>
+          <?php $node_hostname = $mesh_hosts[$node['remoteIP']];?>
           <td><a href="http://<?php echo $node_hostname;?>:8080/"><?php echo $node_hostname;?></a>
 	   <?php
 if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
@@ -100,10 +102,13 @@ if ($mesh_routes != NULL && sizeof($mesh_routes) > 0) {
 	</tr>
 	<?php
 foreach ($mesh_routes as $node) {
-  $node_hostname = gethostbyaddr($node['destination']);
-  if (substr($node_hostname, 0, 8) === "dtdlink.") {
-    continue;
+  if ($node['genmask'] < 32) continue;
+  if (array_key_exists($node['destination'], $neighbor_ips)) continue;
+  $node_hostname = $mesh_hosts[$node['destination']];
+  if (!$node_hostname) {
+    $node_hostname = $node['destination'];
   }
+  if (substr($node_hostname, 0, 8) === "dtdlink.") continue;
 		?>
 	<tr>
           <td><a href="http://<?php echo $node_hostname;?>:8080/"><?php echo $node_hostname;?></a>
