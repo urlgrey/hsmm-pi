@@ -4,8 +4,8 @@
 </div>
 
 <div class="row">
-  <div class="span12">
-    <span class="pull-right">
+  <div class="col-md-12">
+    <div class="pull-right">
       <p>
 	<?php
 echo $this->Html->link(__('Add'), array(
@@ -14,12 +14,12 @@ echo $this->Html->link(__('Add'), array(
 	'class' => 'btn btn-primary'));
 ?>
       </p>
-    </span>
+    </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-md-12">
       <?php
 if ($services != NULL && sizeof($services) > 0) {
 	?>
@@ -49,10 +49,9 @@ echo $this->Html->link('', array(
 			'action' => 'delete',
 			$service['NetworkService']['id'],
 		),
-			array('class' => 'icon-trash'));
+			array('class' => 'glyphicon glyphicon-trash'));
 		?>
-          </td>
-	  </div></td>
+	  </td>
 	</tr>
 	<?php
 }
@@ -66,6 +65,5 @@ echo $this->Html->link('', array(
       </div>
       <?php }
 ?>
-    </div>
   </div>
 </div>

@@ -12,7 +12,7 @@ class NetworkServicesController extends AppController {
 		$this->NetworkService->id = $id;
 
 		if (!$this->NetworkService->exists()) {
-			throw new NotFoundException(__('Invalid service key'), 'default', array('class' => 'alert alert-error'));
+			throw new NotFoundException(__('Invalid service key'), 'default', array('class' => 'alert alert-danger'));
 		}
 
 		if ($this->NetworkService->delete()) {

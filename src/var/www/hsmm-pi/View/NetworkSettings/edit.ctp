@@ -17,6 +17,10 @@
 
 <?php
 echo $this->Form->create('NetworkSetting', array(
+  'inputDefaults' => array(
+    'div' => 'form-group',
+    'label' => array('class' => 'col col-md-3 control-label'),
+    'class' => 'form-control'),
 	'url' => array('controller' => 'network_settings', 'action' => 'edit')));
 echo $this->Form->input('id', array(
 	'type' => 'hidden',
