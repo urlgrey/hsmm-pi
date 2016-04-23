@@ -86,7 +86,7 @@ if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
       <?php
 } else {
   ?>
-      <div class="alert alert-error">
+      <div class="alert alert-danger">
   <strong>Warning!</strong>.  There are no mesh links in range.  It's a bit quiet around here.
       </div>
       <?php }
