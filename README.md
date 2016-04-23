@@ -61,12 +61,12 @@ I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370
 Raspberry Pi Installation
 =========================
 
-1.  Download the Raspbian Jessie Lite disk image on your Mac/PC/whatever (https://downloads.raspberrypi.org/raspbian_lite_latest)
+1.  Download the [Raspbian Jessie](https://downloads.raspberrypi.org/raspbian_latest) or [Raspbian Jessie Lite](https://downloads.raspberrypi.org/raspbian_lite_latest) disk image. The Lite image is suitable for headless installations as it omits the graphical interface, web browser, etc.
 1.  Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
 1.  Insert the card into a Raspberry Pi
 1.  Connect the wired Ethernet port on the Pi to a network with Internet access
 1.  Apply power to the Pi
-1.  Login to the Pi, either through an SSH session or the console, using the 'pi' account
+1.  Login to the Pi through an SSH session, the console, or the terminal application. The username is "pi" and the password is "raspberry".
 1.  Run the Raspberry Pi Setup program:
 
         sudo raspi-config
@@ -82,7 +82,7 @@ Raspberry Pi Installation
         sh install.sh
 1.  Login to the web application on the Pi:
 http://(wired Ethernet IP of the node):8080/
-1.  Access the Admin account using the 'admin' username and 'changeme' password.
+1.  Access the Admin account using the username "admin" and password "changeme".
 1.  Change the password for HSMM-Pi
 1.  Configure as either an Internal or Gateway node
 
