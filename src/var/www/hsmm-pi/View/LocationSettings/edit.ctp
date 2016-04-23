@@ -17,6 +17,11 @@
 
 <?php
 echo $this->Form->create('LocationSetting', array(
+  'inputDefaults' => array(
+    'div' => 'form-group',
+    'label' => array('class' => 'col col-md-3 control-label'),
+    'wrapInput' => 'col col-md-9',
+    'class' => 'form-control'),
 	'url' => array('controller' => 'location_settings', 'action' => 'edit')));
 echo $this->Form->input('id', array(
 	'type' => 'hidden',

@@ -5,7 +5,12 @@
 
 <?php
 echo $this->Form->create('User', array(
-	'url' => array('controller' => 'users', 'action' => 'edit')));
+  'inputDefaults' => array(
+    'div' => 'form-group',
+    'label' => array('class' => 'col col-md-3 control-label'),
+    'wrapInput' => 'col col-md-9',
+    'class' => 'form-control'),
+  'url' => array('controller' => 'users', 'action' => 'edit')));
 echo $this->Form->input('current_password', array('label' => __('Current Password'), 'type' => 'password'));
 echo $this->Form->input('password', array('label' => __('New Password'), 'type' => 'password'));
 echo $this->Form->input('password_confirmation', array('label' => __('New Password (again)'), 'type' => 'password'));

@@ -4,7 +4,13 @@
 </div>
 
 <?php
-echo $this->Form->create('NetworkService');
+echo $this->Form->create('NetworkService', array(
+  'inputDefaults' => array(
+    'div' => 'form-group',
+    'label' => array('class' => 'col col-md-3 control-label'),
+    'wrapInput' => 'col col-md-9',
+    'class' => 'form-control'),
+));
 echo $this->Form->input('name');
 echo $this->Form->input('service_protocol_name');
 echo $this->Form->input('host');
