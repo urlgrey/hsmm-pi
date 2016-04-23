@@ -49,7 +49,7 @@ echo $this->Html->link('', array(
 			'action' => 'delete',
 			$service['NetworkService']['id'],
 		),
-			array('class' => 'icon-trash'));
+			array('class' => 'glyphicon glyphicon-trash'));
 		?>
           </td>
 	  </div></td>
