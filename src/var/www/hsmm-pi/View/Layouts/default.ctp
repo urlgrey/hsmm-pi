@@ -57,7 +57,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
             <p>The node will be unavailable during the reboot.  Are you sure you want to do this?</p>
           </div>
           <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
             <?php
               echo $this->Html->link(__('Reboot'), array(
                                                         'controller' => 'system',
@@ -81,7 +81,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
             <p>The node will be totally unavailable after shutdown.  Are you sure you want to do this?</p>
           </div>
           <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
             <?php
               echo $this->Html->link(__('Shutdown'), array(
                                                           'controller' => 'system',

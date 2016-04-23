@@ -17,7 +17,7 @@ echo $this->Html->link(__('Cancel'),
 	array(
 		'controller' => 'network_services',
 		'action' => 'index'),
-	array('class' => 'btn')
+	array('class' => 'btn btn-default')
 );
 echo "&nbsp;&nbsp;";
 echo $this->Form->submit(__('Save'), array('name' => 'submit', 'div' => false, 'class' => 'btn btn-primary'));
