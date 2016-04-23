@@ -6,14 +6,14 @@
 <div class="row">
   <div class="col-md-12">
     <span class="pull-right">
-      <p>
+      <div>
 	<?php
 echo $this->Html->link(__('Add'), array(
 	'controller' => 'network_services',
 	'action' => 'add'), array(
 	'class' => 'btn btn-primary'));
 ?>
-      </p>
+      </div>
     </span>
   </div>
 </div>
