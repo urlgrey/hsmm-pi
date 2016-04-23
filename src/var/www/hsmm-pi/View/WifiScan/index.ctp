@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <?php
       if ($wifi_networks != NULL && sizeof($wifi_networks) > 0) {
     ?>
