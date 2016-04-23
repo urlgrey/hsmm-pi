@@ -30,6 +30,7 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
       echo $this->Html->css('cake.generic');
+      echo $this->Html->css('custom');
       echo $this->Html->css('bootstrap.min');
     ?>
     <?php

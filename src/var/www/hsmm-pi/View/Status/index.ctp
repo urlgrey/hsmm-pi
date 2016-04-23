@@ -27,7 +27,7 @@
 if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
   $location = $mesh_node_locations[$node_wifi_ip_address];
   if ($location != NULL) {
-    echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal glyphicon glyphicon-globe\" data-toggle=\"modal\"></a>";
+    echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal glyphicon glyphicon-globe glyphicon-link\" data-toggle=\"modal\"></a>";
   }
 }
 ?>
@@ -65,7 +65,7 @@ if (!$node_hostname) {
 if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
       $location = $mesh_node_locations[$node['remoteIP']];
       if ($location != NULL) {
-        echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal glyphicon glyphicon-globe\" data-toggle=\"modal\"></a>";
+        echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal glyphicon glyphicon-globe glyphicon-link\" data-toggle=\"modal\"></a>";
       }
     }
     ?>
@@ -125,7 +125,7 @@ foreach ($remote_nodes as $node) {
 if (array_key_exists($node['destination'], $mesh_node_locations)) {
       $location = $mesh_node_locations[$node['destination']];
       if ($location != NULL) {
-        echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal glyphicon glyphicon-globe\" data-toggle=\"modal\"></a>";
+        echo "&nbsp;<a href=\"#mapModal\" data-lat=\"" . $location['lat'] . "\" data-lon=\"" . $location['lon'] . "\" role=\"button\" class=\"open-mapModal glyphicon glyphicon-globe glyphicon-link\" data-toggle=\"modal\"></a>";
       }
     }
     ?>
