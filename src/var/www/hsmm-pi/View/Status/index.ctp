@@ -70,7 +70,7 @@ if (array_key_exists($node['remoteIP'], $mesh_node_locations)) {
     }
     ?>
      <?php if (in_array($node['remoteIP'], $mesh_neighbors)) {?>
-     &nbsp;<i class="glyphicon glyphiconicon-star"></i>
+     &nbsp;<i class="glyphicon glyphicon-star"></i>
      <?php }
     ?>
     </td>
