@@ -51,8 +51,7 @@ echo $this->Html->link('', array(
 		),
 			array('class' => 'glyphicon glyphicon-trash'));
 		?>
-          </td>
-	  </div></td>
+	  </td>
 	</tr>
 	<?php
 }
@@ -66,6 +65,5 @@ echo $this->Html->link('', array(
       </div>
       <?php }
 ?>
-    </div>
   </div>
 </div>
