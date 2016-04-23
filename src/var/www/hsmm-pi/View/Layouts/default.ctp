@@ -201,7 +201,6 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
         <?php
           }
         ?>
-      </div>
     </div>
   </div>
 
