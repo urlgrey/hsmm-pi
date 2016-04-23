@@ -35,7 +35,7 @@ if (array_key_exists($node_wifi_ip_address, $mesh_node_locations)) {
 </div>
 
 <div class="row">
-  <div class="span8">
+  <div class="col-md-8">
     <div class="well">
       <h3>Neighbors</h3>
 
@@ -143,7 +143,7 @@ if (array_key_exists($node['destination'], $mesh_node_locations)) {
   ?>
   </div>
 
-  <div class="span4">
+  <div class="col-md-4">
     <div class="well">
       <h3>Mesh Services</h3>
 
@@ -177,7 +177,7 @@ foreach ($mesh_services as $service) {
 </div>
 
 <div class="row">
-  <div class="span8">
+  <div class="col-md-8">
     <h6>HSMM-Pi Version:&nbsp;<?php echo Configure::read('App.version');?></h6>
   </div>
 </div>

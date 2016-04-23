@@ -4,7 +4,7 @@
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-md-12">
     <span class="pull-right">
       <p>
 	<?php
@@ -19,7 +19,7 @@ echo $this->Html->link(__('Add'), array(
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-md-12">
       <?php
 if ($services != NULL && sizeof($services) > 0) {
 	?>
