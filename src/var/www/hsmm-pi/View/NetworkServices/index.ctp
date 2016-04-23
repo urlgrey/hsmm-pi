@@ -5,16 +5,16 @@
 
 <div class="row">
   <div class="col-md-12">
-    <span class="pull-right">
-      <div>
+    <div class="pull-right">
+      <p>
 	<?php
 echo $this->Html->link(__('Add'), array(
 	'controller' => 'network_services',
 	'action' => 'add'), array(
 	'class' => 'btn btn-primary'));
 ?>
-      </div>
-    </span>
+      </p>
+    </div>
   </div>
 </div>
 
