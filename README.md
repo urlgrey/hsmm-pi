@@ -61,30 +61,30 @@ I've done all of my testing with N150 USB wifi adapters that use the Ralink 5370
 Raspberry Pi Installation
 =========================
 
-1.  Download the [Raspbian Jessie](https://downloads.raspberrypi.org/raspbian_latest) or [Raspbian Jessie Lite](https://downloads.raspberrypi.org/raspbian_lite_latest) disk image. The Lite image is suitable for headless installations as it omits the graphical interface, web browser, etc.
-1.  Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
-1.  Insert the card into a Raspberry Pi
-1.  Connect the wired Ethernet port on the Pi to a network with Internet access
-1.  Apply power to the Pi
-1.  Login to the Pi through an SSH session, the console, or the terminal application. The username is "pi" and the password is "raspberry".
-1.  Run the Raspberry Pi Setup program:
+1. Download the [Raspbian Jessie](https://downloads.raspberrypi.org/raspbian_latest) or [Raspbian Jessie Lite](https://downloads.raspberrypi.org/raspbian_lite_latest) disk image. The Lite image is suitable for headless installations as it omits the graphical interface, web browser, etc.
+1. Write the image to an SD memory card.  This involves formatting the SD card; I recommend the steps described at http://elinux.org/RPi_Easy_SD_Card_Setup
+1. Insert the card into a Raspberry Pi
+1. Connect the wired Ethernet port on the Pi to a network with Internet access
+1. Apply power to the Pi
+1. Login to the Pi through an SSH session, the console, or the terminal application. The username is "pi" and the password is "raspberry".
+1. Run the Raspberry Pi Setup program:
 
         sudo raspi-config
-1.  Expand the filesystem to fill the SD memory card
-1.  Change the password for the 'pi' account
-1. If installing over an SSH connection to the Pi, then I recommend you install 'screen' (sudo apt-get install screen) to ensure that the installation script is not stopped prematurely if you lose connectivity with the Pi.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
-1.  Run the following commands to download the HSMM-Pi project and install
+1. Expand the filesystem to fill the SD memory card
+1. Change the password for the "pi" account
+1. If installing over an SSH connection to the Pi, then I recommend you install "screen" (`sudo apt-get install screen`) to ensure that the installation script is not stopped prematurely if you lose connectivity with the Pi.  This is optional, but I highly recommend using screen if installing over the network.  You can find more info on screen here: http://linux.die.net/man/1/screen
+1. Run the following commands to download the HSMM-Pi project and install
 
         sudo apt-get update
         sudo apt-get install -y git
         git clone https://github.com/urlgrey/hsmm-pi.git
         cd hsmm-pi
         sh install.sh
-1.  Login to the web application on the Pi:
+1. Login to the web application on the Pi:
 http://(wired Ethernet IP of the node):8080/
-1.  Access the Admin account using the username "admin" and password "changeme".
-1.  Change the password for HSMM-Pi
-1.  Configure as either an Internal or Gateway node
+1. Access the Admin account using the username "admin" and password "changeme".
+1. Change the password for HSMM-Pi
+1. Configure as either an Internal or Gateway node
 
 
 BeagleBone Black Installation
