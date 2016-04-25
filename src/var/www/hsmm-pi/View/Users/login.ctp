@@ -3,7 +3,11 @@
 echo $this->Session->flash();
 ?>
 <?php
-echo $this->Form->create('User');
+echo $this->Form->create('User', array(
+  'inputDefaults' => array(
+    'div' => 'form-group',
+    'label' => array('class' => 'col col-md-3 control-label'),
+    'class' => 'form-control')));
 ?>
 
 <fieldset>

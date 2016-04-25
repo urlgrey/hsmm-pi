@@ -4,7 +4,12 @@
 </div>
 
 <?php
-echo $this->Form->create('NetworkService');
+echo $this->Form->create('NetworkService', array(
+  'inputDefaults' => array(
+    'div' => 'form-group',
+    'label' => array('class' => 'col col-md-3 control-label'),
+    'class' => 'form-control'),
+));
 echo $this->Form->input('name');
 echo $this->Form->input('service_protocol_name');
 echo $this->Form->input('host');
@@ -17,7 +22,7 @@ echo $this->Html->link(__('Cancel'),
 	array(
 		'controller' => 'network_services',
 		'action' => 'index'),
-	array('class' => 'btn')
+	array('class' => 'btn btn-default')
 );
 echo "&nbsp;&nbsp;";
 echo $this->Form->submit(__('Save'), array('name' => 'submit', 'div' => false, 'class' => 'btn btn-primary'));

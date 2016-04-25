@@ -1,1 +1,1 @@
-<div id="flashMessage" class="alert alert-error"><?php echo $message ?></div>
+<div id="flashMessage" class="alert alert-danger"><?php echo $message ?></div>
