@@ -95,12 +95,6 @@ sudo chgrp www-data /etc/dnsmasq.d
 sudo chmod 775 /etc/dnsmasq.d
 
 # Copy scripts into place
-if [ ! -e /usr/local/bin/callsign_announcement.sh ]; then
-    sudo cp ${PROJECT_HOME}/src/var/www/hsmm-pi/webroot/files/callsign_announcement.sh.template /usr/local/bin/callsign_announcement.sh
-    sudo chgrp www-data /usr/local/bin/callsign_announcement.sh
-    sudo chmod 775 /usr/local/bin/callsign_announcement.sh
-fi
-
 if [ ! -e /usr/local/bin/read_gps_coordinates.pl ]; then
     sudo cp ${PROJECT_HOME}/src/usr/local/bin/read_gps_coordinates.pl /usr/local/bin/read_gps_coordinates.pl
     sudo chgrp www-data /usr/local/bin/read_gps_coordinates.pl
@@ -183,7 +177,7 @@ sudo sysv-rc-conf --level 2345 gpsd on
 # fix the priority for the olsrd service during bootup
 sudo update-rc.d olsrd defaults 02
 
-# install CRON jobs for reboot and callsign announcement
+# install CRON jobs
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
 
 # print success message if we make it this far

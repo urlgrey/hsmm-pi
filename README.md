@@ -148,7 +148,6 @@ This represents the minimum set of steps:
 1. Configure the Wired interface:
     1. Set the Wired interface mode to LAN
 1. Configure the Mesh settings
-    1. Specify your amatuer radio callsign (i.e. KK6DCI)
     1. Specify your node name, likely a composition of your callsign and a unique number in your mesh (i.e. KK6DCI-7)
 1. Click 'Save'
 1. If successful, click the 'Reboot' button in the alert and proceed.
@@ -164,7 +163,6 @@ This represents the minimum set of steps:
 1. Configure the Wired interface:
     1. Set the Wired interface mode to WAN
 1. Configure the Mesh settings
-    1. Specify your amatuer radio callsign (i.e. KK6DCI)
     1. Specify your node name, likely a composition of your callsign and a unique number in your mesh (i.e. KK6DCI-7)
 1. Click 'Save'
 1. If successful, click the 'Reboot' button in the alert and proceed.

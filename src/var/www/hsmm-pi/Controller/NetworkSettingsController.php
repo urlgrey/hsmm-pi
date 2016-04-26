@@ -24,7 +24,6 @@ class NetworkSettingsController extends AppController {
 				$this->render_dhclient_config($latest_network_setting);
 				$this->render_resolv_config($latest_network_setting);
 				$this->render_hosts_config($latest_network_setting);
-				$this->render_callsign_announcement_config($latest_network_setting);
 				$this->render_ntp_config($latest_network_setting, $location);
 
 				$this->Flash->reboot(__('Your settings have been saved and will take effect on the next reboot.'));
@@ -61,18 +60,6 @@ class NetworkSettingsController extends AppController {
 		if (0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'LAN')) {
 			file_put_contents('/etc/resolv.conf', file_get_contents(WWW_ROOT . "/files/resolv.conf.template"));
 		}
-	}
-
-	private function render_callsign_announcement_config($network_setting) {
-		$callsign_announcement = file_get_contents(WWW_ROOT . "/files/callsign_announcement.sh.template");
-		$callsign_announcement_output = str_replace(array('{callsign}', '{wifi_adapter_name}'),
-			array(
-				str_pad($network_setting['NetworkSetting']['callsign'], 10, ' ', STR_PAD_LEFT),
-				$network_setting['NetworkSetting']['wifi_adapter_name'],
-			),
-			$callsign_announcement);
-
-		file_put_contents('/usr/local/bin/callsign_announcement.sh', $callsign_announcement_output);
 	}
 
 	private function render_hosts_config($network_setting) {
