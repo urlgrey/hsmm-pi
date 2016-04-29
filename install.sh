@@ -32,7 +32,6 @@ sudo apt-get install -y \
     bison \
     flex \
     gpsd \
-    gpsd-clients \
     libnet-gpsd3-perl \
     ntp
 
