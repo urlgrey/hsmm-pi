@@ -93,8 +93,9 @@ iptables -A FORWARD -i " . $network_setting['NetworkSetting']['wifi_adapter_name
 				$iptables_gateway_commands = "";
 			}
 		} else {
-			$iptables_gateway_commands =
-			"
+			if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) {
+				$iptables_gateway_commands =
+				"
 # Flush the tables
 iptables -F INPUT
 iptables -F OUTPUT
@@ -111,12 +112,35 @@ iptables -A FORWARD -i " . $network_setting['NetworkSetting']['wifi_adapter_name
 # Packet masquerading
 iptables -t nat -A POSTROUTING -o " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -j SNAT --to-source " . $network_setting['NetworkSetting']['wifi_ip_address'];
 
-			if ($network_services != NULL && sizeof($network_services) > 0) {
-				foreach ($network_services as $service) {
-					$iptables_service_routing .=
-					"
-iptables -t nat -A PREROUTING -i " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -p " . $service['NetworkService']['protocol'] . " --dport " . $service['NetworkService']['port'] . " -j DNAT --to-destination " . $service['NetworkService']['host'] . ":" . $service['NetworkService']['local_port'] . "
-iptables -t nat -A POSTROUTING -p " . $service['NetworkService']['protocol'] . " --dport " . $service['NetworkService']['port'] . " -j MASQUERADE\n";
+                        	if ($network_services != NULL && sizeof($network_services) > 0) {
+                                	foreach ($network_services as $service) {
+                                        	$iptables_service_routing .=
+                                        	"
+iptables -t nat -A PREROUTING -i " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -p " .$service['NetworkService']['protocol'] . " --dport " . $service['NetworkService']['port'] . " -j DNAT--to-destination " . $service['NetworkService']['host'] . ":" . $service['NetworkService']['local_port'] . "
+iptables -t nat -A POSTROUTING -p " . $service['NetworkService']['protocol'] . " --dport " .$service['NetworkService']['port'] . " -j MASQUERADE\n";
+                                	}
+				}
+			}
+			else { // Direct mode
+				$iptables_gateway_commands =
+				"
+# Flush the tables
+iptables -F INPUT
+iptables -F OUTPUT
+iptables -F FORWARD
+
+# Allow forwarding packets:
+iptables -A FORWARD -p ALL -i " . $network_setting['NetworkSetting']['wired_adapter_name'] . " -j ACCEPT
+iptables -A FORWARD -i " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Packet masquerading
+iptables -t nat -A POSTROUTING -o " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -j SNAT --to-source " . $network_setting['NetworkSetting']['wifi_ip_address'];
+
+                        	if ($network_services != NULL && sizeof($network_services) > 0) {
+                                	foreach ($network_services as $service) {
+                                        	$iptables_service_routing .=
+                                        	"";
+                                	}
 				}
 			}
 		}
@@ -214,20 +238,62 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 			$transmit_location_option = "";
 		}
 
+		$reserved_dhcp_addresses = null;
+		// Load /etc/ethers
+		$ethers_handle = fopen("/etc/ethers", "r");
+		if ($ethers_handle) {
+			// Scan for reservations
+			while (($ethers_line = fgets($ethers_handle, 4096)) !== false) {
+				if ($ethers_line[0]  == '#') continue;
+				$hw_addr = strtok($ethers_line, " \n\t");
+				$ip_addr = strtok(" \n\t");
+				if ($ip_addr !== false) {
+					$fqdn = gethostbyaddr($ip_addr);
+					if ($fqdn !== false){
+						$hostname = strtok($fqdn, ".\n\t");
+						$olsrd_dhcp_reservations .=
+"    PlParam \"" . $ip_addr . "\" \"" . $hostname . "\"";
+					}
+				}
+			}
+			if (!feof($ethers_handle)) {
+			}
+			fclose($ethers_handle);
+		}
+		// For each one, look up host 
+		// Populate string with results line
+
+		$lan_ip_network = '0.0.0.0';
+		$lan_ip_netmask = '0.0.0.0';
+		if ((0 != strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'WAN')) ) {
+			$ip_parts = split('\.', $network_setting['NetworkSetting']['lan_ip_address']);
+			$ip3 = intval($ip_parts[3], 10);
+			$lan_ip_netmask = $network_setting['NetworkSetting']['lan_netmask'];
+			$mask_parts = split('\.', $lan_ip_netmask);
+			$mask3 = intval($mask_parts[3], 10);
+			$lan_ip_network = $ip_parts[0].'.'.$ip_parts[1].'.'.$ip_parts[2].'.'.strval($ip3 & $mask3);
+		} 
+
 		$olsrd_conf_output = str_replace(array('{latlon_infile}',
 			'{wifi_ip_address}',
 			'{wifi_adapter_name}',
 			'{node_name}',
+			'{lan_ip_network}',
+			'{lan_ip_netmask}',
 			'{olsrd_dynamic_gateway_block}',
 			'{olsrd_secure_block}',
-			'{olsrd_network_services}'),
+			'{olsrd_network_services}',
+			'{olsrd_dhcp_reservations}'),
 			array($transmit_location_option,
 				$network_setting['NetworkSetting']['wifi_ip_address'],
 				$network_setting['NetworkSetting']['wifi_adapter_name'],
 				$network_setting['NetworkSetting']['node_name'],
+				$lan_ip_network,
+				$lan_ip_netmask,
 				$olsrd_secure_block,
 				$olsrd_gateway,
-				$olsrd_network_services),
+				$olsrd_network_services,
+				$olsrd_dhcp_reservations),
 			$olsrd_conf);
 
 		file_put_contents('/etc/olsrd/olsrd.conf', $olsrd_conf_output);

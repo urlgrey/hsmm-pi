@@ -159,6 +159,7 @@ Hna4
 #   0.0.0.0      0.0.0.0
 #   more entries can be added:
 #   192.168.1.0  255.255.255.0
+{lan_ip_network}  {lan_ip_netmask}
 }
 
 # HNA IPv6 routes
@@ -332,7 +333,7 @@ LoadPlugin "olsrd_nameservice.so.0.3"
     PlParam "resolv-file" "/etc/resolv.conf"
     PlParam "name" "{node_name}"
     PlParam "latlon-file" "/var/run/latlon.js"
-
+{olsrd_dhcp_reservations}
 {olsrd_network_services}
 
 {latlon_infile}
