@@ -15,7 +15,7 @@
  * @package       app.View.Layouts
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+$reserved_dhcp_addresses */
 
 $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
 ?>
@@ -111,6 +111,13 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
               echo $this->Html->link(__('Status'), array(
                                                         'controller' => 'status',
                                                         'action' => 'index'));
+            ?>
+          </li>
+          <li <?php if (strstr($this->here, '/hsmm-pi/status') != FALSE) { echo 'class="active"'; }  ?>>
+            <?php
+	      echo $this->Html->link(__('OLSR'), 
+				'http://' . $node_name . ':1978/', 
+				array('target' => '_blank'));
             ?>
           </li>
           <?php

@@ -335,9 +335,7 @@ LoadPlugin "olsrd_nameservice.so.0.3"
     PlParam "latlon-file" "/var/run/latlon.js"
 {olsrd_dhcp_reservations}
 {olsrd_network_services}
-
 {latlon_infile}
-
 }
 
 {olsrd_dynamic_gateway_block}
