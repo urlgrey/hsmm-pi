@@ -70,7 +70,7 @@ echo $this->Form->input('wired_interface_mode',
 echo $this->Form->input('lan_mode',
 	array(
 		'label' => __('LAN Mode'),
-		'options' => array('NAT' => 'NAT'),
+		'options' => array('NAT' => 'NAT', 'Direct' => 'Direct'),
 	)
 );
 echo $this->Form->input('lan_ip_address', array('label' => __('IP Address')));

@@ -10,6 +10,7 @@ class NetworkSetting extends AppModel {
 		'lan_netmask' => array('required' => array('rule' => '/^(((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(0|128|192|224|240|248|252|254)\.0\.0)|(255\.255\.(0|128|192|224|240|248|252|254)\.0)|(255\.255\.255\.(0|128|192|224|240|248|252|254)))$/i', 'message' => 'A valid netmask is required')),
 		'lan_dhcp_start' => array('number' => array('rule' => array('range', 0, 254), 'message' => 'A DHCP address between 0 and 254 is required')),
 		'lan_dhcp_end' => array('number' => array('rule' => array('range', 0, 254), 'message' => 'A DHCP address between 0 and 254 is required')),
+		'lan_mode' => array('rule' =>  '/^(NAT|Direct)$/i', 'message' => 'Please select NAT or Direct mode for the LAN Interface'),
 		'wired_adapter_name' => array('required' => array('rule' => array('notBlank'), 'message' => 'A wired adapter name is required')),
 		'wired_interface_mode' => array('required' => array('rule' => '/^(WAN|LAN)$/i', 'message' => 'The wired interface mode must be set to WAN or LAN.')),
 		'wan_protocol' => array('required' => array('rule' => '/^(DHCP)$/i', 'message' => 'DHCP is the only mode currently supported.')),
