@@ -317,7 +317,7 @@ LoadPlugin "olsrd_arprefresh.so.0.1"
 LoadPlugin "olsrd_httpinfo.so.0.1"
 {
 #	# defaults to 1978
-#	PlParam "Port" "8080"
+	PlParam "Port" "1978"
 #	# if you dont set these, the default is to listen only on the loopback device
 #	#PlParam "Host"   "80.23.53.22"
 #	#PlParam "Net"    "10.0.0.0 255.0.0.0"
