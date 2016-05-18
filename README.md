@@ -1,7 +1,7 @@
 HSMM-Pi
 =======
 
-HSMM-Pi is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) or Broadband-Hamnet (BBHN) wireless node.  HSMM and BBHN offer radio amateurs (HAMs) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  HAMs can operate HSMM or BBHN at higher power with larger antennas than are available to unlicensed users.  The HSMM-Pi project makes it possible to run an HSMM or BBHN mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the BeagleBone and BeagleBone Black.
+HSMM-Pi is a set of tools designed to easily configure the Raspberry Pi to function as a High-Speed Multimedia (HSMM) wireless mesh node, compatible with Broadband Hamnet (BBHN) and AREDN.  Mesh networks offer amateur radio operators (hams) the ability to operate high-speed data networks in the frequencies shared with unlicenced users of 802.11 b/g/n networking equipment.  Hams can operate HSMM or BBHN at higher power with larger antennas than are available to unlicensed users.  The HSMM-Pi project makes it possible to run an HSMM mesh node on the Raspberry Pi.  The project has been tested to work on other embedded computing platforms, including the BeagleBone and BeagleBone Black.
 
 The HSMM-Pi project can used by people not possessing an amateur radio license so long as they are in compliance with the transmission rules set by the FCC or the local regulating body.  This typically means sticking with the WiFi antenna provided with your WiFi adapter.
 
@@ -38,16 +38,16 @@ BeagleBone Node:
 
 Modes
 =====
-The HSMM-Pi can function as an internal mesh node or as a gateway mesh node.  A description of each is provided below.
+HSMM-Pi has two modes: Internal and Mesh Gateway.  A description of each is provided below.
 
-Mesh Gateway Node
-=================
-The Mesh Gateway is capable of routing traffic throughout the mesh, and provides an Internet link to the mesh through the wired Ethernet port.  The gateway obtains a DHCP lease on the wired interface, and advertises its Internet link to mesh nodes using OLSR.
+Mesh Gateway Mode
+-----------------
+A node in Mesh Gateway mode routes traffic throughout the mesh, and provides the mesh with Internet access through the wired Ethernet port.  The gateway *obtains* a DHCP lease on the wired interface, and advertises its Internet link to mesh nodes using OLSR.
 
 
-Internal Mesh Node
-==================
-This node is capable of routing traffic throughout the mesh and providing mesh access to any hosts connected to its wired Ethernet port.  The node can run a DHCP server that issues DHCP leases to any hosts on the wired connection.  It also runs a DNS server that can provide name resolution for mesh nodes and Internet hosts.  The following sequence shows how the two types of nodes can be deployed:
+Internal Mode
+-------------
+A node in Internal mode routes traffic throughout the mesh and provides mesh access to any hosts connected to its wired Ethernet port.  The node in this mode runs a DHCP server that *issues* DHCP leases to any hosts on the wired connection.  It also runs a DNS server that can provide name resolution for both mesh nodes and Internet hosts.  The following sequence shows how the two types of nodes can be deployed:
 
 ```
 (Client1) --> (Switch) --> (Internal Mesh Node) -->
@@ -154,7 +154,7 @@ This represents the minimum set of steps:
 
 
 Gateway Node Configuration
-================================
+==========================
 This represents the minimum set of steps:
 
 1. Select Admin->Network from the menubar
