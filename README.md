@@ -47,12 +47,9 @@ A node in Mesh Gateway mode routes traffic throughout the mesh, and provides the
 
 Internal Mode
 -------------
-A node in Internal mode routes traffic throughout the mesh and provides mesh access to any hosts connected to its wired Ethernet port.  The node in this mode runs a DHCP server that *issues* DHCP leases to any hosts on the wired connection.  It also runs a DNS server that can provide name resolution for both mesh nodes and Internet hosts.  The following sequence shows how the two types of nodes can be deployed:
+A node in Internal mode routes traffic throughout the mesh and provides mesh access to any hosts connected to its wired Ethernet port.  The node in this mode runs a DHCP server that *issues* DHCP leases to any hosts on the wired connection.  It also runs a DNS server that can provide name resolution for both mesh nodes and Internet hosts.  The following diagram shows how the two types of nodes can be deployed:
 
-```
-(Client1) --> (Switch) --> (Internal Mesh Node) -->
-(Ad-Hoc WiFi Network) --> (Mesh Gateway) --> (Internet)
-```
+![Diagram](http://i.imgur.com/sfR3Q12.png)
 
 There could be any number of mesh nodes in the Ad-Hoc WiFi Network.  The route among the nodes is managed entirely with OLSR.
 
