@@ -44,6 +44,27 @@ class NetworkSettingsController extends AppController {
 					hexdec($mac_address[5]);
 				}
 			}
+//			if ($network_setting['NetworkSetting']['direct_ip_address'] == NULL) {
+				// if no Direct IP is set, then use one derived from the adapter MAC address
+				$mac_file = '/sys/class/net/' . $network_setting['NetworkSetting']['wired_adapter_name'] . '/address';
+				if (file_exists($mac_file)) {
+					$mac_address = explode(':', file_get_contents($mac_file));
+					$mac5 = hexdec($mac_address[5]);
+					if ($mac5 > 240) $mac5 = 240;	// highest, 240
+					$network_setting['NetworkSetting']['direct_ip_address'] =
+					'10.' .
+					hexdec($mac_address[3]) . '.' .
+					hexdec($mac_address[4]) . '.' . 
+					$mac5;
+					$dhcp_start =  $mac5 + 1;
+					$dhcp_end =  $mac5 + 13;
+					$network_setting['NetworkSetting']['direct_dhcp_start'] = $dhcp_start;
+					$network_setting['NetworkSetting']['direct_dhcp_end'] = $dhcp_end;
+					$netmask = $dhcp_start & $dhcp_end & 254;
+					$network_setting['NetworkSetting']['direct_netmask'] = '255.255.255.' .
+					$netmask;
+				}
+//			}
 		}
 
 		if (!$this->request->data) {
@@ -51,6 +72,7 @@ class NetworkSettingsController extends AppController {
 		}
 
 		$this->set('wired_interface_mode', $network_setting['NetworkSetting']['wired_interface_mode']);
+		$this->set('lan_mode', $network_setting['NetworkSetting']['lan_mode']);
 	}
 
 	private function render_resolv_config($network_setting) {

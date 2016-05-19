@@ -13,6 +13,15 @@
       document.getElementById('lan').style.display = "none";
     }
   }
+  function show_lan_mode(e) {
+    if (e.value == "NAT") {
+      document.getElementById('nat').style.display = "block";
+      document.getElementById('direct').style.display = "none";
+    } else if (e.value == "Direct") {
+      document.getElementById('direct').style.display = "block";
+      document.getElementById('nat').style.display = "none";
+    }
+  }
 </script>
 
 <?php
@@ -71,8 +80,12 @@ echo $this->Form->input('lan_mode',
 	array(
 		'label' => __('LAN Mode'),
 		'options' => array('NAT' => 'NAT', 'Direct' => 'Direct'),
+		'onchange' => 'show_lan_mode(this)',
 	)
 );
+?>
+      <div id="nat" style="padding: 0; display: <?php echo (0 == strcmp($lan_mode, 'NAT')) ? 'block' : 'none';?>;">
+<?php
 echo $this->Form->input('lan_ip_address', array('label' => __('IP Address')));
 echo $this->Form->input('lan_netmask', array('label' => __('Netmask')));
 
@@ -81,6 +94,18 @@ echo $this->Form->input('lan_dhcp_server', array('label' => __('DHCP Server'), '
 echo $this->Form->input('lan_dhcp_start', array('label' => __('DHCP Start')));
 echo $this->Form->input('lan_dhcp_end', array('label' => __('DHCP End')));
 ?>
+</div>
+      <div id="direct" style="padding: 0; display: <?php echo (0 == strcmp($lan_mode, 'Direct')) ? 'block' : 'none';?>;">
+<?php
+echo $this->Form->input('direct_ip_address', array('label' => __('IP Address')));
+echo $this->Form->input('direct_netmask', array('label' => __('Netmask')));
+
+echo $this->Form->input('lan_dhcp_server', array('label' => __('DHCP Server'), 'type' => 'checkbox'));
+
+echo $this->Form->input('direct_dhcp_start', array('label' => __('DHCP Start')));
+echo $this->Form->input('direct_dhcp_end', array('label' => __('DHCP End')));
+?>
+</div>
       </div>
       <div id="wan" style="padding: 0; display: <?php echo (0 == strcmp($wired_interface_mode, 'WAN')) ? 'block' : 'none';?>;">
       <?php
