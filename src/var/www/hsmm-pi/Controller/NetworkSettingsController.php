@@ -100,7 +100,6 @@ class NetworkSettingsController extends AppController {
 		$interfaces_conf = file_get_contents(WWW_ROOT . "/files/network_interfaces/interfaces.template");
 		$wired_mode_block = null;
 		if (0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'LAN')) {
-/*
 			if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) {
 				$wired_mode_block =
 				"static
@@ -108,13 +107,12 @@ class NetworkSettingsController extends AppController {
     netmask " . $network_setting['NetworkSetting']['lan_netmask'] . "
 ";
 			} else if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'Direct')) {
-*/
 				$wired_mode_block =
 				"static
     address " . $network_setting['NetworkSetting']['direct_ip_address'] . "
     netmask " . $network_setting['NetworkSetting']['direct_netmask'] . "
 ";
-//			}
+			}
 		} else {
 			$wired_mode_block = "dhcp";
 		}
@@ -150,19 +148,21 @@ no-dhcp-interface=" . $network_setting['NetworkSetting']['wired_adapter_name'] .
 no-dhcp-interface=" . $network_setting['NetworkSetting']['wifi_adapter_name'];
 		}
 
-		$ip_parts = null;
+		$lan_ip_address = null;
 		$lan_dhcp_start = null;
 		$lan_dhcp_start = null;
 		if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) {
-			$ip_parts = split("\.", $network_setting['NetworkSetting']['lan_ip_address']);
+			$lan_ip_address = $network_setting['NetworkSetting']['lan_ip_address'];
+			$ip_parts = split("\.", $lan_ip_address);
 			$lan_dhcp_start = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_start'];
 			$lan_dhcp_end = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_end'];
 		} else if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'Direct')) {
-			$ip_parts = split("\.", $network_setting['NetworkSetting']['direct_ip_address']);
+			$lan_ip_address = $network_setting['NetworkSetting']['direct_ip_address'];
+			$ip_parts = split("\.", $lan_ip_address);
 			$lan_dhcp_start = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['direct_dhcp_start'];
 			$lan_dhcp_end = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['direct_dhcp_end'];
 		}
-		$dnsmasq_conf_output = str_replace(array('{node_name}', '{interfaces}', '{lan_ip_address}', '{lan_dhcp_start}', '{lan_dhcp_end}', '{lan_netmask}', '{wan_dns1}', '{wan_dns2}'), array($network_setting['NetworkSetting']['node_name'], $dhcp_interface, $network_setting['NetworkSetting']['lan_ip_address'], $lan_dhcp_start, $lan_dhcp_end, $network_setting['NetworkSetting']['lan_netmask'], $network_setting['NetworkSetting']['wan_dns1'], $network_setting['NetworkSetting']['wan_dns2']), $dnsmasq_conf);
+		$dnsmasq_conf_output = str_replace(array('{node_name}', '{interfaces}', '{lan_ip_address}', '{lan_dhcp_start}', '{lan_dhcp_end}', '{lan_netmask}', '{wan_dns1}', '{wan_dns2}'), array($network_setting['NetworkSetting']['node_name'], $dhcp_interface, $lan_ip_address, $lan_dhcp_start, $lan_dhcp_end, $network_setting['NetworkSetting']['lan_netmask'], $network_setting['NetworkSetting']['wan_dns1'], $network_setting['NetworkSetting']['wan_dns2']), $dnsmasq_conf);
 
 		file_put_contents('/etc/dnsmasq.d/hsmm-pi.conf', $dnsmasq_conf_output);
 	}

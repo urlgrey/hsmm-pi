@@ -266,7 +266,7 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 		$lan_ip_network = '0.0.0.0';
 		$lan_ip_netmask = '0.0.0.0';
 		if ((0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'LAN')) ) {
-			if ((0 != strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) ) {
+			if ((0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) ) {
 				$ip_parts = split('\.', $network_setting['NetworkSetting']['lan_ip_address']);
 				$ip3 = intval($ip_parts[3], 10);
 				$lan_ip_netmask = $network_setting['NetworkSetting']['lan_netmask'];
@@ -274,7 +274,7 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 				$mask3 = intval($mask_parts[3], 10);
 				$lan_ip_network = $ip_parts[0].'.'.$ip_parts[1].'.'.$ip_parts[2].'.'.strval($ip3 & $mask3);
 			}
-			else if ((0 != strcmp($network_setting['NetworkSetting']['lan_mode'], 'Direct')) ) {
+			else if ((0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'Direct')) ) {
 				$ip_parts = split('\.', $network_setting['NetworkSetting']['direct_ip_address']);
 				$ip3 = intval($ip_parts[3], 10);
 				$lan_ip_netmask = $network_setting['NetworkSetting']['direct_netmask'];
