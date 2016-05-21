@@ -60,9 +60,6 @@ class NetworkSettingsController extends AppController {
 					$dhcp_end =  $mac5 + 13;
 					$network_setting['NetworkSetting']['direct_dhcp_start'] = $dhcp_start;
 					$network_setting['NetworkSetting']['direct_dhcp_end'] = $dhcp_end;
-					$netmask = $dhcp_start & $dhcp_end & 254;
-					$network_setting['NetworkSetting']['direct_netmask'] = '255.255.255.' .
-					$netmask;
 				}
 			}
 		}
