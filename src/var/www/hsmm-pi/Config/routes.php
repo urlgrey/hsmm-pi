@@ -41,7 +41,7 @@ Router::connect('/user', array('controller' => 'users', 'action' => 'edit'));
 Router::connect('/system', array('controller' => 'system', 'action' => 'reboot'));
 Router::connect('/wifi_scan', array('controller' => 'wifi_scan', 'action' => 'index'));
 Router::connect('/network_services', array('controller' => 'network_services', 'action' => 'index'));
-
+Router::connect('/dhcp_reservations', array('controller' => 'dhcp_reservations', 'action' => 'index'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

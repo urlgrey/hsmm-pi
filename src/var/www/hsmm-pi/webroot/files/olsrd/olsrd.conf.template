@@ -82,28 +82,28 @@ Interface "{wifi_adapter_name}"
     # be used in most cases.
 
     # Hello interval in seconds(float)
-    HelloInterval    	6.0
+    #HelloInterval    	6.0
 
     # HELLO validity time
-    HelloValidityTime		600.0
+    #HelloValidityTime		600.0
 
     # TC interval in seconds(float)
-    TcInterval		0.5
+    #TcInterval		0.5
 
     # TC validity time
-    TcValidityTime		300.0
+    #TcValidityTime		300.0
 
     # MID interval in seconds(float)
-    MidInterval		10.0
+    #MidInterval		10.0
 
     # MID validity time
-    MidValidityTime		300.0
+    #MidValidityTime		300.0
 
     # HNA interval in seconds(float)
-    HnaInterval		10.0
+    #HnaInterval		10.0
 
     # HNA validity time
-    HnaValidityTime		300.0
+    #HnaValidityTime		300.0
 
     # When multiple links exist between hosts
     # the weight of interface is used to determine

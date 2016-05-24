@@ -137,6 +137,15 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                                      array('escape' => false));
             ?>
           </li>
+          <li <?php if (strstr($this->here, '/hsmm-pi/dhcp_reservations') != FALSE) { echo 'class="active"'; }  ?>>
+            <?php
+              echo $this->Html->link(__("<i class=\"glyphicon glyphicon-signal\"></i>&nbsp;".'Reservations'),
+                                     array(
+                                           'controller' => 'dhcp_reservations',
+                                           'action' => 'index'),
+                                     array('escape' => false));
+            ?>
+          </li>
           <li <?php if (strstr($this->here, '/hsmm-pi/network_services') != FALSE) { echo 'class="active"'; }  ?>>
             <?php
               echo $this->Html->link("<i class=\"glyphicon glyphicon-bullhorn\"></i>&nbsp;".__('Services'),

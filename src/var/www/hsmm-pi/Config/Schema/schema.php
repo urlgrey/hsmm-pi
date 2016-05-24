@@ -74,6 +74,16 @@ class AppSchema extends CakeSchema {
 		),
 		'tableParameters' => array()
 	);
+	public $dhcp_reservations = array(
+		'id' => array('type' => 'integer', 'null' => false, 'length' => 11, 'key' => 'primary'),
+		'hostname' => array('type' => 'string', 'null' => false),
+		'ip_address' => array('type' => 'string', 'null' => true),
+		'mac_address' => array('type' => 'string', 'null' => false, 'default' => ''),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => true)
+		),
+		'tableParameters' => array()
+	);
 
 	public $network_settings = array(
 		'id' => array('type' => 'integer', 'null' => false, 'length' => 11, 'key' => 'primary'),

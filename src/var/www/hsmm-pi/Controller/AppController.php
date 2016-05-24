@@ -55,6 +55,11 @@ class AppController extends Controller {
 		return $this->NetworkService->find('all');
 	}
 
+	protected function get_dhcp_reservations() {
+		$this->loadModel('DHCPReservation');
+		return $this->DHCPReservation->find('all');
+	}
+
 	protected function render_ntp_config($network_setting, $location) {
 		if (0 == strcasecmp($location['LocationSetting']['location_source'], 'gps')) {
 			$gpsd_time_server_info =
@@ -316,6 +321,10 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 		}
 
 		file_put_contents('/etc/olsrd/olsrd.key', $olsrd_key);
+	}
+
+	// Output dhcp reservations to /etc/ethers
+	protected function render_etc_ethers($dhcp_reservations) {
 	}
 }
 ?>
