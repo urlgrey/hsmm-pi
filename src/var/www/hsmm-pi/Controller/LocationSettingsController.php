@@ -18,6 +18,7 @@ class LocationSettingsController extends AppController {
 
 				$this->render_olsrd_config($this->get_network_settings(),
 					$this->get_network_services(),
+					$this->get_dhcp_reservations(),
 					$latest_location);
 				$this->render_gpsd_config($latest_location);
 				$this->render_ntp_config($network_setting, $latest_location);

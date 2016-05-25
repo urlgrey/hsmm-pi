@@ -56,8 +56,8 @@ class AppController extends Controller {
 	}
 
 	protected function get_dhcp_reservations() {
-		$this->loadModel('DHCPReservation');
-		return $this->DHCPReservation->find('all');
+		$this->loadModel('DhcpReservation');
+		return $this->DhcpReservation->find('all');
 	}
 
 	protected function render_ntp_config($network_setting, $location) {
@@ -160,7 +160,7 @@ iptables -t nat -A POSTROUTING -o " . $network_setting['NetworkSetting']['wifi_a
 		file_put_contents('/etc/rc.local', $rclocal_conf_output);
 	}
 
-	protected function render_olsrd_config($network_setting, $network_services, $location) {
+	protected function render_olsrd_config($network_setting, $network_services, $dhcp_reservations, $location) {
 		$olsrd_conf = file_get_contents(WWW_ROOT . "/files/olsrd/olsrd.conf.template");
 		$olsrd_secure_block = null;
 
@@ -243,31 +243,15 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 			$transmit_location_option = "";
 		}
 
-		$reserved_dhcp_addresses = null;
-		// Load /etc/ethers
-		$ethers_handle = fopen("/etc/ethers", "r");
-		if ($ethers_handle) {
-			// Scan for reservations
-			while (($ethers_line = fgets($ethers_handle, 4096)) !== false) {
-				if ($ethers_line[0]  == '#') continue;
-				$hw_addr = strtok($ethers_line, " \n\t");
-				$ip_addr = strtok(" \n\t");
-				if ($ip_addr !== false) {
-					$fqdn = gethostbyaddr($ip_addr);
-					if ($fqdn !== false){
-						$hostname = strtok($fqdn, ".\n\t");
-						$olsrd_dhcp_reservations .=
-"    PlParam \"" . $ip_addr . "\" \"" . $hostname . "\"";
-					}
-				}
+		// Load reservations from DhcpReservations
+		if ($dhcp_reservations != NULL && sizeof($dhcp_reservations) > 0) {
+			foreach ($dhcp_reservations as $reservation) {
+				$olsrd_dhcp_reservations .=
+"    PlParam \"" . $reservation['DhcpReservation']['ip_address'] . "\" \"" . $reservation['DhcpReservation']['hostname'] . "\"";
 			}
-			if (!feof($ethers_handle)) {
-			}
-			fclose($ethers_handle);
 		}
-		// For each one, look up host 
-		// Populate string with results line
 
+		// Calculate networka and netmask for HNA4 entry
 		$lan_ip_network = '0.0.0.0';
 		$lan_ip_netmask = '0.0.0.0';
 		if ((0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'LAN')) ) {
@@ -324,7 +308,20 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 	}
 
 	// Output dhcp reservations to /etc/ethers
-	protected function render_etc_ethers($dhcp_reservations) {
+	protected function render_ethers($dhcp_reservations) {
+		$ethers = file_get_contents(WWW_ROOT . "/files/ethers.template");
+		$ethers_reservations = null;
+        	foreach ($dhcp_reservations as $dhcp_reservation) {
+                       	$ethers_reservations .=
+$dhcp_reservation['DhcpReservation']['hostname'] . " " . $dhcp_reservation['DhcpReservation']['ip_address'] . " " . $dhcp_reservation['DhcpReservation']['mac_address'];
+		}
+		// Read in template file
+		// Replace strings
+		$ethers_output = str_replace(array('{dhcp_reservations}'),
+			array($ethers_reservations),
+			$ethers);
+
+		file_put_contents('/etc/ethers', $ethers_output);
 	}
 }
 ?>

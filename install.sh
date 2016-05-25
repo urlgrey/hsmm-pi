@@ -48,8 +48,9 @@ if [ -L /etc/resolv.conf ]; then
 fi
 
 sudo bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
-sudo chgrp www-data /etc/resolv.conf
-sudo chmod g+w /etc/resolv.conf
+sudo chgrp www-data /etc/resolv.confsudo chmod g+w /etc/resolv.conf
+
+sudo bash -c "echo '# This file will be overwritten' > /etc/ethers"
 
 # Install cakephp with Pear
 sudo pear channel-discover pear.cakephp.org
@@ -85,7 +86,7 @@ sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
 
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf /etc/ethers; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done

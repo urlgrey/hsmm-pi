@@ -5,21 +5,6 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="pull-right">
-      <p>
-	<?php
-echo $this->Html->link(__('Add'), array(
-	'controller' => 'dhcp_reservations',
-	'action' => 'add'), array(
-	'class' => 'btn btn-primary'));
-?>
-      </p>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
       <?php
 if ($dhcp_reservations != NULL && sizeof($dhcp_reservations) > 0) {
 	?>
@@ -75,22 +60,21 @@ echo $this->Html->link('', array(
         // Load leases file
         $leases_handle = fopen("/var/lib/misc/dnsmasq.leases", "r");
         if ($leases_handle) {
-                 // Scan for leases
-                 while (($leases_line = fgets($leases_handle, 4096)) !== false) {
-                         if ($leases_line[0]  == '#') continue;
-                         $lease_parts = explode(" ", $leases_line);
+                // Scan for leases
+                while (($leases_line = fgets($leases_handle, 4096)) !== false) {
+                        if ($leases_line[0]  == '#') continue;
+                        $lease_parts = explode(" ", $leases_line);
 			if (count($lease_parts) == 5) { // Valid lease line
 				$hostnames[$lease_count] = $lease_parts[3];
 				$ip_addresses[$lease_count] = $lease_parts[2];
 				$mac_addresses[$lease_count] = $lease_parts[1];
 				$lease_count++;
 			}
-                 }
-       }
-       if (!feof($leasess_handle)) {
-       }
-       fclose($leases_handle);
-
+                }
+//		if (!feof($leasess_handle)) {
+//		}
+	       	fclose($leases_handle);
+	}
 	if ($lease_count > 0) {
 ?>
 <div class="row">
@@ -112,10 +96,13 @@ for ($i = 0; $i < $lease_count; $i++) {
 	  <td><?php echo $mac_addresses[$i];?></td>
 	  <td>
 	        <?php
+		$mac = explode(":", $mac_addresses[$i]);
+		$lease = $hostnames[$i] . '+' . $ip_addresses[$i] . '+' . 
+			$mac[0] . '-' . $mac[1] . '-' . $mac[2] . '-' . $mac[3] . '-' . $mac[4] . '-' . $mac[5];
 echo $this->Html->link('', array(
-			'controller' => 'dhcp_reservations',
 			'action' => 'add',
-		),
+			$lease,
+			),
 			array('class' => 'glyphicon glyphicon-star'));
 		?>
 	</td>
@@ -124,6 +111,13 @@ echo $this->Html->link('', array(
 }
 ?>
      </table>
+
+<script>
+function getRow(x) {
+	return x.rowIndex;
+}
+</script>
+
   </div>
 </div>
 <?php
