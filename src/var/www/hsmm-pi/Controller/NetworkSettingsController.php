@@ -46,7 +46,8 @@ class NetworkSettingsController extends AppController {
 					hexdec($mac_address[5]);
 				}
 			}
-			if ($network_setting['NetworkSetting']['direct_ip_address'] == NULL) {
+			if (($network_setting['NetworkSetting']['direct_ip_address'] == NULL) ||
+			    (0 == strcmp($network_setting['NetworkSetting']['direct_ip_address'], '10.2.2.2'))) {
 				// if no Direct IP is set, then use one derived from the adapter MAC address
 				$mac_file = '/sys/class/net/' . $network_setting['NetworkSetting']['wired_adapter_name'] . '/address';
 				if (file_exists($mac_file)) {

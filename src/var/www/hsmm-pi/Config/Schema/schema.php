@@ -97,7 +97,7 @@ class AppSchema extends CakeSchema {
 		'lan_mode' => array('type' => 'string', 'null' => false, 'default' => 'NAT'),
 		'lan_ip_address' => array('type' => 'string', 'null' => false, 'default' => '172.27.2.1'),
 		'lan_netmask' => array('type' => 'string', 'null' => false, 'default' => '255.255.255.0'),
-		'direct_ip_address' => array('type' => 'string', 'null' => true),
+		'direct_ip_address' => array('type' => 'string', 'null' => false, 'default' => '10.2.2.2'),
 		'direct_netmask' => array('type' => 'string', 'null' => false, 'default' => '255.255.255.240'),
 		'lan_dhcp_server' => array('type' => 'boolean', 'null' => false, 'default' => true),
 		'lan_dhcp_start' => array('type' => 'integer', 'null' => false, 'default' => 5),
