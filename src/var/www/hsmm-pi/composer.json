@@ -1,0 +1,10 @@
+{
+    "name": "hsmm-pi",
+    "require": {
+        "cakephp/cakephp": "2.8.3"
+    },
+    "config": {
+        "vendor-dir": "Console/"
+    }
+}
+
