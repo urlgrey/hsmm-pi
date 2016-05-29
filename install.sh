@@ -48,7 +48,8 @@ if [ -L /etc/resolv.conf ]; then
 fi
 
 sudo bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
-sudo chgrp www-data /etc/resolv.confsudo chmod g+w /etc/resolv.conf
+sudo chgrp www-data /etc/resolv.conf
+sudo chmod g+w /etc/resolv.conf
 
 sudo bash -c "echo '# This file will be overwritten' > /etc/ethers"
 
