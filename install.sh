@@ -33,7 +33,11 @@ sudo apt-get install -y \
     flex \
     gpsd \
     libnet-gpsd3-perl \
-    ntp
+    ntp \
+    php5-mcrypt
+
+# Enabe php5-mcrypt
+sudo php5enmod mcrypt
 
 # Remove ifplugd if present, as it interferes with olsrd
 sudo apt-get remove -y ifplugd
@@ -54,8 +58,8 @@ sudo chmod g+w /etc/resolv.conf
 sudo bash -c "echo '# This file will be overwritten' > /etc/ethers"
 
 # Install cakephp with Pear
-sudo pear channel-discover pear.cakephp.org
-sudo pear install cakephp/CakePHP-2.8.3
+#sudo pear channel-discover pear.cakephp.org
+#sudo pear install cakephp/CakePHP-2.8.3
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then
@@ -77,8 +81,15 @@ fi
 sudo rm -f index.html
 sudo ln -s ${PROJECT_HOME}/src/var/www/index.html
 
-# Create temporary directory used by HSMM-PI webapp, granting write priv's to www-data
 cd ${PROJECT_HOME}/src/var/www/hsmm-pi
+# Install cakephp using Composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '070854512ef404f16bac87071a6db9fd9721da1684cd4589b1196c3faf71b9a2682e2311b36a5079825e155ac7ce150d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+php composer.phar install
+
+# Create temporary directory used by HSMM-PI webapp, granting write priv's to www-data
 mkdir -p tmp/cache/models
 mkdir -p tmp/cache/persistent
 mkdir -p tmp/logs
@@ -106,7 +117,7 @@ sudo mkdir -p /var/data/hsmm-pi
 sudo chown root.www-data /var/data/hsmm-pi
 sudo chmod 775 /var/data/hsmm-pi
 if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
-    sudo Console/cake schema create -y
+    sudo Console/bin/cake schema create -y
     sudo chown root.www-data /var/data/hsmm-pi/hsmm-pi.sqlite
     sudo chmod 664 /var/data/hsmm-pi/hsmm-pi.sqlite
 fi
