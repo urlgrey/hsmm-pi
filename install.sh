@@ -17,7 +17,7 @@ PROJECT_HOME=${HOME}/hsmm-pi
 cd ${HOME}
 
 # Update list of packages
-sudo apt-get update
+#sudo apt-get update
 
 # Install Web Server deps
 sudo apt-get install -y \
@@ -58,9 +58,10 @@ sudo chmod g+w /etc/resolv.conf
 sudo bash -c "echo '# This file will be overwritten' > /etc/ethers"
 
 # Install cakephp with GitHub
-git clone -b 2.x git://github.com/cakephp/cakephp.git ~/projects/
-sudo mv -f ~/projects/lib/Cake /usr/share/php
-rm -rf ~/projects
+#git clone -b 2.x git://github.com/cakephp/cakephp.git ~/projects/
+#sudo mv -f ~/projects/lib/Cake /usr/share/php
+#rm -rf ~/projects
+# Install cakephp with pear
 #sudo pear channel-discover pear.cakephp.org
 #sudo pear install cakephp/CakePHP-2.8.3
 
@@ -83,6 +84,15 @@ if [ ! -d hsmm-pi ]; then
 fi
 sudo rm -f index.html
 sudo ln -s ${PROJECT_HOME}/src/var/www/index.html
+
+cd ${PROJECT_HOME}
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '070854512ef404f16bac87071a6db9fd9721da1684cd4589b1196c3faf71b9a2682e2311b36a5079825e155ac7ce150d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+php composer.phar install
+sudo mv Vendor/cakephp/cakephp/lib/Cake /usr/share/php
+rm -rf Vendor composer.phar composer.lock
 
 cd ${PROJECT_HOME}/src/var/www/hsmm-pi
 
