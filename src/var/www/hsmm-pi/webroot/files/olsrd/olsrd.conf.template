@@ -159,6 +159,7 @@ Hna4
 #   0.0.0.0      0.0.0.0
 #   more entries can be added:
 #   192.168.1.0  255.255.255.0
+{lan_ip_network}  {lan_ip_netmask}
 }
 
 # HNA IPv6 routes
@@ -316,7 +317,7 @@ LoadPlugin "olsrd_arprefresh.so.0.1"
 LoadPlugin "olsrd_httpinfo.so.0.1"
 {
 #	# defaults to 1978
-#	PlParam "Port" "8080"
+	PlParam "Port" "1978"
 #	# if you dont set these, the default is to listen only on the loopback device
 #	#PlParam "Host"   "80.23.53.22"
 #	#PlParam "Net"    "10.0.0.0 255.0.0.0"
@@ -332,11 +333,9 @@ LoadPlugin "olsrd_nameservice.so.0.3"
     PlParam "resolv-file" "/etc/resolv.conf"
     PlParam "name" "{node_name}"
     PlParam "latlon-file" "/var/run/latlon.js"
-
+{olsrd_dhcp_reservations}
 {olsrd_network_services}
-
 {latlon_infile}
-
 }
 
 {olsrd_dynamic_gateway_block}

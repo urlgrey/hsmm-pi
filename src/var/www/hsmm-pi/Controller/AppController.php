@@ -55,6 +55,11 @@ class AppController extends Controller {
 		return $this->NetworkService->find('all');
 	}
 
+	protected function get_dhcp_reservations() {
+		$this->loadModel('DhcpReservation');
+		return $this->DhcpReservation->find('all');
+	}
+
 	protected function render_ntp_config($network_setting, $location) {
 		if (0 == strcasecmp($location['LocationSetting']['location_source'], 'gps')) {
 			$gpsd_time_server_info =
@@ -93,8 +98,9 @@ iptables -A FORWARD -i " . $network_setting['NetworkSetting']['wifi_adapter_name
 				$iptables_gateway_commands = "";
 			}
 		} else {
-			$iptables_gateway_commands =
-			"
+			if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) {
+				$iptables_gateway_commands =
+				"
 # Flush the tables
 iptables -F INPUT
 iptables -F OUTPUT
@@ -111,12 +117,35 @@ iptables -A FORWARD -i " . $network_setting['NetworkSetting']['wifi_adapter_name
 # Packet masquerading
 iptables -t nat -A POSTROUTING -o " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -j SNAT --to-source " . $network_setting['NetworkSetting']['wifi_ip_address'];
 
-			if ($network_services != NULL && sizeof($network_services) > 0) {
-				foreach ($network_services as $service) {
-					$iptables_service_routing .=
-					"
-iptables -t nat -A PREROUTING -i " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -p " . $service['NetworkService']['protocol'] . " --dport " . $service['NetworkService']['port'] . " -j DNAT --to-destination " . $service['NetworkService']['host'] . ":" . $service['NetworkService']['local_port'] . "
-iptables -t nat -A POSTROUTING -p " . $service['NetworkService']['protocol'] . " --dport " . $service['NetworkService']['port'] . " -j MASQUERADE\n";
+                        	if ($network_services != NULL && sizeof($network_services) > 0) {
+                                	foreach ($network_services as $service) {
+                                        	$iptables_service_routing .=
+                                        	"
+iptables -t nat -A PREROUTING -i " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -p " .$service['NetworkService']['protocol'] . " --dport " . $service['NetworkService']['port'] . " -j DNAT--to-destination " . $service['NetworkService']['host'] . ":" . $service['NetworkService']['local_port'] . "
+iptables -t nat -A POSTROUTING -p " . $service['NetworkService']['protocol'] . " --dport " .$service['NetworkService']['port'] . " -j MASQUERADE\n";
+                                	}
+				}
+			}
+			else { // Direct mode
+				$iptables_gateway_commands =
+				"
+# Flush the tables
+iptables -F INPUT
+iptables -F OUTPUT
+iptables -F FORWARD
+
+# Allow forwarding packets:
+iptables -A FORWARD -p ALL -i " . $network_setting['NetworkSetting']['wired_adapter_name'] . " -j ACCEPT
+iptables -A FORWARD -i " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Packet masquerading
+iptables -t nat -A POSTROUTING -o " . $network_setting['NetworkSetting']['wifi_adapter_name'] . " -j SNAT --to-source " . $network_setting['NetworkSetting']['wifi_ip_address'];
+
+                        	if ($network_services != NULL && sizeof($network_services) > 0) {
+                                	foreach ($network_services as $service) {
+                                        	$iptables_service_routing .=
+                                        	"";
+                                	}
 				}
 			}
 		}
@@ -131,7 +160,7 @@ iptables -t nat -A POSTROUTING -p " . $service['NetworkService']['protocol'] . "
 		file_put_contents('/etc/rc.local', $rclocal_conf_output);
 	}
 
-	protected function render_olsrd_config($network_setting, $network_services, $location) {
+	protected function render_olsrd_config($network_setting, $network_services, $dhcp_reservations, $location) {
 		$olsrd_conf = file_get_contents(WWW_ROOT . "/files/olsrd/olsrd.conf.template");
 		$olsrd_secure_block = null;
 
@@ -214,20 +243,56 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 			$transmit_location_option = "";
 		}
 
+		// Load reservations from DhcpReservations
+		if ($dhcp_reservations != NULL && sizeof($dhcp_reservations) > 0) {
+			foreach ($dhcp_reservations as $reservation) {
+				$olsrd_dhcp_reservations .=
+"    PlParam \"" . $reservation['DhcpReservation']['ip_address'] . "\" \"" . $reservation['DhcpReservation']['hostname'] . "\"";
+			}
+		}
+
+		// Calculate networka and netmask for HNA4 entry
+		$lan_ip_network = '0.0.0.0';
+		$lan_ip_netmask = '0.0.0.0';
+		if ((0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'LAN')) ) {
+			if ((0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) ) {
+				$ip_parts = split('\.', $network_setting['NetworkSetting']['lan_ip_address']);
+				$ip3 = intval($ip_parts[3], 10);
+				$lan_ip_netmask = $network_setting['NetworkSetting']['lan_netmask'];
+				$mask_parts = split('\.', $lan_ip_netmask);
+				$mask3 = intval($mask_parts[3], 10);
+				$lan_ip_network = $ip_parts[0].'.'.$ip_parts[1].'.'.$ip_parts[2].'.'.strval($ip3 & $mask3);
+			}
+			else if ((0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'Direct')) ) {
+				$ip_parts = split('\.', $network_setting['NetworkSetting']['direct_ip_address']);
+				$ip3 = intval($ip_parts[3], 10);
+				$lan_ip_netmask = $network_setting['NetworkSetting']['direct_netmask'];
+				$mask_parts = split('\.', $lan_ip_netmask);
+				$mask3 = intval($mask_parts[3], 10);
+				$lan_ip_network = $ip_parts[0].'.'.$ip_parts[1].'.'.$ip_parts[2].'.'.strval($ip3 & $mask3);
+			} 
+		} 
+
 		$olsrd_conf_output = str_replace(array('{latlon_infile}',
 			'{wifi_ip_address}',
 			'{wifi_adapter_name}',
 			'{node_name}',
+			'{lan_ip_network}',
+			'{lan_ip_netmask}',
 			'{olsrd_dynamic_gateway_block}',
 			'{olsrd_secure_block}',
-			'{olsrd_network_services}'),
+			'{olsrd_network_services}',
+			'{olsrd_dhcp_reservations}'),
 			array($transmit_location_option,
 				$network_setting['NetworkSetting']['wifi_ip_address'],
 				$network_setting['NetworkSetting']['wifi_adapter_name'],
 				$network_setting['NetworkSetting']['node_name'],
+				$lan_ip_network,
+				$lan_ip_netmask,
 				$olsrd_secure_block,
 				$olsrd_gateway,
-				$olsrd_network_services),
+				$olsrd_network_services,
+				$olsrd_dhcp_reservations),
 			$olsrd_conf);
 
 		file_put_contents('/etc/olsrd/olsrd.conf', $olsrd_conf_output);
@@ -240,6 +305,23 @@ LoadPlugin \"olsrd_dyn_gw_plain.so.0.4\"
 		}
 
 		file_put_contents('/etc/olsrd/olsrd.key', $olsrd_key);
+	}
+
+	// Output dhcp reservations to /etc/ethers
+	protected function render_ethers($dhcp_reservations) {
+		$ethers = file_get_contents(WWW_ROOT . "/files/ethers.template");
+		$ethers_reservations = null;
+        	foreach ($dhcp_reservations as $dhcp_reservation) {
+                       	$ethers_reservations .=
+$dhcp_reservation['DhcpReservation']['hostname'] . " " . $dhcp_reservation['DhcpReservation']['ip_address'] . " " . $dhcp_reservation['DhcpReservation']['mac_address'];
+		}
+		// Read in template file
+		// Replace strings
+		$ethers_output = str_replace(array('{dhcp_reservations}'),
+			array($ethers_reservations),
+			$ethers);
+
+		file_put_contents('/etc/ethers', $ethers_output);
 	}
 }
 ?>

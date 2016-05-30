@@ -113,6 +113,15 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                                                         'action' => 'index'));
             ?>
           </li>
+          <?php if ((0 == strcmp($this->here, '/hsmm-pi/')) || 
+		    (strstr($this->here, '/hsmm-pi/status') != FALSE)) { 
+			echo '<li>';
+			echo $this->Html->link(__('OLSR'), 
+				'http://' . $node_name . ':1978/', 
+				array('target' => '_blank'));
+          		echo '</li>';
+		}
+	  ?>
           <?php
              if ($this->Session->read('Auth.User')) {
           ?>
@@ -125,6 +134,15 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
                                      array(
                                            'controller' => 'network_settings',
                                            'action' => 'edit/1'),
+                                     array('escape' => false));
+            ?>
+          </li>
+          <li <?php if (strstr($this->here, '/hsmm-pi/dhcp_reservations') != FALSE) { echo 'class="active"'; }  ?>>
+            <?php
+              echo $this->Html->link(__("<i class=\"glyphicon glyphicon-signal\"></i>&nbsp;".'Reservations'),
+                                     array(
+                                           'controller' => 'dhcp_reservations',
+                                           'action' => 'index'),
                                      array('escape' => false));
             ?>
           </li>

@@ -17,7 +17,7 @@ PROJECT_HOME=${HOME}/hsmm-pi
 cd ${HOME}
 
 # Update list of packages
-sudo apt-get update
+#sudo apt-get update
 
 # Install Web Server deps
 sudo apt-get install -y \
@@ -33,7 +33,11 @@ sudo apt-get install -y \
     flex \
     gpsd \
     libnet-gpsd3-perl \
-    ntp
+    ntp \
+    php5-mcrypt
+
+# Enabe php5-mcrypt
+sudo php5enmod mcrypt
 
 # Remove ifplugd if present, as it interferes with olsrd
 sudo apt-get remove -y ifplugd
@@ -51,13 +55,19 @@ sudo bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 sudo chgrp www-data /etc/resolv.conf
 sudo chmod g+w /etc/resolv.conf
 
-# Install cakephp with Pear
-sudo pear channel-discover pear.cakephp.org
-sudo pear install cakephp/CakePHP-2.8.3
+sudo bash -c "echo '# This file will be overwritten' > /etc/ethers"
+
+# Install cakephp with GitHub
+#git clone -b 2.x git://github.com/cakephp/cakephp.git ~/projects/
+#sudo mv -f ~/projects/lib/Cake /usr/share/php
+#rm -rf ~/projects
+# Install cakephp with pear
+#sudo pear channel-discover pear.cakephp.org
+#sudo pear install cakephp/CakePHP-2.8.3
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then
-    git clone https://github.com/urlgrey/hsmm-pi.git
+    git clone https://github.com/cbegg50/hsmm-pi.git
 else
     cd ${PROJECT_HOME}
     git pull
@@ -75,8 +85,18 @@ fi
 sudo rm -f index.html
 sudo ln -s ${PROJECT_HOME}/src/var/www/index.html
 
-# Create temporary directory used by HSMM-PI webapp, granting write priv's to www-data
+cd ${PROJECT_HOME}
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '070854512ef404f16bac87071a6db9fd9721da1684cd4589b1196c3faf71b9a2682e2311b36a5079825e155ac7ce150d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+php composer.phar install
+sudo mv Vendor/cakephp/cakephp/lib/Cake /usr/share/php
+rm -rf Vendor composer.phar composer.lock
+
 cd ${PROJECT_HOME}/src/var/www/hsmm-pi
+
+# Create temporary directory used by HSMM-PI webapp, granting write priv's to www-data
 mkdir -p tmp/cache/models
 mkdir -p tmp/cache/persistent
 mkdir -p tmp/logs
@@ -85,7 +105,7 @@ sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
 
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf /etc/ethers; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done

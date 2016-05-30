@@ -14,9 +14,11 @@ class NetworkSettingsController extends AppController {
 			if ($this->NetworkSetting->save($this->request->data)) {
 				$latest_network_setting = $this->get_network_settings();
 				$network_services = $this->get_network_services();
+				$dhcp_reservations = $this->get_dhcp_reservations();
 				$location = $this->get_location();
 
-				$this->render_olsrd_config($latest_network_setting, $network_services, $location);
+				$this->render_olsrd_config($latest_network_setting, $network_services, 
+							   $dhcp_reservatins, $location);
 				$this->render_rclocal_config($latest_network_setting, $network_services);
 				$this->render_network_interfaces_config($latest_network_setting);
 				$this->render_dnsmasq_config($latest_network_setting);
@@ -44,6 +46,25 @@ class NetworkSettingsController extends AppController {
 					hexdec($mac_address[5]);
 				}
 			}
+			if (($network_setting['NetworkSetting']['direct_ip_address'] == NULL) ||
+			    (0 == strcmp($network_setting['NetworkSetting']['direct_ip_address'], '10.2.2.2'))) {
+				// if no Direct IP is set, then use one derived from the adapter MAC address
+				$mac_file = '/sys/class/net/' . $network_setting['NetworkSetting']['wired_adapter_name'] . '/address';
+				if (file_exists($mac_file)) {
+					$mac_address = explode(':', file_get_contents($mac_file));
+					$mac5 = hexdec($mac_address[5]);
+					if ($mac5 > 240) $mac5 = 240;	// highest, 240
+					$network_setting['NetworkSetting']['direct_ip_address'] =
+					'10.' .
+					hexdec($mac_address[3]) . '.' .
+					hexdec($mac_address[4]) . '.' . 
+					$mac5;
+					$dhcp_start =  $mac5 + 1;
+					$dhcp_end =  $mac5 + 13;
+					$network_setting['NetworkSetting']['direct_dhcp_start'] = $dhcp_start;
+					$network_setting['NetworkSetting']['direct_dhcp_end'] = $dhcp_end;
+				}
+			}
 		}
 
 		if (!$this->request->data) {
@@ -51,6 +72,7 @@ class NetworkSettingsController extends AppController {
 		}
 
 		$this->set('wired_interface_mode', $network_setting['NetworkSetting']['wired_interface_mode']);
+		$this->set('lan_mode', $network_setting['NetworkSetting']['lan_mode']);
 	}
 
 	private function render_resolv_config($network_setting) {
@@ -78,12 +100,19 @@ class NetworkSettingsController extends AppController {
 		$interfaces_conf = file_get_contents(WWW_ROOT . "/files/network_interfaces/interfaces.template");
 		$wired_mode_block = null;
 		if (0 == strcmp($network_setting['NetworkSetting']['wired_interface_mode'], 'LAN')) {
-			$wired_mode_block =
-			"static
+			if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) {
+				$wired_mode_block =
+				"static
     address " . $network_setting['NetworkSetting']['lan_ip_address'] . "
     netmask " . $network_setting['NetworkSetting']['lan_netmask'] . "
 ";
-
+			} else if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'Direct')) {
+				$wired_mode_block =
+				"static
+    address " . $network_setting['NetworkSetting']['direct_ip_address'] . "
+    netmask " . $network_setting['NetworkSetting']['direct_netmask'] . "
+";
+			}
 		} else {
 			$wired_mode_block = "dhcp";
 		}
@@ -119,11 +148,21 @@ no-dhcp-interface=" . $network_setting['NetworkSetting']['wired_adapter_name'] .
 no-dhcp-interface=" . $network_setting['NetworkSetting']['wifi_adapter_name'];
 		}
 
-		$ip_parts = split("\.", $network_setting['NetworkSetting']['lan_ip_address']);
-		$lan_dhcp_start = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_start'];
-		$lan_dhcp_end = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_end'];
-
-		$dnsmasq_conf_output = str_replace(array('{node_name}', '{interfaces}', '{lan_ip_address}', '{lan_dhcp_start}', '{lan_dhcp_end}', '{lan_netmask}', '{wan_dns1}', '{wan_dns2}'), array($network_setting['NetworkSetting']['node_name'], $dhcp_interface, $network_setting['NetworkSetting']['lan_ip_address'], $lan_dhcp_start, $lan_dhcp_end, $network_setting['NetworkSetting']['lan_netmask'], $network_setting['NetworkSetting']['wan_dns1'], $network_setting['NetworkSetting']['wan_dns2']), $dnsmasq_conf);
+		$lan_ip_address = null;
+		$lan_dhcp_start = null;
+		$lan_dhcp_start = null;
+		if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'NAT')) {
+			$lan_ip_address = $network_setting['NetworkSetting']['lan_ip_address'];
+			$ip_parts = split("\.", $lan_ip_address);
+			$lan_dhcp_start = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_start'];
+			$lan_dhcp_end = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_end'];
+		} else if (0 == strcmp($network_setting['NetworkSetting']['lan_mode'], 'Direct')) {
+			$lan_ip_address = $network_setting['NetworkSetting']['direct_ip_address'];
+			$ip_parts = split("\.", $lan_ip_address);
+			$lan_dhcp_start = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['direct_dhcp_start'];
+			$lan_dhcp_end = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['direct_dhcp_end'];
+		}
+		$dnsmasq_conf_output = str_replace(array('{node_name}', '{interfaces}', '{lan_ip_address}', '{lan_dhcp_start}', '{lan_dhcp_end}', '{lan_netmask}', '{wan_dns1}', '{wan_dns2}'), array($network_setting['NetworkSetting']['node_name'], $dhcp_interface, $lan_ip_address, $lan_dhcp_start, $lan_dhcp_end, $network_setting['NetworkSetting']['lan_netmask'], $network_setting['NetworkSetting']['wan_dns1'], $network_setting['NetworkSetting']['wan_dns2']), $dnsmasq_conf);
 
 		file_put_contents('/etc/dnsmasq.d/hsmm-pi.conf', $dnsmasq_conf_output);
 	}

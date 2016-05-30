@@ -11,14 +11,14 @@ http://hsmmpi.wordpress.com/
 For a video tour, see the following YouTube video:
 http://www.youtube.com/watch?v=ltUAw02vfqk
 
-The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.
+The project consists of a PHP web application that is used to configure and monitor the mesh node, and an installation shell script that installs dependencies and puts things in the right spots.  Additionally, an update script allows for updates to the repository for existing installations.
 
-The HSMM-Pi project is designed to run on Ubuntu 12.04 systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
+The HSMM-Pi project is designed to run on Raspbian systems.  Rather than providing an OS image for HSMM-Pi, I've instead created an installation script that will transform a newly-imaged host into an HSMM-Pi node.  This has several benefits:
 
  * Greater transparency:  You can see exactly which changes are made to the base system by looking at the [install shell script](https://github.com/urlgrey/hsmm-pi/blob/master/install.sh).
- * Easier to port to more platforms: Any platform that runs the supported Ubuntu releases ought to be capable of running HSMM-Pi
- * Easier to host:  I only need to post the installation script and webapp files on Github and it's done.
- * Easier to seek support: Ubuntu is widely used and supported, no need to introduce another customization.
+ * Easier to port to more platforms: Any platform that runs the supported Raspbian / Debian releases ought to be capable of running HSMM-Pi
+ * Easier to host:  I only need to post the installation / update scripts and webapp files on Github and it's done.
+ * Easier to seek support: Raspbian is widely used and supported, no need to introduce another customization.
 
 Hardware Requirements
 =====================
@@ -47,7 +47,7 @@ The Mesh Gateway is capable of routing traffic throughout the mesh, and provides
 
 Internal Mesh Node
 ==================
-This node is capable of routing traffic throughout the mesh and providing mesh access to any hosts connected to its wired Ethernet port.  The node can run a DHCP server that issues DHCP leases to any hosts on the wired connection.  It also runs a DNS server that can provide name resolution for mesh nodes and Internet hosts.  The following sequence shows how the two types of nodes can be deployed:
+This node is capable of routing traffic throughout the mesh and providing mesh access to any hosts connected to its wired Ethernet port, operating with NAT or in Direct 13-port mode.  The node can run a DHCP server that issues DHCP leases to any hosts on the wired connection, allowing DHCP reservation through a new View.  It also runs a DNS server that can provide name resolution for mesh nodes and Internet hosts.  The following sequence shows how the two types of nodes can be deployed:
 
 ```
 (Client1) --> (Switch) --> (Internal Mesh Node) -->
