@@ -24,8 +24,8 @@ sudo apt-get install -y \
     apache2 \
     php5 \
     sqlite \
-    php-pear \
-    php5-sqlite  \
+    php5-mcrypt \
+    php5-sqlite \
     dnsmasq \
     sysv-rc-conf \
     make \
@@ -50,10 +50,6 @@ fi
 sudo bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 sudo chgrp www-data /etc/resolv.conf
 sudo chmod g+w /etc/resolv.conf
-
-# Install cakephp with Pear
-sudo pear channel-discover pear.cakephp.org
-sudo pear install cakephp/CakePHP-2.8.3
 
 # Checkout the HSMM-Pi project
 if [ ! -e ${PROJECT_HOME} ]; then
@@ -99,6 +95,14 @@ if [ ! -e /usr/local/bin/read_gps_coordinates.pl ]; then
     sudo chgrp www-data /usr/local/bin/read_gps_coordinates.pl
     sudo chmod 775 /usr/local/bin/read_gps_coordinates.pl
 fi
+
+# Install Composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+
+# Install CakePHP with Composer
+php composer.phar install
 
 sudo mkdir -p /var/data/hsmm-pi
 sudo chown root.www-data /var/data/hsmm-pi
