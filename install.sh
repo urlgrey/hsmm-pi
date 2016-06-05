@@ -7,9 +7,11 @@
 #   Raspbian Jessie Lite with the dependencies and HSMM-Pi components.
 #
 
+set -e
+
 if [ "$(id -u)" = "0" ]
   then echo "Please do not run as root, HTTP interface will not work"
-  exit
+  exit 1
 fi
 
 PROJECT_HOME=${HOME}/hsmm-pi
@@ -114,14 +116,12 @@ if [ ! -e /var/data/hsmm-pi/hsmm-pi.sqlite ]; then
 fi
 
 # enable port 8080 on the Apache server
-OUTPUT=`grep "Listen 8080" /etc/apache2/ports.conf`
-if [ -z "$OUTPUT" ]; then
+if ! grep "Listen 8080" /etc/apache2/ports.conf; then
     sudo bash -c "echo 'Listen 8080' >> /etc/apache2/ports.conf"
 fi
 
 # allow the www-data user to run the WiFi scanning program, iwlist
-OUTPUT=`sudo grep "www-data" /etc/sudoers`
-if [ -z "$OUTPUT" ]; then
+if ! sudo grep "www-data" /etc/sudoers; then
     sudo bash -c "echo 'www-data ALL=(ALL) NOPASSWD: /sbin/iwlist' >> /etc/sudoers"
     sudo bash -c "echo 'www-data ALL=(ALL) NOPASSWD: /sbin/shutdown' >> /etc/sudoers"
 fi
