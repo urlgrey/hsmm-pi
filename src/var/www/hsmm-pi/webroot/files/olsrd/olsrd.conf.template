@@ -82,10 +82,10 @@ Interface "{wifi_adapter_name}"
     # be used in most cases.
 
     # Hello interval in seconds(float)
-    #HelloInterval    	6.0
+    HelloInterval    	6.0
 
     # HELLO validity time
-    #HelloValidityTime		600.0
+    HelloValidityTime		600.0
 
     # TC interval in seconds(float)
     TcInterval		0.5
