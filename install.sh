@@ -17,7 +17,7 @@ PROJECT_HOME=${HOME}/hsmm-pi
 cd ${HOME}
 
 # Update list of packages
-#sudo apt-get update
+sudo apt-get update
 
 # Install Web Server deps
 sudo apt-get install -y \
