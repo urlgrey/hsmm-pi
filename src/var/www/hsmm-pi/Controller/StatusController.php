@@ -1,6 +1,6 @@
 <?php
 class StatusController extends AppController {
-	public $components = array('RequestHandler');
+	public $components = array('RequestHandler', 'Flash');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
