@@ -188,7 +188,7 @@ rm -rf /var/tmp/olsrd
 
 sudo rm -f /etc/olsrd.conf
 sudo ln -fs /etc/olsrd/olsrd.conf /etc/olsrd.conf
-sudo ln -fs /usr/local/sbin/olsrd /usr/sbin/
+#sudo ln -fs /usr/local/sbin/olsrd /usr/sbin/
 
 # enable services
 sudo sysv-rc-conf --level 2345 olsrd on
