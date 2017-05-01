@@ -61,9 +61,12 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
             <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
             <?php
               echo $this->Html->link(__('Reboot'), array(
-                                                        'controller' => 'system',
-                                                        'action' => 'reboot'),
-                                                        array('class'=>'btn btn-danger'));
+                  'controller' => 'system',
+                  'action' => 'reboot'
+                ),
+                array(
+                  'class'=>'btn btn-danger'
+                ));
             ?>
           </div>
         </div><!-- /.modal-content -->
@@ -85,9 +88,9 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
             <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
             <?php
               echo $this->Html->link(__('Shutdown'), array(
-                                                          'controller' => 'system',
-                                                          'action' => 'shutdown'),
-                                                          array('class'=>'btn btn-danger'));
+                'controller' => 'system',
+                'action' => 'shutdown'),
+                  array('class'=>'btn btn-danger'));
             ?>
           </div>
         </div><!-- /.modal-content -->
@@ -95,113 +98,124 @@ $cakeDescription = __d('cake_dev', __('HSMM-Pi'));
     </div>
 
     <div class="navbar navbar-default" role="navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <div class="navbar-brand"><?php echo __('HSMM-Pi'); ?></div>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li <?php if (strstr($this->here, '/hsmm-pi/status') != FALSE) { echo 'class="active"'; }  ?>>
-            <?php
-              echo $this->Html->link(__('Status'), array(
-                                                        'controller' => 'status',
-                                                        'action' => 'index'));
-            ?>
-          </li>
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <?php
-             if ($this->Session->read('Auth.User')) {
+            echo $this->Html->link(__('HSMM-Pi'), array(
+              'controller' => 'status',
+              'action' => 'index'
+            ),
+            array(
+              'class' => 'navbar-brand'
+            ));
           ?>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-          <li <?php if (strstr($this->here, '/hsmm-pi/network_settings') != FALSE) { echo 'class="active"'; }  ?>>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li <?php if (strstr($this->here, '/hsmm-pi/status') != FALSE) { echo 'class="active"'; }  ?>>
+              <?php
+                echo $this->Html->link(__('Status'), array(
+                  'controller' => 'status',
+                  'action' => 'index'));
+              ?>
+            </li>
             <?php
-              echo $this->Html->link(__("<i class=\"glyphicon glyphicon-signal\"></i>&nbsp;".'Network'),
-                                     array(
-                                           'controller' => 'network_settings',
-                                           'action' => 'edit/1'),
-                                     array('escape' => false));
+              if ($this->Session->read('Auth.User')) {
             ?>
-          </li>
-          <li <?php if (strstr($this->here, '/hsmm-pi/network_services') != FALSE) { echo 'class="active"'; }  ?>>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li <?php if (strstr($this->here, '/hsmm-pi/network_settings') != FALSE) { echo 'class="active"'; }  ?>>
+                    <?php
+                    echo $this->Html->link(__("<i class=\"glyphicon glyphicon-signal\"></i>&nbsp;".'Network'),
+                    array(
+                      'controller' => 'network_settings',
+                      'action' => 'edit/1'),
+                      array('escape' => false));
+                    ?>
+                  </li>
+                  <li <?php if (strstr($this->here, '/hsmm-pi/network_services') != FALSE) { echo 'class="active"'; }  ?>>
+                    <?php
+                    echo $this->Html->link("<i class=\"glyphicon glyphicon-bullhorn\"></i>&nbsp;".__('Services'),
+                    array(
+                      'controller' => 'network_services',
+                      'action' => 'index'),
+                      array('escape' => false));
+                    ?>
+                  </li>
+                  <li <?php if (strstr($this->here, '/hsmm-pi/location') != FALSE) { echo 'class="active"'; }  ?>>
+                    <?php
+                     echo $this->Html->link("<i class=\"glyphicon glyphicon-globe\"></i>&nbsp;".__('Location'),
+                    array(
+                      'controller' => 'location_settings',
+                      'action' => 'edit/1'),
+                      array('escape' => false));
+                     ?>
+                  </li>
+                  <li <?php if (strstr($this->here, '/hsmm-pi/user') != FALSE) { echo 'class="active"'; }  ?>>
+                    <?php
+                     echo $this->Html->link("<i class=\"glyphicon glyphicon-user\"></i>&nbsp;".__('Account'),
+                    array(
+                      'controller' => 'users',
+                      'action' => 'edit'),
+                      array('escape' => false));
+                    ?>
+                  </li>
+                  <li class="divider"></li>
+                  <li <?php if (strstr($this->here, '/hsmm-pi/wifi_scan') != FALSE) { echo 'class="active"'; }  ?>>
+                    <?php
+                      echo $this->Html->link("<i class=\"glyphicon glyphicon-search\"></i>&nbsp;".__('WiFi Scan'),
+                      array(
+                        'controller' => 'wifi_scan',
+                        'action' => 'index'),
+                        array('escape' => false));
+                    ?>
+                  </li>
+                  <li class="divider"></li>
+                  <li><a href="#rebootModal" data-toggle="modal"><?php echo __('<i class="glyphicon glyphicon-refresh"></i>&nbsp;Reboot'); ?></a></li>
+                  <li><a href="#shutdownModal" data-toggle="modal"><?php echo __('<i class="glyphicon glyphicon-off"></i>&nbsp;Shutdown'); ?></a></li>
+                </ul>
+              </li>
             <?php
-              echo $this->Html->link("<i class=\"glyphicon glyphicon-bullhorn\"></i>&nbsp;".__('Services'),
-                                     array(
-                                           'controller' => 'network_services',
-                                           'action' => 'index'),
-                                     array('escape' => false));
+              }
             ?>
-          </li>
-          <li <?php if (strstr($this->here, '/hsmm-pi/location') != FALSE) { echo 'class="active"'; }  ?>>
-            <?php
-              echo $this->Html->link("<i class=\"glyphicon glyphicon-globe\"></i>&nbsp;".__('Location'),
-                                     array(
-                                           'controller' => 'location_settings',
-                                           'action' => 'edit/1'),
-                                     array('escape' => false));
-             ?>
-          </li>
-          <li <?php if (strstr($this->here, '/hsmm-pi/user') != FALSE) { echo 'class="active"'; }  ?>>
-            <?php
-              echo $this->Html->link("<i class=\"glyphicon glyphicon-user\"></i>&nbsp;".__('Account'),
-                                    array(
-                                          'controller' => 'users',
-                                          'action' => 'edit'),
-                                    array('escape' => false));
-            ?>
-          </li>
-          <li class="divider"></li>
-          <li <?php if (strstr($this->here, '/hsmm-pi/wifi_scan') != FALSE) { echo 'class="active"'; }  ?>>
-            <?php
-               echo $this->Html->link("<i class=\"glyphicon glyphicon-search\"></i>&nbsp;".__('WiFi Scan'),
-                                      array(
-                                            'controller' => 'wifi_scan',
-                                            'action' => 'index'),
-                                      array('escape' => false));
-            ?>
-          </li>
-          <li class="divider"></li>
-          <li><a href="#rebootModal" data-toggle="modal"><?php echo __('<i class="glyphicon glyphicon-refresh"></i>&nbsp;Reboot'); ?></a></li>
-          <li><a href="#shutdownModal" data-toggle="modal"><?php echo __('<i class="glyphicon glyphicon-off"></i>&nbsp;Shutdown'); ?></a></li>
           </ul>
-        <?php
-          }
-        ?>
-        </ul>
-        <?php
-          if ($this->Session->read('Auth.User')) {
-        ?>
-        <ul class="nav navbar-right">
-          <li>
-            <?php
-              echo $this->Html->link(__('Logout'),
-                                    array(
-                                          'controller' => 'users',
-                                          'action' => 'logout'));
-            ?>
-          </li>
-        </ul>
-        <?php
-          } else {
-        ?>
-        <ul class="nav pull-right">
-          <li>
-            <?php
-              echo $this->Html->link(__('Login'),
-                                    array(
-                                          'controller' => 'users',
-                                          'action' => 'login'));
-            ?>
-          </li>
-        </ul>
-        <?php
-          }
-        ?>
+          <?php
+            if ($this->Session->read('Auth.User')) {
+          ?>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <?php
+                  echo $this->Html->link(__('Logout'),
+                    array(
+                      'controller' => 'users',
+                      'action' => 'logout'));
+                ?>
+              </li>
+            </ul>
+          <?php
+            } else {
+          ?>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <?php
+                  echo $this->Html->link(__('Login'),
+                  array(
+                    'controller' => 'users',
+                    'action' => 'login'));
+                ?>
+              </li>
+            </ul>
+          <?php
+            }
+          ?>
+      </div>
     </div>
   </div>
 
