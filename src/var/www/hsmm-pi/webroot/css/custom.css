@@ -3,3 +3,27 @@
 	color: #000000;
 	text-decoration: none;
 }
+
+a {
+    font-weight: initial;
+}
+
+ul, li {
+    margin: 0;
+}
+
+.table .progress {
+    margin-bottom: 0;
+}
+
+form {
+    width: 100%;
+}
+
+form div {
+    padding: 0;
+}
+
+.tab-pane > .form-group:first-child {
+    margin-top: 10px;
+}
