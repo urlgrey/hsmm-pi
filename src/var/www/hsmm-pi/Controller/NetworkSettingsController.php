@@ -119,7 +119,7 @@ no-dhcp-interface=" . $network_setting['NetworkSetting']['wired_adapter_name'] .
 no-dhcp-interface=" . $network_setting['NetworkSetting']['wifi_adapter_name'];
 		}
 
-		$ip_parts = split("\.", $network_setting['NetworkSetting']['lan_ip_address']);
+		$ip_parts = explode(".", $network_setting['NetworkSetting']['lan_ip_address']);
 		$lan_dhcp_start = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_start'];
 		$lan_dhcp_end = $ip_parts[0] . '.' . $ip_parts[1] . '.' . $ip_parts[2] . '.' . $network_setting['NetworkSetting']['lan_dhcp_end'];
 

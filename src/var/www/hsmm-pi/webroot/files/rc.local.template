@@ -24,7 +24,7 @@ rm -f /var/run/read_gps_coordinates.lock
 INET_IFACE={wifi_adapter_name}
 i="0"
 while [ $i -lt 5 ]; do
-  INET_ADDRESS=`ifconfig ${INET_IFACE} | awk '/inet addr/ {split ($2,A,":"); print A[2]}'`
+  INET_ADDRESS=`ifconfig ${INET_IFACE} | grep 'inet ' | awk '{print $2}'`
   WLAN_ROUTE=`route | grep ${INET_IFACE}`
   if [ "$INET_ADDRESS" != "" ] && [ "$WLAN_ROUTE" != "" ]; then
     break
@@ -34,7 +34,7 @@ while [ $i -lt 5 ]; do
     echo "Restarting interface: ${INET_IFACE}"
     ifdown $INET_IFACE
     ifup $INET_IFACE
-    (( i++ ))
+    i=`expr $i + 1`
   fi
 done
 
