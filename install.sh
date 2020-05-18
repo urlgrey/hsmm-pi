@@ -18,24 +18,29 @@ PROJECT_HOME=${HOME}/hsmm-pi
 
 cd ${HOME}
 
+# https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/how-to-install-php-5-6-on-ubuntu-16-04-debian-9-8.html
+sudo apt-get install -y apt-transport-https curl
+curl https://packages.sury.org/php/apt.gpg | sudo apt-key add -
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php5.list
+
 # Update list of packages
 sudo apt-get update
 
 # Install Web Server deps
 sudo apt-get install -y \
     apache2 \
-    php5 \
+    php5.6 \
     sqlite \
-    php5-mcrypt \
-    php5-sqlite \
+    php5.6-mcrypt \
+    php5.6-sqlite \
     dnsmasq \
     sysv-rc-conf \
-    make \
     bison \
     flex \
     gpsd \
     libnet-gpsd3-perl \
-    ntp
+    ntp \
+    olsrd
 
 # Remove ifplugd if present, as it interferes with olsrd
 sudo apt-get remove -y ifplugd
@@ -67,7 +72,7 @@ if [ -d /var/www/html ]; then
 else
     cd /var/www
 fi
-if [ ! -d hsmm-pi ]; then
+if [ ! -L hsmm-pi ]; then
     sudo ln -s ${PROJECT_HOME}/src/var/www/hsmm-pi
 fi
 sudo rm -f index.html
@@ -83,7 +88,7 @@ sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
 
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done
@@ -135,25 +140,6 @@ elif [ -d /etc/apache2/conf-available ]; then
     sudo a2enconf hsmm-pi
 fi
 sudo service apache2 restart
-
-# Download and build olsrd
-cd /var/tmp
-git clone --branch v0.6.8.1 --depth 1 https://github.com/OLSR/olsrd.git
-cd olsrd
-
-# patch the Makefile configuration to produce position-independent code (PIC)
-# applies only to ARM architecture (i.e. Beaglebone/Beagleboard)
-if uname -m | grep -q arm -; then
-  printf "CFLAGS +=\t-fPIC\n" >> Makefile.inc
-fi
-
-# build the OLSRD core
-make
-sudo make install
-
-# build the OLSRD plugins (libs)
-make libs
-sudo make libs_install
 
 sudo mkdir -p /etc/olsrd
 sudo chgrp -R www-data /etc/olsrd
