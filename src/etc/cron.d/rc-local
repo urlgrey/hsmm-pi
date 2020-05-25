@@ -1,0 +1,5 @@
+# /etc/cron.d/rc-local: CRON jobs to run /etc/rc.local at boot
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+@reboot root   bash /etc/rc.local >/dev/null 2>&1

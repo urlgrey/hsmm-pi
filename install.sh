@@ -18,24 +18,27 @@ PROJECT_HOME=${HOME}/hsmm-pi
 
 cd ${HOME}
 
+# https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/how-to-install-php-5-6-on-ubuntu-16-04-debian-9-8.html
+sudo apt-get install -y apt-transport-https curl
+curl https://packages.sury.org/php/apt.gpg | sudo apt-key add -
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php5.list
+
 # Update list of packages
 sudo apt-get update
 
 # Install Web Server deps
 sudo apt-get install -y \
     apache2 \
-    php5 \
+    php5.6 \
     sqlite \
-    php5-mcrypt \
-    php5-sqlite \
+    php5.6-mcrypt \
+    php5.6-sqlite \
     dnsmasq \
-    sysv-rc-conf \
-    make \
-    bison \
     flex \
     gpsd \
     libnet-gpsd3-perl \
-    ntp
+    ntp \
+    olsrd
 
 # Remove ifplugd if present, as it interferes with olsrd
 sudo apt-get remove -y ifplugd
@@ -45,8 +48,8 @@ sudo apt-get remove -y ifplugd
 # directory structure.  Remove the symbolic link and replace with a file that
 # can be managed by HSMM-Pi.
 if [ -L /etc/resolv.conf ]; then
-    rm -f /etc/resolv.conf
-    touch /etc/resolv.conf
+    sudo rm -f /etc/resolv.conf
+    sudo touch /etc/resolv.conf
 fi
 
 sudo bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
@@ -67,7 +70,7 @@ if [ -d /var/www/html ]; then
 else
     cd /var/www
 fi
-if [ ! -d hsmm-pi ]; then
+if [ ! -L hsmm-pi ]; then
     sudo ln -s ${PROJECT_HOME}/src/var/www/hsmm-pi
 fi
 sudo rm -f index.html
@@ -81,6 +84,11 @@ mkdir -p tmp/logs
 mkdir -p tmp/persistent
 sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
+
+# Create fake /etc/rc.local. Our cron will run this.
+if [ ! -f /etc/rc.local ]; then
+    sudo touch /etc/rc.local
+fi
 
 # Set permissions on system files to give www-data group write priv's
 for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
@@ -136,49 +144,20 @@ elif [ -d /etc/apache2/conf-available ]; then
 fi
 sudo service apache2 restart
 
-# Download and build olsrd
-cd /var/tmp
-git clone --branch v0.6.8.1 --depth 1 https://github.com/OLSR/olsrd.git
-cd olsrd
-
-# patch the Makefile configuration to produce position-independent code (PIC)
-# applies only to ARM architecture (i.e. Beaglebone/Beagleboard)
-if uname -m | grep -q arm -; then
-  printf "CFLAGS +=\t-fPIC\n" >> Makefile.inc
-fi
-
-# build the OLSRD core
-make
-sudo make install
-
-# build the OLSRD plugins (libs)
-make libs
-sudo make libs_install
-
 sudo mkdir -p /etc/olsrd
 sudo chgrp -R www-data /etc/olsrd
 sudo chmod g+w -R /etc/olsrd
 
-sudo cp ${PROJECT_HOME}/src/etc/init.d/olsrd /etc/init.d/olsrd
-sudo chmod +x /etc/init.d/olsrd
-
 sudo mkdir -p /etc/default
 sudo cp ${PROJECT_HOME}/src/etc/default/olsrd /etc/default/olsrd
 
-cd /var/tmp
-rm -rf /var/tmp/olsrd
-
 sudo rm -f /etc/olsrd.conf
 sudo ln -fs /etc/olsrd/olsrd.conf /etc/olsrd.conf
-sudo ln -fs /usr/local/sbin/olsrd /usr/sbin/
 
 # enable services
-sudo sysv-rc-conf --level 2345 olsrd on
-sudo sysv-rc-conf --level 2345 dnsmasq on
-sudo sysv-rc-conf --level 2345 gpsd on
-
-# fix the priority for the olsrd service during bootup
-sudo update-rc.d olsrd defaults 02
+sudo systemctl enable olsrd
+sudo systemctl enable dnsmasq
+sudo systemctl enable gpsd
 
 # install CRON jobs
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
