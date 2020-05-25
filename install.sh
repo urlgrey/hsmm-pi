@@ -34,7 +34,6 @@ sudo apt-get install -y \
     php5.6-mcrypt \
     php5.6-sqlite \
     dnsmasq \
-    bison \
     flex \
     gpsd \
     libnet-gpsd3-perl \
