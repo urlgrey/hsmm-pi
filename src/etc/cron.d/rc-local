@@ -1,0 +1,3 @@
+# /etc/cron.d/rc-local: CRON jobs to run /etc/rc.local at boot
+
+@reboot *  * * *     root   bash /etc/rc.local >/dev/null 2>&1

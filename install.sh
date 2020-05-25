@@ -86,8 +86,13 @@ mkdir -p tmp/persistent
 sudo chgrp -R www-data tmp
 sudo chmod -R 775 tmp
 
+# Create fake /etc/rc.local. Our cron will run this.
+if [ ! -f /etc/rc.local ]; then
+    sudo touch /etc/rc.local
+fi
+
 # Set permissions on system files to give www-data group write priv's
-for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
+for file in /etc/hosts /etc/hostname /etc/resolv.conf /etc/network/interfaces /etc/rc.local /etc/ntp.conf /etc/default/gpsd /etc/dhcp/dhclient.conf; do
     sudo chgrp www-data ${file}
     sudo chmod g+w ${file}
 done
