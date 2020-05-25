@@ -34,7 +34,6 @@ sudo apt-get install -y \
     php5.6-mcrypt \
     php5.6-sqlite \
     dnsmasq \
-    sysv-rc-conf \
     bison \
     flex \
     gpsd \
@@ -50,8 +49,8 @@ sudo apt-get remove -y ifplugd
 # directory structure.  Remove the symbolic link and replace with a file that
 # can be managed by HSMM-Pi.
 if [ -L /etc/resolv.conf ]; then
-    rm -f /etc/resolv.conf
-    touch /etc/resolv.conf
+    sudo rm -f /etc/resolv.conf
+    sudo touch /etc/resolv.conf
 fi
 
 sudo bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
@@ -145,26 +144,17 @@ sudo mkdir -p /etc/olsrd
 sudo chgrp -R www-data /etc/olsrd
 sudo chmod g+w -R /etc/olsrd
 
-sudo cp ${PROJECT_HOME}/src/etc/init.d/olsrd /etc/init.d/olsrd
-sudo chmod +x /etc/init.d/olsrd
-
 sudo mkdir -p /etc/default
 sudo cp ${PROJECT_HOME}/src/etc/default/olsrd /etc/default/olsrd
-
-cd /var/tmp
-rm -rf /var/tmp/olsrd
 
 sudo rm -f /etc/olsrd.conf
 sudo ln -fs /etc/olsrd/olsrd.conf /etc/olsrd.conf
 sudo ln -fs /usr/local/sbin/olsrd /usr/sbin/
 
 # enable services
-sudo sysv-rc-conf --level 2345 olsrd on
-sudo sysv-rc-conf --level 2345 dnsmasq on
-sudo sysv-rc-conf --level 2345 gpsd on
-
-# fix the priority for the olsrd service during bootup
-sudo update-rc.d olsrd defaults 02
+sudo systemctl enable olsrd
+sudo systemctl enable dnsmasq
+sudo systemctl enable gpsd
 
 # install CRON jobs
 sudo cp ${PROJECT_HOME}/src/etc/cron.d/* /etc/cron.d/
